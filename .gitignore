@@ -1,0 +1,5 @@
+data/filters/golden_notes_full.csv
+medcat/medmen/*
+venv-3.11/*
+venv/*
+secrets/*

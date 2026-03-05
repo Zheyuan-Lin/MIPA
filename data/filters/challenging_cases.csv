@@ -1,0 +1,285 @@
+hadm_id,model,chunking_method,prompt_strategy,aggregation_method,misclass_count,misclass_rate,phenotype,llama_405b_misclassified,gpt_4o_misclassified,both_models_misclassified
+24360132,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",65,0.8666666666666667,c_diff_complication,True,True,True
+26693269,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",61,0.8133333333333334,c_diff_complication,True,True,True
+29383560,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,c_diff_complication,True,True,True
+25190365,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",54,0.72,c_diff_complication,True,True,True
+29162423,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",42,0.56,c_diff_complication,True,True,True
+25005083,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",50,0.6666666666666666,c_diff_past,True,True,True
+24998781,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,c_diff_past,True,True,True
+23312951,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",64,0.8533333333333334,c_diff_past,True,True,True
+26346079,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,c_diff_past,True,True,True
+20973515,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,c_diff_past,True,True,True
+20474716,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,c_diff_past,True,True,True
+23462352,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",58,0.7733333333333333,c_diff_past,True,True,True
+27463399,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,c_diff_past,True,True,True
+23359811,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",52,0.6933333333333334,c_diff_past,True,True,True
+24724981,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",60,0.8,c_diff_past,True,True,True
+26213346,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,c_diff_past,True,True,True
+25045994,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",63,0.84,c_diff_past,True,True,True
+24500365,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6666666666666666,c_diff_past,True,True,True
+21201359,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",53,0.7066666666666667,c_diff_past,True,True,True
+24360132,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",52,0.6933333333333334,c_diff_past,True,True,True
+25602417,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6666666666666666,c_diff_past,True,True,True
+23611859,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",57,0.76,c_diff_past,True,True,True
+20864213,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",56,0.7466666666666667,c_diff_past,True,True,True
+23914950,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",64,0.8533333333333334,c_diff_past,True,True,True
+23604265,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6666666666666666,c_diff_past,True,True,True
+22275714,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,dementia,True,True,True
+20789093,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.72,dementia,True,True,True
+26961283,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",49,0.6533333333333333,dementia,True,True,True
+24320416,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,dementia,True,True,True
+22588368,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,dementia,True,True,True
+23415001,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,dementia,True,True,True
+25125812,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",40,0.5333333333333333,dementia,True,True,True
+22272264,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,dementia,True,True,True
+26438217,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",34,0.4533333333333333,dementia,True,True,True
+27217540,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",32,0.4266666666666667,dementia,True,True,True
+28692038,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",30,0.4,dementia,True,True,True
+23130234,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",28,0.37333333333333335,dementia,True,True,True
+21056555,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",27,0.36,dementia,True,True,True
+28973296,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",27,0.36,dementia,True,True,True
+24234598,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",24,0.32,dementia,True,True,True
+29724196,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",22,0.29333333333333333,dementia,True,True,True
+25830215,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",22,0.29333333333333333,dementia,True,True,True
+28830591,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",21,0.28,dementia,True,True,True
+26712256,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",19,0.25333333333333335,dementia,True,True,True
+27684882,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",18,0.24,dementia,True,True,True
+28910610,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",53,0.7066666666666667,depression,True,True,True
+29718943,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",65,0.8666666666666667,depression,True,True,True
+29381053,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",70,0.9333333333333333,depression,True,True,True
+25382548,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",52,0.6933333333333334,depression,True,True,True
+29870870,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",58,0.7733333333333333,depression,True,True,True
+28262225,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",58,0.7733333333333333,depression,True,True,True
+20791401,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",51,0.68,depression,True,True,True
+21981746,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",64,0.8533333333333334,depression,True,True,True
+21510062,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",46,0.6133333333333333,depression,True,True,True
+20453697,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",52,0.6933333333333334,depression,True,True,True
+26655597,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.72,depression,True,True,True
+21061243,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",65,0.8666666666666667,depression,True,True,True
+28479424,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",53,0.7066666666666667,depression,True,True,True
+22314442,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,depression,True,True,True
+27942622,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",66,0.88,depression,True,True,True
+28303408,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,depression,True,True,True
+27115676,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.72,depression,True,True,True
+24779139,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",52,0.6933333333333334,depression,True,True,True
+25844247,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",46,0.6133333333333333,depression,True,True,True
+24742174,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",50,0.6666666666666666,depression,True,True,True
+25249296,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.72,diabetes_type_1,True,True,True
+26705855,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,diabetes_type_1,True,True,True
+22629477,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",45,0.6,diabetes_type_1,True,True,True
+20275615,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",44,0.5866666666666667,diabetes_type_1,True,True,True
+28824202,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",43,0.5733333333333334,diabetes_type_1,True,True,True
+25834926,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",43,0.5733333333333334,diabetes_type_1,True,True,True
+21681313,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",41,0.5466666666666666,diabetes_type_1,True,True,True
+22032077,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",40,0.5333333333333333,diabetes_type_1,True,True,True
+20610563,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",40,0.5333333333333333,diabetes_type_1,True,True,True
+26538417,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",38,0.5066666666666667,diabetes_type_1,True,True,True
+23563117,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,diabetes_type_1,True,True,True
+29340127,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",35,0.4666666666666667,diabetes_type_1,True,True,True
+22027411,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",33,0.44,diabetes_type_1,True,True,True
+23023224,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",25,0.3333333333333333,diabetes_type_1,True,True,True
+28099265,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",61,0.9242424242424242,diabetes_type_2,True,True,True
+29383560,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",58,0.8787878787878788,diabetes_type_2,True,True,True
+28861170,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",55,0.8333333333333334,diabetes_type_2,True,True,True
+29430412,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",55,0.8333333333333334,diabetes_type_2,True,True,True
+20886154,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",54,0.8181818181818182,diabetes_type_2,True,True,True
+29340127,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,diabetes_type_2,True,True,True
+27881802,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,diabetes_type_2,True,True,True
+20261290,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,diabetes_type_2,True,True,True
+20272369,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",51,0.7727272727272727,diabetes_type_2,True,True,True
+21947556,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.7575757575757576,diabetes_type_2,True,True,True
+25249296,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.7575757575757576,diabetes_type_2,True,True,True
+22032077,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",46,0.696969696969697,diabetes_type_2,True,True,True
+22635386,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",46,0.696969696969697,diabetes_type_2,True,True,True
+25121690,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",46,0.696969696969697,diabetes_type_2,True,True,True
+21681313,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",45,0.6818181818181818,diabetes_type_2,True,True,True
+26538417,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",43,0.6515151515151515,diabetes_type_2,True,True,True
+21420337,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",40,0.6060606060606061,diabetes_type_2,True,True,True
+25112329,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",39,0.5909090909090909,diabetes_type_2,True,True,True
+26679767,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",37,0.5606060606060606,diabetes_type_2,True,True,True
+21025995,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, two",37,0.5606060606060606,diabetes_type_2,True,True,True
+22448108,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",62,0.8266666666666667,hfref,True,True,True
+23757632,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",62,0.8266666666666667,hfref,True,True,True
+23580710,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",61,0.8133333333333334,hfref,True,True,True
+25125812,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",61,0.8133333333333334,hfref,True,True,True
+24676326,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",60,0.8,hfref,True,True,True
+20747734,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",60,0.8,hfref,True,True,True
+21933799,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,hfref,True,True,True
+23305422,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",58,0.7733333333333333,hfref,True,True,True
+20250332,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,hfref,True,True,True
+26485483,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,hfref,True,True,True
+23709149,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.72,hfref,True,True,True
+26692534,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",46,0.6133333333333333,hfref,True,True,True
+23999909,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",45,0.6,hfref,True,True,True
+23440722,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",45,0.6,hfref,True,True,True
+28028434,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",42,0.56,hfref,True,True,True
+20307773,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",41,0.5466666666666666,hfref,True,True,True
+26303325,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",40,0.5333333333333333,hfref,True,True,True
+23086961,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",39,0.52,hfref,True,True,True
+24354384,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",37,0.49333333333333335,hfref,True,True,True
+20474716,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",32,0.4266666666666667,hfref,True,True,True
+20772851,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",38,0.5066666666666667,hfpef,True,True,True
+22435240,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",60,0.8,hfpef,True,True,True
+24499077,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",69,0.92,hfpef,True,True,True
+29084825,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",52,0.6933333333333334,hfpef,True,True,True
+25130349,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,hfpef,True,True,True
+29856792,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",39,0.52,hfpef,True,True,True
+29366299,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,hfpef,True,True,True
+23636482,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",38,0.5066666666666667,hfpef,True,True,True
+29953352,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",49,0.6533333333333333,hfpef,True,True,True
+20540393,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",46,0.6133333333333333,hfpef,True,True,True
+20157330,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",39,0.52,hfpef,True,True,True
+28072763,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",69,0.92,hfpef,True,True,True
+26593280,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",49,0.6533333333333333,hfpef,True,True,True
+24702053,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,hfpef,True,True,True
+20478413,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",37,0.49333333333333335,hfpef,True,True,True
+24506375,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",45,0.6,hfpef,True,True,True
+25994176,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",40,0.5333333333333333,hfpef,True,True,True
+20453697,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,hfpef,True,True,True
+25210564,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",56,0.7466666666666667,hfpef,True,True,True
+20583639,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,hfpef,True,True,True
+24754313,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,hypertension,True,True,True
+21131188,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",53,0.7066666666666667,hypertension,True,True,True
+28295136,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,hypertension,True,True,True
+23098866,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,hypertension,True,True,True
+25995277,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",49,0.6533333333333333,hypertension,True,True,True
+22347829,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",49,0.6533333333333333,hypertension,True,True,True
+28711799,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",52,0.6933333333333334,hypertension,True,True,True
+21782417,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",53,0.7066666666666667,hypertension,True,True,True
+26024695,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",53,0.7066666666666667,hypertension,True,True,True
+29799296,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",44,0.5866666666666667,hypertension,True,True,True
+27896638,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,hypertension,True,True,True
+23338056,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",67,0.8933333333333333,hypertension,True,True,True
+25602417,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,hypertension,True,True,True
+26453129,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",42,0.56,hypertension,True,True,True
+25787710,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,hypertension,True,True,True
+26231611,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",48,0.64,hypertension,True,True,True
+26490248,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,hypertension,True,True,True
+29338528,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",43,0.5733333333333334,hypertension,True,True,True
+22505698,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,hypertension,True,True,True
+29618509,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",43,0.5733333333333334,hypertension,True,True,True
+29795711,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",51,0.68,sle,True,True,True
+21717096,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",50,0.6666666666666666,sle,True,True,True
+28251009,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,sle,True,True,True
+23491060,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",35,0.4666666666666667,sle,True,True,True
+24864380,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",29,0.38666666666666666,sle,True,True,True
+29558575,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",70,0.9722222222222222,metastatic_cancer,True,True,True
+22851232,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",67,0.9305555555555556,metastatic_cancer,True,True,True
+24197325,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",66,0.9166666666666666,metastatic_cancer,True,True,True
+26859249,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",66,0.9166666666666666,metastatic_cancer,True,True,True
+29794468,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",65,0.9027777777777778,metastatic_cancer,True,True,True
+27897078,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",63,0.875,metastatic_cancer,True,True,True
+28257006,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",63,0.875,metastatic_cancer,True,True,True
+25800692,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",62,0.8611111111111112,metastatic_cancer,True,True,True
+22116125,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",61,0.8472222222222222,metastatic_cancer,True,True,True
+26297565,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.8194444444444444,metastatic_cancer,True,True,True
+23850310,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.8194444444444444,metastatic_cancer,True,True,True
+24320276,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",56,0.7777777777777778,metastatic_cancer,True,True,True
+29769216,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7638888888888888,metastatic_cancer,True,True,True
+24314982,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7638888888888888,metastatic_cancer,True,True,True
+23451998,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7638888888888888,metastatic_cancer,True,True,True
+23874899,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.75,metastatic_cancer,True,True,True
+29532558,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",54,0.75,metastatic_cancer,True,True,True
+21671178,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",54,0.75,metastatic_cancer,True,True,True
+24147912,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",47,0.6527777777777778,metastatic_cancer,True,True,True
+26316749,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",44,0.6111111111111112,metastatic_cancer,True,True,True
+29387284,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",39,0.52,obesity,True,True,True
+23672245,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",53,0.7066666666666667,obesity,True,True,True
+28611747,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",60,0.8,obesity,True,True,True
+23572856,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",48,0.64,obesity,True,True,True
+25967565,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",49,0.6533333333333333,obesity,True,True,True
+29631129,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",49,0.6533333333333333,obesity,True,True,True
+21082262,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",52,0.6933333333333334,obesity,True,True,True
+22655808,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,obesity,True,True,True
+25190365,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,obesity,True,True,True
+24724981,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",56,0.7466666666666667,obesity,True,True,True
+25227519,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",40,0.5333333333333333,obesity,True,True,True
+20707506,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",44,0.5866666666666667,obesity,True,True,True
+26826441,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,obesity,True,True,True
+24681640,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",39,0.52,obesity,True,True,True
+20988262,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",40,0.5333333333333333,obesity,True,True,True
+29084825,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",49,0.6533333333333333,obesity,True,True,True
+22751617,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",39,0.52,obesity,True,True,True
+27581083,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,obesity,True,True,True
+25975174,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",39,0.52,obesity,True,True,True
+22611192,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp",39,0.52,obesity,True,True,True
+21897394,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",75,1.0,rheumatoid_arthritis,True,True,True
+20957102,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",55,0.7333333333333333,rheumatoid_arthritis,True,True,True
+23362263,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",54,0.72,rheumatoid_arthritis,True,True,True
+20449998,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",49,0.6533333333333333,rheumatoid_arthritis,True,True,True
+25340457,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",48,0.64,rheumatoid_arthritis,True,True,True
+24654393,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",48,0.64,rheumatoid_arthritis,True,True,True
+20165423,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",47,0.6266666666666667,rheumatoid_arthritis,True,True,True
+25676614,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",43,0.5733333333333334,rheumatoid_arthritis,True,True,True
+26593280,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,rheumatoid_arthritis,True,True,True
+21277542,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",41,0.5466666666666666,rheumatoid_arthritis,True,True,True
+21528992,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",40,0.5333333333333333,rheumatoid_arthritis,True,True,True
+26387964,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",38,0.5066666666666667,rheumatoid_arthritis,True,True,True
+25787710,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",37,0.49333333333333335,rheumatoid_arthritis,True,True,True
+20707506,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",37,0.49333333333333335,rheumatoid_arthritis,True,True,True
+28666873,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,rheumatoid_arthritis,True,True,True
+25965659,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",35,0.4666666666666667,rheumatoid_arthritis,True,True,True
+21131188,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",33,0.44,rheumatoid_arthritis,True,True,True
+20726042,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",33,0.44,rheumatoid_arthritis,True,True,True
+22435240,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",32,0.4266666666666667,rheumatoid_arthritis,True,True,True
+28910610,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",31,0.41333333333333333,rheumatoid_arthritis,True,True,True
+25063701,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",65,0.8666666666666667,alcohol_abuse,True,True,True
+28493025,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",64,0.8533333333333334,alcohol_abuse,True,True,True
+22851232,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",59,0.7866666666666666,alcohol_abuse,True,True,True
+28279593,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",58,0.7733333333333333,alcohol_abuse,True,True,True
+29788438,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",57,0.76,alcohol_abuse,True,True,True
+26324926,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",56,0.7466666666666667,alcohol_abuse,True,True,True
+25526701,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",56,0.7466666666666667,alcohol_abuse,True,True,True
+22855893,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",56,0.7466666666666667,alcohol_abuse,True,True,True
+26756372,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",52,0.6933333333333334,alcohol_abuse,True,True,True
+29042570,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",48,0.64,alcohol_abuse,True,True,True
+20925336,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",47,0.6266666666666667,alcohol_abuse,True,True,True
+23570901,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",42,0.56,alcohol_abuse,True,True,True
+28973296,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",41,0.5466666666666666,alcohol_abuse,True,True,True
+20551883,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,alcohol_abuse,True,True,True
+24839368,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, two",36,0.48,alcohol_abuse,True,True,True
+26979645,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",32,0.4266666666666667,alcohol_abuse,True,True,True
+23945667,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",31,0.41333333333333333,alcohol_abuse,True,True,True
+24271872,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, etp, few_shot, zero_shot","any, etp, majority, two",31,0.41333333333333333,alcohol_abuse,True,True,True
+20112666,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority",23,0.30666666666666664,alcohol_abuse,True,True,True
+20516468,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",17,0.22666666666666666,alcohol_abuse,True,True,True
+21170254,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",65,0.9848484848484849,vte_complication,True,True,True
+24742174,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",64,0.9696969696969697,vte_complication,True,True,True
+28335923,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",59,0.8939393939393939,vte_complication,True,True,True
+22996335,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",58,0.8787878787878788,vte_complication,True,True,True
+26981620,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",55,0.8333333333333334,vte_complication,True,True,True
+25099106,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,vte_complication,True,True,True
+29558575,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,vte_complication,True,True,True
+26746451,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,vte_complication,True,True,True
+20382036,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",53,0.803030303030303,vte_complication,True,True,True
+29429076,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",52,0.7878787878787878,vte_complication,True,True,True
+26859249,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.7575757575757576,vte_complication,True,True,True
+24515252,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",49,0.7424242424242424,vte_complication,True,True,True
+26297565,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",48,0.7272727272727273,vte_complication,True,True,True
+26715167,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",48,0.7272727272727273,vte_complication,True,True,True
+21159801,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",45,0.6818181818181818,vte_complication,True,True,True
+27602391,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",44,0.6666666666666666,vte_complication,True,True,True
+28295889,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",44,0.6666666666666666,vte_complication,True,True,True
+24699987,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",43,0.6515151515151515,vte_complication,True,True,True
+21474015,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",41,0.6212121212121212,vte_complication,True,True,True
+25157071,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",36,0.5454545454545454,vte_complication,True,True,True
+22692223,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",48,0.6666666666666666,vte_past,True,True,True
+20058135,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",62,0.8611111111111112,vte_past,True,True,True
+20297864,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",65,0.9027777777777778,vte_past,True,True,True
+21026206,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",47,0.6527777777777778,vte_past,True,True,True
+20932014,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",57,0.7916666666666666,vte_past,True,True,True
+26197065,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",58,0.8055555555555556,vte_past,True,True,True
+26635628,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",48,0.6666666666666666,vte_past,True,True,True
+23711718,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",61,0.8472222222222222,vte_past,True,True,True
+26265245,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",45,0.625,vte_past,True,True,True
+25251600,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6944444444444444,vte_past,True,True,True
+27807152,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",62,0.8611111111111112,vte_past,True,True,True
+24659614,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",52,0.7222222222222222,vte_past,True,True,True
+23023224,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",47,0.6527777777777778,vte_past,True,True,True
+22161587,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6944444444444444,vte_past,True,True,True
+22116125,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",62,0.8611111111111112,vte_past,True,True,True
+22474537,"gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",49,0.6805555555555556,vte_past,True,True,True
+25984563,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",52,0.7222222222222222,vte_past,True,True,True
+22306392,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",48,0.6666666666666666,vte_past,True,True,True
+21159801,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",50,0.6944444444444444,vte_past,True,True,True
+20101024,"gemini_flash_2, gpt_4o, llama_3b, llama_405b, llama_70b, llama_8b","document, naive, none","COT, few_shot, zero_shot","any, majority, two",54,0.75,vte_past,True,True,True

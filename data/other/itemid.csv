@@ -1,0 +1,4015 @@
+itemid,label
+229659,% Minute Volume
+228008,14 G Infiltration Scale
+228007,14 G Phlebitis Scale
+224566,14 Gauge
+229736,14 Gauge Cap Change
+229730,14 Gauge Dressing Change
+227365,14 Gauge Dressing Occlusive
+225757,14 Gauge Insertion Date
+225239,14 Gauge Reason Discontinued
+225240,14 Gauge Site Appear
+226135,14 Gauge placed in outside facility
+228097,14 Gauge placed in the field
+228010,16 G Infiltration Scale
+228009,16 G Phlebitis Scale
+224276,16 Gauge
+229737,16 Gauge Cap Change
+229731,16 Gauge Dressing Change
+227366,16 Gauge Dressing Occlusive
+225756,16 Gauge Insertion Date
+225236,16 Gauge Reason Discontinued
+225237,16 Gauge Site Appear
+226136,16 Gauge placed in outside facility
+228098,16 Gauge placed in the field
+228012,18 G Infiltration Scale
+228011,18 G Phlebitis Scale
+224277,18 Gauge
+229729,18 Gauge Cap Change
+229728,18 Gauge Dressing Change
+227367,18 Gauge Dressing Occlusive
+225755,18 Gauge Insertion Date
+225233,18 Gauge Reason Discontinued
+225234,18 Gauge Site Appear
+226137,18 Gauge placed in outside facility
+228099,18 Gauge placed in the field
+229487,2 Stage CXR Insertion Technique (SBNET)
+228014,20 G Infiltration Scale
+228013,20 G Phlebitis Scale
+224275,20 Gauge
+229738,20 Gauge Cap Change
+229732,20 Gauge Dressing Change
+227368,20 Gauge Dressing Occlusive
+225754,20 Gauge Insertion Date
+225230,20 Gauge Reason Discontinued
+225231,20 Gauge Site Appear
+226138,20 Gauge placed in outside facility
+228100,20 Gauge placed in the field
+228016,22 G Infiltration Scale
+228015,22 G Phlebitis Scale
+224274,22 Gauge
+229739,22 Gauge Cap Change
+229733,22 Gauge Dressing Change
+227369,22 Gauge Dressing Occlusive
+225753,22 Gauge Insertion Date
+224121,22 Gauge Reason Discontinued
+224119,22 Gauge Site Appear
+226139,22 Gauge placed in outside facility
+228101,22 Gauge placed in the field
+229466,24 G Infiltration Scale
+229467,24 G Phlebitis Scale
+229468,24 Gauge
+229740,24 Gauge Cap Change
+229734,24 Gauge Dressing Change
+229470,24 Gauge Dressing Occlusive
+229471,24 Gauge Insertion Date
+229474,24 Gauge Reason Discontinued
+229472,24 Gauge placed in outside facility
+229473,24 Gauge placed in the field
+228145,ABI Ankle BP L
+224318,ABI Ankle BP L (Impella)
+224317,ABI Ankle BP R
+228148,ABI Ankle BP R (Impella)
+224315,ABI Brachial BP L
+228149,ABI Brachial BP L (Impella)
+228146,ABI Brachial BP R
+224314,ABI Brachial BP R (Impella)
+227239,ABP Alarm Source
+227529,ACD-A Citrate (1000ml)
+227528,ACD-A Citrate (500ml)
+227527,ADA-A (500ml)
+220644,ALT
+226743,APACHE II
+226740,APACHE II Diagnosistic weight factors - Medical
+226742,APACHE II Diagnosistic weight factors - Surgical
+226741,APACHE II Diagnosistic weight factors - Surgical emergency
+226744,APACHE II PDR - Adjusted
+226745,APACHE II Predecited Death Rate
+228109,APACHE IV diagnoses
+228110,APACHE IV diagnoses-2
+226987,APACHE IV diagnosis
+226985,APACHE IV diagnosis choice 1
+226986,APACHE IV diagnosis choice 2
+226988,APACHE IV main groups non-operative
+226989,APACHE IV main groups operative
+226747,APACHEII-Chronic health points
+226748,APACHEII-Renal failure
+226991,APACHEIII
+226996,APS
+226997,ARF
+226861,ART %O2 saturation (PA Line)
+225310,ART BP Diastolic
+225312,ART BP Mean
+225309,ART BP Systolic
+227537,ART Blood Pressure Alarm - High
+227538,ART Blood Pressure Alarm - Low
+227539,ART Blood Pressure Alarm Source
+224404,ART Lumen Volume
+220587,AST
+229372,AT ( Antithrombin funct)
+229374,AT (Antithrombin funct)
+224704,ATC %
+227134,ATC Tube #
+220497,AThiamine
+224803,AV Fistula L Bruit
+224804,AV Fistula L Thrill
+224800,AV Fistula R Bruit
+224801,AV Fistula R Thrill
+227719,AVA
+227720,AVA Cap Change
+227721,AVA Change over Wire Date
+227722,AVA Dressing Change
+227723,AVA Dressing Occlusive
+227724,AVA Insertion Date
+227725,AVA Line Discontinued
+227732,AVA Line Placement Confirmed by X-ray
+227728,AVA Line Site Appear
+227726,AVA Line Tip Cultured
+227731,AVA Line Zero/Calibrate
+227727,AVA Line placed in outside facility
+227729,AVA Tubing Change
+227730,AVA Waveform Appearance
+226737,AaDO2ApacheIIValue
+221261,Abciximab (Reopro)
+228698,Abdominal - (GI / Hepatic / Renal)
+228684,Abdominal - (GI / Hepatic)_OLD_1
+224003,Abdominal Assessment
+224673,Abdominal Changes: Observation
+225457,Abdominal X-Ray
+229361,Absolute Count - Basos
+229360,Absolute Count - Eos
+229358,Absolute Count - Lymphs
+229359,Absolute Count - Monos
+229357,Absolute Count - Neuts
+229362,Absolute Count - Retic
+229355,Absolute Neutrophil Count
+229991,Absorbent changed (Anes)
+224149,Access Pressure
+228186,Access Site Observed (Tandem Heart)
+224723,Accessory Muscle Use
+230035,Accessory muscle use.
+228315,Acetaminophen-IV
+220957,Acetate (ingr)
+229057,Acetylcysteine
+220507,Activated Clotting Time
+224084,Activity
+229319,Activity / Mobility (JH-HLM)
+229321,Activity / Mobility (JH-HLM)
+229742,Activity / Mobility (RN Daily Mobility Goal)
+227923,Activity HR - Aerobic Activity Response
+227864,Activity HR - Aerobic Capacity
+229327,Activity Intolerance  NCP - Expected outcomes
+229330,Activity Intolerance  NCP - Interventions
+229334,Activity Intolerance  NCP - Problem resolved
+229332,Activity Intolerance  NCP - outcomes met
+229335,Activity Intolerance NCP - Goal
+229333,Activity Intolerance NCP - Plan revised
+227867,Activity O2 Sat - Aerobic Capacity
+227926,Activity O2 sat - Aerobic Activity Response
+227925,Activity RR - Aerobic Activity Response
+227866,Activity RR - Aerobic Capacity
+224086,Activity Tolerance
+225721,Acuity (A-Line)
+224341,Acuity (CVL)
+228463,Acuity (Gen Proc)
+225633,Acuity (PA line)
+224596,Acuity (PICC)
+229369,Acuity Workload Question 1
+229370,Acuity Workload Question 2
+225837,Acyclovir
+223867,Additional Settings
+221282,Adenosine
+226512,Admission Weight (Kg)
+226531,Admission Weight (lbs.)
+226979,Admission location
+228685,Admission type
+227088,Admit from
+226738,AgeApacheIIScore
+226739,AgeApacheIIValue
+226980,AgeScore_ApacheIV
+223817,Agitation
+227567,Airway Location
+227568,Airway Size (mm)
+223836,Airway Type
+226815,Airway problems
+220341,Alanine (ingr)
+224641,Alarms On
+227456,Albumin
+220861,Albumin (Human) 20%
+220863,Albumin (Human) 4%
+220862,Albumin 25%
+220864,Albumin 5%
+226982,AlbuminScore_ApacheIV
+226981,Albumin_ApacheIV
+225612,Alkaline Phosphate
+227968,All Medications Tolerated without Adverse Side Effects
+228392,Alsius Bath Temp
+221319,Alteplase (TPA)
+228973,Altered Mental Status  NCP - Expected outcomes
+228975,Altered Mental Status  NCP - Goal
+228977,Altered Mental Status  NCP - Interventions
+229088,Altered Mental Status  NCP - Plan revised
+229089,Altered Mental Status  NCP - Problem resolved
+228979,Altered Mental Status  NCP - outcomes met
+228902,Altered Respiratory Status NCP - Expected outcomes
+228903,Altered Respiratory Status NCP - Goal
+228905,Altered Respiratory Status NCP - Interventions
+229090,Altered Respiratory Status NCP - Plan revised
+229091,Altered Respiratory Status NCP - Problem resolved
+228907,Altered Respiratory Status NCP - outcomes met
+229124,Altered Sensory Perception NCP - Expected Outcomes
+229126,Altered Sensory Perception NCP - Interventions
+229128,Altered Sensory Perception NCP - Plan revised
+229129,Altered Sensory Perception NCP - Problem resolved
+228911,Altered Skin Integrity NCP - Expected outcomes
+228912,Altered Skin Integrity NCP - Goal
+228914,Altered Skin Integrity NCP - Interventions
+229092,Altered Skin Integrity NCP - Plan revised
+229093,Altered Skin Integrity NCP - Problem resolved
+228916,Altered Skin Integrity NCP - outcomes met
+225838,Ambisome
+227343,Ambulatory aid
+225840,Amikacin
+220344,Amino Acid
+225948,Amino Acids
+229058,Aminocaproic acid (Amicar)
+229249,Aminocaproic acid (Amicar)
+221342,Aminophylline
+225918,Aminosyn 3.5%
+221347,Amiodarone
+230034,Amiodarone 150/100
+229654,Amiodarone 450/250
+228339,Amiodarone 600/500
+220580,Ammonia
+228391,Ammonia (SOFT)
+228241,Ammonia (Soft)_OLD_1
+224498,Amount of fluid removed (LP)
+225842,Ampicillin
+225843,Ampicillin/Sulbactam (Unasyn)
+229995,Amsorb changed (Anes)
+220581,Amylase
+226616,Anderson
+226569,Anderson (gastric)
+223968,Angio Appearance # 1
+223972,Angio Appearance # 2
+228445,Angio Appearance # 3
+228446,Angio Appearance # 4
+223970,Angio Dressing # 1
+223973,Angio Dressing # 2
+228447,Angio Dressing # 3
+228448,Angio Dressing # 4
+223967,Angio Site # 1
+223971,Angio Site # 2
+228449,Angio Site # 3
+228450,Angio Site # 4
+225427,Angiography
+229709,Angiotensin II (Giapreza)
+229764,Angiotensin II (Giapreza)
+227073,Anion gap
+224089,Anti Embolic Device
+225054,Anti Embolic Device Status
+227943,Anticipated Discharge
+223811,Anxiety
+229765,Anxiety/Irritability (COWS)
+225074,Any fear in relationships
+228151,Aortic Pressure Signal - Diastolic
+228152,Aortic Pressure Signal - Systolic
+226983,Apache IV A-aDO2
+226984,Apache IV Age
+226990,Apache IV PaFiRatio
+226746,ApacheII chronic health
+226993,ApacheIV_LOS
+226994,ApacheIV_Mortality prediction
+226995,ApacheIV_Natural antilog
+223876,Apnea Interval
+225120,Appetite
+229635,Applied Cognitive (AM-PAC)
+220865,Aquadestila
+220346,Arachidic acid
+227630,Arctic Sun Temp #1 Location
+227631,Arctic Sun Temp #2 Location
+227628,Arctic Sun Water Temp
+227627,Arctic Sun/Alsius Set Temp
+227632,Arctic Sun/Alsius Temp #1 C
+227634,Arctic Sun/Alsius Temp #2 C
+225147,Argatroban
+220347,Arginine
+229601,Arm Immobilizer
+224720,Arrythmia
+229853,Art Bubble On (CH)
+224828,Arterial Base Excess
+220058,Arterial Blood Pressure Alarm - High
+220056,Arterial Blood Pressure Alarm - Low
+220051,Arterial Blood Pressure diastolic
+220052,Arterial Blood Pressure mean
+220050,Arterial Blood Pressure systolic
+220235,Arterial CO2 Pressure
+225752,Arterial Line
+225737,Arterial Line Discontinued
+224287,Arterial Line Dressing Change
+227292,Arterial Line Dressing Occlusive
+225722,Arterial Line Tip Cultured
+225210,Arterial Line Zero/Calibrate
+228026,Arterial Line ordered on POE
+225575,Arterial Line ordered on POE
+226107,Arterial Line placed in outside facility
+220227,Arterial O2 Saturation
+220224,Arterial O2 pressure
+224284,Arterial line Cap Change
+224285,Arterial line Change over Wire Date
+224288,Arterial line Insertion Date
+224289,Arterial line Site Appear
+224290,Arterial line Tubing Change
+224291,Arterial line Waveform Appear
+228023,Arterial line sutured
+226008,Arterial line sutured
+220349,Ascorbic acid
+220351,Aspartic Acid
+228867,Assist Device
+228868,Assistance
+224085,Assistance Device
+228306,Assistance Device
+224309,Assisted Systole
+227855,Assistive Device
+223827,Ataxia
+225844,Atovaquone
+221393,Atropine
+229747,Attending Notified
+226230,Attending/Supervisor is Clinician Operator (CVL)
+225289,Attending/Supervisor is Clinician Operator (PICC)
+228049,Attending/Supervisor is the Clinical Operator (PICC)_New
+223814,Auditory Disturbance
+224310,Augmented Diastole
+221193,Auto transfusion
+228062,Autofluorescence AF (Bronch)
+225533,Autofluorescence AF (Bronch)
+227583,Autoset/CPAP
+229549,Avalon Dressing Change
+229550,Avalon Insertion Date
+229552,Avalon Line Discontinued
+229553,Avalon Line Site Appear
+229554,Avalon Position
+229515,Avalon/Protek Duo
+225845,Azithromycin
+225847,Aztreonam
+224311,BAEDP
+225817,BAL Fluid Culture
+228442,BIS - EMG
+228443,BIS - SQI
+228444,BIS Index Range
+225624,BUN
+227000,BUN_ApacheIV
+225187,Back Care
+229309,Backup Controller (HeartWare)
+229819,Backup Controller (VAD)
+225899,Bactrim (SMX/TMP)
+225097,Balance
+228471,Barrier Precautions (Gen Proc)
+229483,Barrier precautions in place  (SBNET)
+226523,Barrier precautions in place (A-Line)
+228647,Barrier precautions in place (A-Line)
+225538,Barrier precautions in place (Bronch)
+228642,Barrier precautions in place (Bronch)
+224345,Barrier precautions in place (CVL)
+226191,Barrier precautions in place (Intubation)
+228643,Barrier precautions in place (Intubation)
+225602,Barrier precautions in place (LP)
+228644,Barrier precautions in place (LP)
+228441,Barrier precautions in place (MBAL)
+224624,Barrier precautions in place (PA line)
+225506,Barrier precautions in place (PACEN)
+228645,Barrier precautions in place (PACEN)
+224568,Barrier precautions in place (PICC)
+225487,Barrier precautions in place (THCEN)
+228646,Barrier precautions in place (THCEN)
+224661,Baseline Current/mA
+225813,Baseline pain level
+229633,Basic Mobility (AM-PAC)
+228393,Bath
+225313,Bed Bath
+226105,Behavior
+225970,Beneprotein
+229583,Beneprotein.
+225593,Best Larynx View Obtained (Intubation)
+220354,Beta Carotene
+227579,BiPap EPAP
+227580,BiPap IPAP
+227578,BiPap Mask
+227577,BiPap Mode
+227582,BiPap O2 Flow
+227581,BiPap bpm (S/T -Back up)
+220994,Bicarbonate (ingr)
+225165,Bicarbonate Base
+226999,BiliScore_ApacheIV
+226998,Bilirubin_ApacheIV
+228718,Billing Diagnosis
+220356,Biotine
+225148,Bivalirudin (Angiomax)
+229781,Bivalirudin (Angiomax) (Impella)
+224019,Bladder Irrigation
+223763,Bladder Pressure
+229371,Bladder Scan Estimate
+228714,Bladder scanned
+225304,Blade / Equipment (Intubation)
+226570,Blakemore
+225428,Blakemore / Minnesota Tube D/C
+225429,Blakemore / MinnesotaTube Inserted
+226482,Blood Clot Outdates
+225401,Blood Cultured
+224144,Blood Flow (ml/min)
+226509,Blood Ingredient
+226329,Blood Temperature CCO (C)
+226473,Blood Transfusion Consent
+229766,Bone/Joint Aches (COWS)
+227977,Boost Glucose Control (1/2)
+227976,Boost Glucose Control (1/4)
+227978,Boost Glucose Control (3/4)
+227979,Boost Glucose Control (Full)
+228068,Bougie (Intubation)
+225587,Bougie (Intubation)
+224004,Bowel Sounds
+223944,Brachial Pulse L
+223939,Brachial Pulse R
+224056,Braden Activity
+224059,Braden Friction/Shear
+224057,Braden Mobility
+224055,Braden Moisture
+224058,Braden Nutrition
+224054,Braden Sensory Perception
+225819,Brain Death
+227446,Brain Natiuretic Peptide (BNP)
+229235,Brain Tissue Oxygenation
+227645,Breast Feed - L (Minutes)
+227646,Breast Feed - R (Minutes)
+227642,Breast Feeding
+227643,Breast Feeding - L
+227644,Breast Feeding - R
+229322,Breathing pattern/effort
+228055,Bronchoalveolar lavage (BAL) / washing (Bronch
+225526,Bronchoalveolar lavage (BAL) / washing (Bronch)
+225400,Bronchoscopy
+228057,Brushings (Bronch)
+225528,Brushings (Bronch)
+229639,Bumetanide (Bumex)
+227001,BunScore_ApacheIV
+227444,C Reactive Protein (CRP)
+225820,C-Spine Clearance
+227002,CABG Patient
+228334,CAM-ICU Altered LOC
+228303,CAM-ICU Disorganized thinking
+228335,CAM-ICU Disorganized thinking
+229324,CAM-ICU Disorganized thinking
+228301,CAM-ICU Inattention
+228336,CAM-ICU Inattention
+229325,CAM-ICU Inattention
+228337,CAM-ICU MS Change
+229326,CAM-ICU MS Change
+228300,CAM-ICU MS change
+228302,CAM-ICU RASS LOC
+229600,CAUTI Info Given
+224269,CCO PAC
+225221,CCO PAC Cap Change
+225222,CCO PAC Change over Wire Date
+225738,CCO PAC Discontinued
+225224,CCO PAC Dressing Change
+227352,CCO PAC Dressing Occlusive
+225774,CCO PAC Dressing Type
+225316,CCO PAC Insertion Date
+225723,CCO PAC Line Tip Cultured
+227751,CCO PAC Placement Confirmed by X-ray
+225225,CCO PAC Site Appear
+225226,CCO PAC Tubing Change
+225227,CCO PAC Waveform Appear
+225228,CCO PAC Zero/Calibrate
+226108,CCO PAC placed in outside facility
+228176,CFI (PiCCO)
+228137,CHG Bath
+228177,CI (PiCCO)
+226859,CI pressure (PA Line)
+225634,CK (CPK)
+227445,CK-MB
+225628,CK-MB fraction (%)
+227543,CO (Arterial)
+228178,CO (PiCCO)
+228370,CO / CI Change
+226858,CO pressure (PA Line)
+228189,CO-Tandem Heart Flow
+220245,CO2 production
+229975,COVID NCP - Expected outcomes
+229977,COVID NCP - Interventions
+229979,COVID NCP - Plan revised
+229974,COVID NCP - Problem
+229980,COVID NCP - Problem resolved
+229705,CP-Pain Assessment Method
+229706,CP-Pain Assessment Method-Post
+229704,CP-Pain Management
+229697,CPOT-Body Movements (CPOTa)
+229696,CPOT-Body Movements (CPOTb)
+229699,CPOT-Facial Expression (CPOTa)
+229698,CPOT-Facial Expression (CPOTb)
+229692,CPOT-Muscle Tension (CPOTa)
+229691,CPOT-Muscle Tension (CPOTb)
+229689,CPOT-Pain Assessment Method
+229690,CPOT-Pain Assessment Method-Post
+229703,CPOT-Pain Management
+229694,CPOT-Vocalization (CPOTa)
+229695,CPOT-Vocalization (CPOTb)
+225436,CRRT Filter Change
+227290,CRRT mode
+225437,CSF Culture
+223998,CT #1 Crepitus
+223996,CT #1 Drainage
+223997,CT #1 Dressing
+223995,CT #1 Fluctuate
+224775,CT #1 Leak
+223994,CT #1 Suction Amount
+224806,CT #1 Suction Type
+224423,CT #2 Crepitus
+224424,CT #2 Drainage
+224425,CT #2 Dressing
+224426,CT #2 Fluctuate
+224777,CT #2 Leak
+224427,CT #2 Suction Amount
+224808,CT #2 Suction Type
+224428,CT #3 Crepitus
+224430,CT #3 Drainage
+224432,CT #3 Dressing
+224434,CT #3 Fluctuate
+224779,CT #3 Leak
+224436,CT #3 Suction Amount
+224810,CT #3 Suction Type
+224429,CT #4 Crepitus
+224431,CT #4 Drainage
+224433,CT #4 Dressing
+224435,CT #4 Fluctuate
+224781,CT #4 Leak
+224437,CT #4 Suction Amount
+224812,CT #4 Suction Type
+221214,CT scan
+225811,CV - past medical history
+229882,CVL Biopatch
+220362,Calciferol
+220363,Calcium (ingr)
+229618,Calcium Chloride
+221456,Calcium Gluconate
+229640,Calcium Gluconate (Bolus)
+228317,Calcium Gluconate (Bolus)_OLD_1
+227525,Calcium Gluconate (CRRT)
+225625,Calcium non-ionized
+228175,Calibrated (PiCCO)
+225280,Called Out
+226060,Calories
+229533,Camino
+229879,Cannula sites visually inspected (CH)
+229266,Cannula sites visually inspected (ECMO)
+229250,Cannula sites visually inspected (LVAD)
+229251,Cannula sites visually inspected (RVAD)
+228187,Cannulas Visible
+224308,Capillary Refill L
+223951,Capillary Refill R
+221031,Capric acid
+221030,Caprylic acid
+225912,Carafate (Sucralfate)
+220364,Carbohydrates
+229746,Card Used
+225466,Cardiac Arrest
+229555,Cardiac Assist Cannula Change
+229556,Cardiac Assist Cannula Date
+229558,Cardiac Assist Cannula Discontinued
+229560,Cardiac Assist Cannula Position
+229559,Cardiac Assist Cannula Site Appear
+225430,Cardiac Cath
+228368,Cardiac Index (CI NICOM)
+224842,Cardiac Output (CCO)
+228369,Cardiac Output (CO NICOM)
+229897,Cardiac Output (CO) (Impella)
+220088,Cardiac Output (thermodilution)
+229896,Cardiac Power Output (CPO)
+228699,Cardiovascular
+228686,Cardiovascular_OLD_1
+225464,Cardioversion/Defibrillation
+220365,Carnitine
+221019,Carotenoids
+225848,Caspofungin
+226632,Cath Lab
+229577,Cath Lab (Received)
+229578,Cath Lab (Sent)
+226363,Cath Lab Intake
+227105,Catheter insertion length (CVL)
+227100,Catheter insertion length (PICC)
+225285,Catheter repositioned (PICC)
+225850,Cefazolin
+225851,Cefepime
+229587,Ceftaroline
+225853,Ceftazidime
+225855,Ceftriaxone
+225173,Cell Saver
+228036,Central Line ordered on POE
+225707,Central Line ordered on POE
+227686,Central Venous O2% Sat
+220074,Central Venous Pressure
+220073,Central Venous Pressure  Alarm - Low
+220072,Central Venous Pressure Alarm - High
+229527,Centrimag Inflow Line
+229528,Centrimag Outflow Line
+229386,Cerebellar - Finger -> Nose
+229387,Cerebellar - Heel -> Shin
+227066,Cerebral Perfusion Pressure
+227716,Cerebral Perfusion Pressure Alarm - High
+227717,Cerebral Perfusion Pressure Alarm - Low
+226608,Cerebral Subdural #1
+226609,Cerebral Subdural #2
+229236,Cerebral Temperature (C)
+226606,Cerebral Ventricular #1
+226607,Cerebral Ventricular #2
+224110,Cervical Collar Status
+224109,Cervical Collar Type
+225460,Cervical Spine
+228188,Change in Blood Color
+224674,Changes in Temperature
+229866,Checklist
+225467,Chest Opened
+224101,Chest PT R/L
+225465,Chest Pain
+226588,Chest Tube #1
+226589,Chest Tube #2
+229413,Chest Tube #3
+229414,Chest Tube #4
+225433,Chest Tube Placed
+227712,Chest Tube Removed
+223993,Chest Tube Site # 1
+224438,Chest Tube Site # 2
+224439,Chest Tube Site #3
+224440,Chest Tube Site #4
+225459,Chest X-Ray
+229059,Chloramphenicol
+220367,Chloride (ingr)
+220602,Chloride (serum)
+228385,Chloride (serum) (soft)
+226536,Chloride (whole blood)
+228386,Chloride (whole blood) (soft)
+225857,Chloroquine
+226000,Chocolate Scandi Shake (mixed)
+220368,Cholecalciferol
+220603,Cholesterol
+220369,Choline
+226749,ChpApacheIIScore
+220370,Chromium (ingr)
+226750,Chronic Dilaysis
+227003,Chronic health on admission
+227004,ChronicScore_ApacheIV
+225859,Ciprofloxacin
+224713,Circuit Changed
+229840,Circuit Configuration (CH)
+229268,Circuit Configuration (ECMO)
+229988,Circuit changed (Anes)
+229878,Circuit inspected for clot (CH)
+229269,Circuit inspected for clot (ECMO)
+224065,Circulation/Skin Integrity
+227951,Circulation/Skin Integrity
+227214,Cis-atracurium (Intubation)
+221555,Cisatracurium
+227526,Citrate
+228004,Citrate (ACD-A)
+229234,Clevidipine (Cleviprex)
+225860,Clindamycin
+228491,Clinical Operator (Gen Proc)
+227647,Clot Size (cm)
+227648,Clots
+220373,Cobolamin
+223758,Code Status
+229784,Code Status (Intubation)
+228687,Code Status.
+226893,Coefficient Hospital Mortality
+226894,Coefficient ICU length of stay
+229745,Cognitive Aid Card
+225862,Colistin
+225192,Collar Care
+225434,Colonoscopy
+228398,Commands
+228397,Commands Response
+227850,Commode
+223903,Communication
+227841,Community Integration
+229661,Compliance
+226524,Complications (A-Line)
+225524,Complications (Bronch)
+228485,Complications (Gen Proc)
+226430,Complications (Intubation)
+226443,Complications (LP)
+228425,Complications (MBAL)
+224479,Complications (PA line)
+226439,Complications (PACEN)
+229489,Complications (SBNET)
+225250,Complications (THCEN)
+228426,Complications - bleeding (MBAL)
+228419,Compression device # 1
+228420,Compression device # 2
+228451,Compression device # 3
+228452,Compression device # 4
+226561,Condom Cath
+228473,Conscious Sedation (Gen Proc)
+224506,Conscious sedation (THCEN)
+228060,Conscious sedation used (Bronch)
+225531,Conscious sedation used (Bronch)
+229027,Constitutional
+225135,Consults
+224748,Cont Neb - Dose (mg/hr/drug)
+224375,Cont Neb - Med
+227131,Cont. Neb Med Dose
+224091,Continuous Pressure Machine Status
+228427,Contraindications (MBAL)
+224106,Cooling Device
+225052,Cooling Device Status
+228953,Coping/Knowledge Deficit  NCP - Expected outcomes
+228955,Coping/Knowledge Deficit  NCP - Goal
+228957,Coping/Knowledge Deficit  NCP - Interventions
+229094,Coping/Knowledge Deficit  NCP - Plan revised
+229095,Coping/Knowledge Deficit  NCP - Problem resolved
+228959,Coping/Knowledge Deficit  NCP - outcomes met
+220375,Copper (ingr)
+225775,Cordis Introducer Dressing Type
+224267,Cordis/Introducer
+224292,Cordis/Introducer Cap Change
+224293,Cordis/Introducer Change over Wire Date
+225739,Cordis/Introducer Discontinued
+224295,Cordis/Introducer Dressing Change
+227350,Cordis/Introducer Dressing Occlusive
+224296,Cordis/Introducer Insertion Date
+225724,Cordis/Introducer Line Tip Cultured
+227752,Cordis/Introducer Placement Confirmed by X-ray
+224297,Cordis/Introducer Site Appear
+224298,Cordis/Introducer Tubing Change
+226109,Cordis/Introducer placed in outside facility
+224731,Corneal Reflex Left
+228415,Corneal Reflex Left
+224730,Corneal Reflex Right
+228416,Corneal Reflex Right
+227463,Cortisol
+223991,Cough Effort
+223905,Cough Reflex
+223992,Cough Type
+225188,Cough/Deep Breath
+225913,Coumadin (Warfarin)
+227006,CreatScore_ApacheIV
+220615,Creatinine (serum)
+229761,Creatinine (whole blood)
+226751,CreatinineApacheIIScore
+226752,CreatinineApacheIIValue
+227005,Creatinine_ApacheIV
+228429,Critical Proc Steps (MBAL)
+229087,Critically ill
+225171,Cryoprecipitate
+224417,Cuff Pressure
+224418,Cuff Volume (mL)
+224680,Cuff Volume/units
+229323,Current Dyspnea Assessment
+225183,Current Goal
+224662,Current Used/mA
+225113,Currently experiencing pain
+227534,Cyclosporine
+220377,Cysteine
+225636,D-Dimer
+228240,D-Dimer (SOFT)
+220987,D-Mannitol (C6H14O6)
+225823,D5 1/2NS
+225941,D5 1/4NS
+225919,D5 Aminosyn 3.5%
+225827,D5LR
+225825,D5NS
+228371,DO2I (NICOM)
+228700,DVT Prophy
+228690,DVT Prophy_OLD_1
+229634,Daily Activity (AM-PAC)
+227375,Daily Wake Up
+228298,Daily Wake Up
+223780,Daily Wake Up Deferred
+228297,Daily Wake Up Deferred
+224639,Daily Weight
+225900,Dalfopristin/Quinupristin (Synercid)
+225863,Daptomycin
+220866,Darrow
+227907,Date - Student
+227911,Date - Therapist
+225279,Date of Admission to Hospital
+226515,Date of Birth
+228631,Date signed
+226621,Davol
+228688,Delirium
+228332,Delirium assessment
+229852,Delta P (CH)
+229855,Delta P Alarm (CH)
+228119,Depth at which wedge obtained (PA Line)
+229821,Device (VAD)
+225150,Dexmedetomidine (Precedex)
+229420,Dexmedetomidine (Precedex)
+225795,Dextran 40
+221000,Dextran 40 / Dextrose 5% (Gentran - Rheomacrodex)
+221001,"Dextran 40 / Saline 0,9% (Gentran - Rheomacrodex)"
+225796,Dextran 70
+221002,Dextran 70 / Dextrose 5% (Gentran - Macrodex - RescueFlow)
+221003,"Dextran 70 / Saline 0,9% (Gentran - Macrodex - RescueFlow)"
+220950,Dextrose 10%
+220968,Dextrose 10% / Ringers Lactate
+221014,Dextrose 19%
+221017,"Dextrose 2,5%"
+220966,"Dextrose 2,5% / Saline 0,45%"
+228140,Dextrose 20%
+220951,Dextrose 20.%
+228141,Dextrose 30%
+220963,"Dextrose 4,3% / Saline 0,18%"
+228142,Dextrose 40%
+220949,Dextrose 5%
+220967,Dextrose 5% / Ringers Lactate
+220965,"Dextrose 5% / Saline 0,45%"
+220964,"Dextrose 5% / Saline 0,9%"
+220952,Dextrose 50%
+225947,Dextrose PN
+227007,Diabetes
+225977,Dialysate Fluid
+230085,Dialysate Fluid
+224154,Dialysate Rate
+225802,Dialysis - CRRT
+225803,Dialysis - CVVHD
+225809,Dialysis - CVVHDF
+225955,Dialysis - SCUF
+224135,Dialysis Access Site
+225954,Dialysis Access Type
+224270,Dialysis Catheter
+225318,Dialysis Catheter Cap Change
+225319,Dialysis Catheter Change over Wire Date
+225740,Dialysis Catheter Discontinued
+225321,Dialysis Catheter Dressing Change
+227357,Dialysis Catheter Dressing Occlusive
+225776,Dialysis Catheter Dressing Type
+225322,Dialysis Catheter Insertion Date
+227753,Dialysis Catheter Placement Confirmed by X-ray
+225323,Dialysis Catheter Site Appear
+225725,Dialysis Catheter Tip Cultured
+227124,Dialysis Catheter Type
+229536,Dialysis Catheter Type
+226118,Dialysis Catheter placed in outside facility
+225324,Dialysis CatheterTubing Change
+224139,Dialysis Site Appearance
+225126,Dialysis patient
+229881,Dialysis/Pheresis Biopatch
+221623,Diazepam (Valium)
+224001,Diet Type
+229356,Differential - Immature Granulocytes
+225637,Differential-Atyps
+225638,Differential-Bands
+225639,Differential-Basos
+225640,Differential-Eos
+225641,Differential-Lymphs
+225642,Differential-Monos
+225643,Differential-Neuts
+225267,Difficult to Intubate
+225118,Difficulty swallowing
+227440,Digoxin
+229069,Digoxin (Lanoxin)
+227689,Dilantin
+221468,Diltiazem
+225651,Direct Bilirubin
+226516,Discharge Date/Time
+228993,Discharge NCP - Expected outcomes
+228995,Discharge NCP - Goal
+228997,Discharge NCP - Interventions
+228999,Discharge NCP - Outcomes met
+229096,Discharge NCP - Plan revised
+229097,Discharge NCP - Problem resolved
+229638,Discharge Recommendations (AM-PAC)
+228689,Discharge from ICU
+225133,Discharge needs
+227089,Discharge to
+229464,Discussed on Rounds
+229416,Disposition
+221653,Dobutamine
+230070,Documented in DC Summary (Aline)
+230069,Documented in DC Summary (Bronch)
+230068,Documented in DC Summary (Bronch)_OLD_1
+230071,Documented in DC Summary (CVL)
+230073,Documented in DC Summary (Intub)
+230074,Documented in DC Summary (LP)
+230072,Documented on DC Summary (GenProc)
+230075,Documented on DC Summary (PA)
+230077,Documented on DC Summary (PICC)
+230076,Documented on DC Summary (Para)
+230078,Documented on DC Summary (Thora)
+229337,Domestic Violence NCP - Expected outcomes
+229339,Domestic Violence NCP - Interventions
+229343,Domestic Violence NCP - Plan revised
+229342,Domestic Violence NCP - Problem resolved
+229341,Domestic Violence NCP - outcomes met
+221662,Dopamine
+224166,Doppler BP
+223943,Dorsal PedPulse L
+223934,Dorsal PedPulse R
+225865,Doxycycline
+224458,Drain Output_ingr
+227711,Drain Removed
+227701,Drainage Bag
+228482,Dressing Applied (Gen Proc)
+228586,Dressing Status
+224851,Dressing Status #1
+225028,Dressing Status #2
+225029,Dressing Status #3
+225030,Dressing Status #4
+225031,Dressing Status #5
+225032,Dressing Status #6
+228077,Dressing applied and dated (LP)
+226014,Dressing applied and dated (LP)
+228084,Dressing applied and dated (PACEN)
+226012,Dressing applied and dated (PACEN)
+228092,Dressing applied and dated (THCEN)
+226009,Dressing applied and dated (THCEN)
+229822,Driveline Lock Engaged (VAD)
+221689,Drotrecogin (Xigris)
+223829,Drowsiness
+226432,Drugs (Intubation)
+226753,DswfApacheScore
+228153,Dual Signal Screen
+229670,Dual Signal Screen (R)
+225810,Dwell Time (Peritoneal Dialysis)
+224660,ECMO
+229529,ECMO Inflow Line
+229530,ECMO Outflow Line
+221223,EEG
+229614,EEG (Continuous)
+226272,EF (CCO)
+225402,EKG
+229514,EKOS
+229542,EKOS Dressing Change
+229541,EKOS Insertion Date
+229544,EKOS Line Discontinued
+229545,EKOS Line Site Appear
+229548,EKOS Position
+229546,EKOS US
+229547,EKOS site
+228179,ELWI (PiCCO)
+229584,EMG
+229576,ERCP (Done in unit)
+227550,ERCP (Travel to)
+220971,ESDEP (Solvent / Detergent Virus-Inactivated Plasma)
+225106,ETOH
+225585,ETT Depth (Intubation)
+223838,ETT Location
+224415,ETT Mark (cm)
+224391,ETT Mark (location)
+225277,ETT Position (cm at teeth)
+224392,ETT Position Change
+227809,ETT Position Change
+223840,ETT Re-taped
+227810,ETT Re-taped
+225278,ETT Route
+223837,ETT Size (ID)
+225592,ETT Size (Intubation)
+224832,ETT Type
+226429,ETT Type (Intubation)
+229519,EVD #1
+229520,EVD #2
+224651,Ectopy Frequency 1
+226480,Ectopy Frequency 2
+224650,Ectopy Type 1
+226479,Ectopy Type 2
+224862,Edema Amount
+224031,Edema Location
+224076,Education Barrier
+228880,Education Existing Knowledge
+224078,Education Handout
+224072,Education Learner
+224077,Education Method
+224075,Education Readiness
+228879,Education Readiness/Motivation
+224079,Education Response
+224073,Education Topic
+224151,Effluent Pressure
+227008,Ejection Fraction
+228107,Elective Postoperative Diagnoses
+229133,Elimination NCP - Expected outcomes
+229134,Elimination NCP - Interventions
+229123,Elimination NCP - Plan revised
+229122,Elimination NCP - Problem resolved
+229873,Emergency Equipment at bedside (CH)
+229267,Emergency Equipment at bedside (ECMO)
+229252,Emergency Equipment at bedside (LVAD)
+229253,Emergency Equipment at bedside (RVAD)
+228108,Emergency Postoperative Diagnoses
+226571,Emesis
+224006,Emesis Appearance
+225076,Emotional / physical / sexual harm by partner or close relation
+228056,Endobronchial ultrasound (EBUS) (Bronch)
+225527,Endobronchial ultrasound (EBUS) (Bronch)
+225439,Endoscopy
+228102,Enema administration
+228352,Enlive (1/2)
+228353,Enlive (1/4)
+228354,Enlive (3/4)
+228355,Enlive (Full)
+225906,Enoxaparin (Lovenox)
+221015,Ensure
+226876,Ensure (1/2)
+227091,Ensure (1/4)
+226875,Ensure (3/4)
+225937,Ensure (Full)
+229294,Ensure Clear (Full)
+221016,Ensure Plus
+226879,Ensure Plus (1/2)
+227092,Ensure Plus (1/4)
+226878,Ensure Plus (3/4)
+226877,Ensure Plus (Full)
+226221,Enteral Nutrition Ingredient
+226226,Enteral Nutriton Residuals
+224496,Entry site (LP)
+225260,Entry site (PACEN)
+223800,Epidural Appearance
+224411,Epidural Bolus (mL)
+224366,Epidural Infusion Rate (mL/hr)
+227119,Epidural Location
+224368,Epidural Medication
+227713,Epidural Placement
+224367,Epidural Total Dose (mL)
+221289,Epinephrine
+229617,Epinephrine.
+229366,Epoprostenol (Inhaled)
+229760,Epoprostenol (Veletri)
+225151,Eptifibatide (Integrilin)
+229061,Ertapenem sodium (Invanz)
+225866,Erythromycin
+221429,Esmolol
+229615,Esomeprazole (Nexium)
+226476,Esophogeal Balloon
+229783,Estimated Blood Loss (A-line)
+229790,Estimated Blood Loss (Bronch)
+229782,Estimated Blood Loss (CVL)
+229791,Estimated Blood Loss (GenProc)
+229792,Estimated Blood Loss (Intub)
+229793,Estimated Blood Loss (LP)
+229794,Estimated Blood Loss (MBAL)
+229796,Estimated Blood Loss (PACath)
+229797,Estimated Blood Loss (PICC)
+229795,Estimated Blood Loss (Para)
+229798,Estimated Blood Loss (Thora)
+226183,Estimated Energy Needs/Kg
+226184,Estimated Protein Needs/Kg
+228640,EtCO2
+228641,EtCO2 Clinical indication
+225868,Ethambutol
+227212,Etomidate (Intubation)
+226572,Ewald
+229454,Exam-Ext/MSK
+229453,Exam-GI/GU
+229594,Exam-GI/GU
+229592,Exam-GU
+229452,Exam-Neuro
+229455,Exam-Skin
+226518,Expected Discharge Date
+226871,Expiratory Ratio
+229383,Extraocular Movements
+227194,Extubation
+225184,Eye Care
+227462,FK506
+228261,FM CM Consult
+228263,FM Concerns elicited
+228264,FM Condition Rev
+228266,FM Date/Time
+228267,FM Discord noted
+228268,FM Dx reviewed
+228270,FM ICU-Hosp duration
+228271,FM Intepreter present
+228272,FM Location
+228273,FM Measures
+228265,FM Prehuddle
+228276,FM Prognosis reviewed
+228260,FM Pt Preferences
+228277,FM Pt present
+228282,FM SW consult
+228279,FM Spirit/cultural
+228283,FM Sx controlled
+228284,FM Time spent
+228285,FM Tx/goals
+227674,Face to Face Eval (Non-Violent)
+227949,Face to Face Eval (Non-violent)
+227675,Face to Face Eval (Violent)
+227966,Face to Face Eval (Violent)
+228399,Facial Droop
+221733,Factor VIII
+225914,Factor VIIa
+225474,Fall
+224024,Family Communication
+224447,Family Meeting
+228228,"Family meeting attempted, unable"
+228125,Family meeting held
+228126,Family met with Case Manager
+228127,Family met with Social Worker
+228136,Family notified of transfer
+228128,Family updated by MD
+228129,Family updated by RN
+225907,Famotidine (Pepcid)
+220387,Fat
+228691,Febrile last 24 hours
+226580,Fecal Bag
+226846,Feeding Weight
+223945,Femoral Pulse L
+223940,Femoral Pulse R
+221744,Fentanyl
+225942,Fentanyl (Concentrate)
+225972,Fentanyl (Push)
+229841,FiO2 (CH)
+229280,FiO2 (ECMO)
+229238,FiO2 Challenge
+229239,FiO2 Challenge Result
+226754,FiO2ApacheIIValue
+227010,FiO2_ApacheIV
+227009,FiO2_ApacheIV_old
+229574,Fiber Supplement (i.e. Banana Flakes)
+220388,Fibers
+227698,Fibersource HN (1/2)
+227699,Fibersource HN (1/4)
+227697,Fibersource HN (2/3)
+227696,Fibersource HN (3/4)
+227695,Fibersource HN (Full)
+221200,Fibrini
+221201,Fibrini Energy
+227468,Fibrinogen
+228118,Fick (PA line)
+224605,Fick (PA line)
+224150,Filter Pressure
+220969,Filtered erytrocytes
+229992,Filters changed (Anes)
+229987,Filters checked
+229990,Filters checked (Anes)
+229497,Final Position confirmed (SBNET)
+224005,Flatus
+229842,Flow (CH)
+229270,Flow (ECMO)
+229304,Flow (L/min) (HeartWare)
+229254,Flow (LVAD)
+229255,Flow (RVAD)
+229823,Flow (VAD)
+229843,Flow Alarm (Hi) (CH)
+229271,Flow Alarm (Hi) (ECMO)
+229256,Flow Alarm (Hi) (LVAD)
+229257,Flow Alarm (Hi) (RVAD)
+229844,Flow Alarm (Lo) (CH)
+229272,Flow Alarm (Lo) (ECMO)
+229258,Flow Alarm (Lo) (LVAD)
+229259,Flow Alarm (Lo) (RVAD)
+224692,Flow Pattern
+228154,Flow Rate (Impella)
+229671,Flow Rate (Impella) (R)
+224691,Flow Rate (L/min)
+224735,Flow Rate (variable/fixed)
+224865,Flow Sensitivity
+229874,Flow Sensor repositioned (CH)
+229273,Flow Sensor repositioned (ECMO)
+229260,Flow Sensor repositioned (LVAD)
+229261,Flow Sensor repositioned (RVAD)
+230032,Flow Sensor repositioned (Tandem)
+225869,Fluconazole
+225246,Fluid Removed (THCEN)
+225247,Fluid Removed Description (THCEN)
+224499,Fluid removed (LP)
+225261,Fluid removed (PACEN)
+225262,Fluid removed description (PACEN)
+220389,Fluoride
+225440,Fluoroscopy
+229872,Flutter Valve
+225923,Folate
+226559,Foley
+229352,Foley Cath Insertion Date
+229354,Foley Cath Insertion Location
+229353,Foley Cath Removal Date
+229351,Foley Catheter
+225832,Folic Acid
+220390,Folic Acid (ingr)
+228483,Follow Up Xray (Gen Proc)
+228047,Follow-up X-RAY Ordered (PICC)
+225288,Follow-up X-RAY Ordered (PICC)
+228093,Follow-up X-RAY Ordered (THCEN)
+225488,Follow-up X-RAY Ordered (THCEN)
+228122,Follow-up X-RAYordered (PA Line)
+225648,Follow-up X-RAYordered (PA Line)
+228037,Follow-up chest X-RAY ordered (CVL)
+225702,Follow-up chest X-RAY ordered (CVL)
+223910,Follows Commands
+225908,Fondaparinux
+227955,Food and Fluid
+229863,Forehead Sensor Position Changed
+229862,Forehead SpO2 Sensor in Place
+225871,Foscarnet
+227690,Fosphenytoin
+225797,Free Water
+225656,Freeform Chemistry
+225657,Freeform Coags
+225658,Freeform Drug Level
+225659,Freeform Enzymes
+225660,Freeform Hematology
+220970,Fresh Frozen Plasma
+221198,Fresubin Energy
+221199,Fresubin Energy Fibre
+221196,Fresubin Original
+221197,Fresubin Original Fibre
+223875,Fspn High
+227649,Fundus Character
+227650,Fundus Location (Breadth)
+221794,Furosemide (Lasix)
+228340,Furosemide (Lasix) 250/50
+220739,GCS - Eye Opening
+223901,GCS - Motor Response
+223900,GCS - Verbal Response
+226756,GCSEyeApacheIIValue
+227011,GCSEye_ApacheIV
+226757,GCSMotorApacheIIValue
+227012,GCSMotor_ApacheIV
+226758,GCSVerbalApacheIIValue
+228112,GCSVerbalApacheIIValue (intubated)
+227014,GCSVerbal_ApacheIV
+228180,GEDI (PiCCO)
+224007,GI #1 Intub Site
+224009,GI #1 Tube Drainage
+229300,GI #1 Tube Mark (CM)
+224010,GI #1 Tube Place Check
+228307,GI #1 Tube Place Check
+224814,GI #1 Tube Place Method
+227588,GI #1 Tube Place Method
+228308,GI #1 Tube Place Method
+224786,GI #1 Tube Status
+224785,GI #1 Tube Type
+224441,GI #2 Intub Site
+224445,GI #2 Tube Drainage
+229301,GI #2 Tube Mark (CM)
+224443,GI #2 Tube Place Check
+228309,GI #2 Tube Place Check
+224816,GI #2 Tube Place Method
+227589,GI #2 Tube Place Method
+228310,GI #2 Tube Place Method
+224789,GI #2 Tube Status
+224788,GI #2 Tube Type
+224442,GI #3 Intub Site
+224446,GI #3 Tube Drainage
+229302,GI #3 Tube Mark (CM)
+224444,GI #3 Tube Place Check
+228311,GI #3 Tube Place Check
+224818,GI #3 Tube Place Method
+227590,GI #3 Tube Place Method
+228312,GI #3 Tube Place Method
+224792,GI #3 Tube Status
+224791,GI #3 Tube Type
+227585,GI Guaiac
+227802,GI Guaiac QC
+229292,GI Prophy
+229767,GI Upset (COWS)
+227586,GI pH
+226453,GT Flush
+227584,GU Catheter D/C Date
+224878,GU Catheter Insertion Date
+224017,GU Catheter Size
+226403,GU Irrigant - Amphotericin B
+226401,GU Irrigant - Normal Saline
+226402,GU Irrigant - Sterile Water
+226407,GU Irrigant Intake Ingredient
+227487,GU Irrigant Type
+227488,GU Irrigant Volume In
+227489,GU Irrigant/Urine Volume Out
+223904,Gag Reflex
+227345,Gait/Transferring
+225873,Gancyclovir
+225799,Gastric Meds
+226573,Gastric Tube
+226755,GcsApacheIIScore
+227013,GcsScore_ApacheIV
+220974,Gelatin succinylated
+220973,Gelofusine
+226228,Gender
+225875,Gentamicin
+227448,Gentamicin (Peak)
+227447,Gentamicin (Random)
+227449,Gentamicin (Trough)
+228356,Glucerna (1/2)
+228357,Glucerna (1/4)
+228358,Glucerna (3/4)
+228359,Glucerna (Full)
+229013,Glucerna 1.2 (Full)
+229295,Glucerna 1.5 (Full)
+220395,Glucose (ingr)
+220621,Glucose (serum)
+226537,Glucose (whole blood)
+228388,Glucose (whole blood) (soft)
+228692,Glucose Control - Prophy
+225664,Glucose finger stick (range 70-100)
+227016,GlucoseScore_ApacheIV
+227015,Glucose_ApacheIV
+220396,Glutamic acid
+220397,Glutamine
+220981,Glycerol
+220399,Glycine
+229070,Glycopyrolate (Robinul)
+228299,Goal Richmond-RAS Scale
+224667,Goose Flesh
+229768,Gooseflesh Skin (COWS)
+223942,Graft/Flap Pulse
+229067,Granulocytes
+227831,Grooming
+230036,Grunting
+225717,Guidewire (A-Line)
+225629,Guidewire (PA Line)
+224339,Guidewire exchange (CVL)
+224571,Guidewire exchange (PICC)
+229498,Guidewire removed (SBNET)
+227443,HCO3 (serum)
+226759,HCO3ApacheIIValue
+226760,HCO3Score
+229306,HCT (HeartWare)
+229824,HCT (VAD)
+220624,HDL
+229032,HEENT
+228871,HM II- Backup Cont in room with pt settings
+228873,HM II- Flow
+228872,HM II- Mean BP
+228875,HM II- PI
+228869,HM II- Perc Lock fully engaged
+228876,HM II- Power
+228874,HM II- Speed (RPM)
+228870,HM II- Sys Cont in Prim Mode
+224721,HR > 140
+230037,HR per min
+227018,HR_ApacheIV
+221824,Haloperidol (Haldol)
+228468,Hand Cleansing (Gen Proc)
+228042,Hand Cleansing Prior to Procedure (PICC)
+225283,Hand Cleansing Prior to Procedure (PICC)
+228065,Hand Cleansing prior to procedure (Intubation)
+226190,Hand Cleansing prior to procedure (Intubation)
+229482,Hand cleansing prior to procedure  (SBNET)
+228020,Hand cleansing prior to procedure (A-Line)
+225567,Hand cleansing prior to procedure (A-Line)
+228051,Hand cleansing prior to procedure (Bronch)
+225536,Hand cleansing prior to procedure (Bronch)
+228032,Hand cleansing prior to procedure (CVL)
+225705,Hand cleansing prior to procedure (CVL)
+228072,Hand cleansing prior to procedure (LP)
+225601,Hand cleansing prior to procedure (LP)
+228437,Hand cleansing prior to procedure (MBAL)
+228114,Hand cleansing prior to procedure (PA Line)
+225607,Hand cleansing prior to procedure (PA Line)
+228081,Hand cleansing prior to procedure (PACEN)
+225503,Hand cleansing prior to procedure (PACEN)
+228088,Hand cleansing prior to procedure (THCEN)
+225486,Hand cleansing prior to procedure (THCEN)
+224080,Head of Bed
+226170,Head of Bed Measurement
+223820,Headache
+223760,Health Care Proxy
+220045,Heart Rate
+220047,Heart Rate Alarm - Low
+220048,Heart Rhythm
+224389,Heart Sounds
+220046,Heart rate Alarm - High
+223933,Heat Sounds
+226707,Height
+226730,Height (cm)
+227808,Heliox
+220545,Hematocrit (serum)
+226540,Hematocrit (whole blood - calc)
+226761,HematocritApacheIIScore
+226762,HematocritApacheIIValue
+227017,Hematocrit_ApacheIV
+228701,Hematological / Skin
+228693,Hematological_OLD_1
+225441,Hemodialysis
+226499,Hemodialysis Output
+220228,Hemoglobin
+226604,Hemovac #1
+226605,Hemovac #2
+225958,Heparin Concentration (units/mL)
+224145,Heparin Dose (per hour)
+225152,Heparin Sodium
+230044,Heparin Sodium (CRRT-Prefilter)
+229597,Heparin Sodium (Impella)
+225975,Heparin Sodium (Prophylaxis)
+225921,Hepatamine
+225174,Hetastarch (Hespan) 6%
+220978,Hetastarch (ingr)
+220979,"Hetastarch 6% (Saline 0,9%)"
+221194,Hexastarch
+221195,"Hexastarch 6% (Elohaes) / Saline 0,9%"
+220980,Hextend (Hetastarch 6% in Lactate)
+229308,High Power Alarm (HeartWare)
+229825,High Watts Alarm (VAD)
+227349,High risk (>51) interventions
+220402,Histidine
+227341,History of falling (within 3 mnths)
+225094,History of slips / falls
+227839,Home Management
+228648,Home TF
+225414,Home without services
+226724,Hospital Admit Date
+224191,Hourly Patient Fluid Removal
+226763,HrApacheIIScore
+226764,HrApacheIIValue
+227019,HrScore_ApacheIV
+227020,HtScore_ApacheIV
+227517,Humidification
+229245,Humidifier Water % Fill Level
+229244,Humidifier Water Changed
+221828,Hydralazine
+225924,Hydrochloric Acid
+225167,Hydrochloric Acid - HCL
+221833,Hydromorphone (Dilaudid)
+228028,I was present during the above procedure and agree with the chacklist (A-Line)
+228064,I was present during the above procedure and agree with the checklist (Bronch)
+228040,I was present during the above procedure and agree with the checklist (CVL)
+228071,I was present during the above procedure and agree with the checklist (Intubation)
+228079,I was present during the above procedure and agree with the checklist (LP)
+228124,I was present during the above procedure and agree with the checklist (PA Line)
+228086,I was present during the above procedure and agree with the checklist (PACEN)
+228050,I was present during the above procedure and agree with the checklist (PICC)
+229496,I was present during the above procedure and agree with the checklist (SBNET)
+228095,I was present during the above procedure and agree with the checklist (THCEN)
+225981,IABP Alarms Activated
+225341,IABP Art. Waveform Appear
+225986,IABP Arterial Waveform Source
+225982,IABP Balloon Waveform
+225335,IABP Cap Change
+225336,IABP Change over Wire Date
+225337,IABP Dressing Change
+227355,IABP Dressing Occlusive
+225778,IABP Dressing Type
+225985,IABP Helium Tubing
+225338,IABP Insertion Date
+225742,IABP Line Discontinued
+225727,IABP Line Tip Cultured
+224322,IABP Mean
+227754,IABP Placement Confirmed by X-ray
+225988,IABP Position on leg
+225987,IABP Power Source
+225339,IABP Site Appear
+225979,IABP Size
+225984,IABP Trigger
+225340,IABP Tubing Change
+225980,IABP Volume
+225342,IABP Zero/Calibrate
+224272,IABP line
+226110,IABP placed in outside facility
+229518,ICP - Camino
+229539,ICP - Camino marked
+229521,ICP - PbtO2
+226474,ICP Bolt Inserted
+226124,ICP Catheter
+226125,ICP Line Discontinued
+226126,ICP Line Dressing Change
+227363,ICP Line Dressing Occlusive
+226127,ICP Line Dressing Type
+226128,ICP Line Insertion Date
+226130,ICP Line Site Appear
+226131,ICP Line Tip Cultured
+226132,ICP Line Tubing Change
+226133,ICP Line Waveform Appear
+226134,ICP Line Zero/Calibrate
+226129,ICP Line placed in outside facility
+220003,ICU Admission date
+228694,ICU Consent
+226185,ICU Consent Signed
+227467,INR
+228290,IO Dressing
+228291,IO Insertion Date
+228292,IO Placed in outside facility
+228293,IO Site Appearance
+228294,IO Wristband in place
+228181,ITBVI (PiCCO)
+227530,IV Immune Globulin (IVIG)
+227344,IV/Saline lock
+227074,IVF ingredient
+226584,Ileoconduit
+225876,Imipenem/Cilastatin
+228038,Immediate complications (CVL)
+225700,Immediate complications (CVL)
+228048,Immediate complications (PICC)
+225708,Immediate complications (PICC)
+227663,Immobilizer
+227664,Immobilizer Device
+227665,Immobilizer Evaluated
+227666,Immobilizer Location
+226023,Impact (1/2)
+226020,Impact (1/4)
+226021,Impact (2/3)
+226022,Impact (3/4)
+221207,Impact (Full)
+226027,Impact with Fiber (1/2)
+226024,Impact with Fiber (1/4)
+226025,Impact with Fiber (2/3)
+226026,Impact with Fiber (3/4)
+225928,Impact with Fiber (Full)
+228894,Impaired Fluid Balance NCP - Expected outcomes
+228895,Impaired Fluid Balance NCP - Goal
+228898,Impaired Fluid Balance NCP - Interventions
+228897,Impaired Fluid Balance NCP - Outcomes met
+229098,Impaired Fluid Balance NCP - Plan revised
+229099,Impaired Fluid Balance NCP - Problem resolved
+229347,Impaired Mobility  NCP - Interventions
+229344,Impaired Mobility NCP - Expected outcomes
+229350,Impaired Mobility NCP - Plan revised
+229349,Impaired Mobility NCP - Problem resolved
+227790,Impaired Skin  - Dressing Change #1
+227800,Impaired Skin  - Dressing Change #10
+227791,Impaired Skin  - Dressing Change #2
+227792,Impaired Skin  - Dressing Change #3
+227793,Impaired Skin  - Dressing Change #4
+227794,Impaired Skin  - Dressing Change #5
+227795,Impaired Skin  - Dressing Change #6
+227796,Impaired Skin  - Dressing Change #7
+227797,Impaired Skin  - Dressing Change #8
+227798,Impaired Skin  - Dressing Change #9
+227787,Impaired Skin  - Dressing Status  #8
+227780,Impaired Skin  - Dressing Status #1
+227789,Impaired Skin  - Dressing Status #10
+227781,Impaired Skin  - Dressing Status #2
+227782,Impaired Skin  - Dressing Status #3
+227784,Impaired Skin  - Dressing Status #5
+227785,Impaired Skin  - Dressing Status #6
+227786,Impaired Skin  - Dressing Status #7
+227788,Impaired Skin  - Dressing Status #9
+228518,Impaired Skin #1- Cleanse
+228600,Impaired Skin #1- Dressing Status
+228496,Impaired Skin #1- Location
+228529,Impaired Skin #1- Treatment
+228516,Impaired Skin #1- Type
+228853,Impaired Skin #1- Type
+228527,Impaired Skin #10- Cleanse
+228609,Impaired Skin #10- Dressing Status
+228505,Impaired Skin #10- Location
+228538,Impaired Skin #10- Treatment
+228585,Impaired Skin #10- Type
+228862,Impaired Skin #10- Type
+228519,Impaired Skin #2- Cleanse
+228601,Impaired Skin #2- Dressing Status
+228497,Impaired Skin #2- Location
+228530,Impaired Skin #2- Treatment
+228577,Impaired Skin #2- Type
+228854,Impaired Skin #2- Type
+228520,Impaired Skin #3- Cleanse
+228602,Impaired Skin #3- Dressing Status
+228498,Impaired Skin #3- Location
+228531,Impaired Skin #3- Treatment
+228578,Impaired Skin #3- Type
+228855,Impaired Skin #3- Type
+228521,Impaired Skin #4- Cleanse
+228603,Impaired Skin #4- Dressing Status
+228499,Impaired Skin #4- Location
+228532,Impaired Skin #4- Treatment
+228579,Impaired Skin #4- Type
+228856,Impaired Skin #4- Type
+228522,Impaired Skin #5- Cleanse
+228604,Impaired Skin #5- Dressing Status
+228500,Impaired Skin #5- Location
+228533,Impaired Skin #5- Treatment
+228580,Impaired Skin #5- Type
+228857,Impaired Skin #5- Type
+228523,Impaired Skin #6- Cleanse
+228605,Impaired Skin #6- Dressing Status
+228501,Impaired Skin #6- Location
+228534,Impaired Skin #6- Treatment
+228581,Impaired Skin #6- Type
+228858,Impaired Skin #6- Type
+228524,Impaired Skin #7- Cleanse
+228606,Impaired Skin #7- Dressing Status
+228502,Impaired Skin #7- Location
+228535,Impaired Skin #7- Treatment
+228582,Impaired Skin #7- Type
+228859,Impaired Skin #7- Type
+228525,Impaired Skin #8- Cleanse
+228607,Impaired Skin #8- Dressing Status
+228503,Impaired Skin #8- Location
+228536,Impaired Skin #8- Treatment
+228583,Impaired Skin #8- Type
+228860,Impaired Skin #8- Type
+228526,Impaired Skin #9- Cleanse
+228608,Impaired Skin #9- Dressing Status
+228504,Impaired Skin #9- Location
+228537,Impaired Skin #9- Treatment
+228584,Impaired Skin #9- Type
+228861,Impaired Skin #9- Type
+227783,Impaired Skin - Dressing Status  #4
+224037,Impaired Skin Cleanse #1
+227595,Impaired Skin Cleanse #10
+224888,Impaired Skin Cleanse #2
+224889,Impaired Skin Cleanse #3
+224890,Impaired Skin Cleanse #4
+224891,Impaired Skin Cleanse #5
+224892,Impaired Skin Cleanse #6
+224893,Impaired Skin Cleanse #7
+224894,Impaired Skin Cleanse #8
+227594,Impaired Skin Cleanse #9
+224563,Impaired Skin Depth #1
+227597,Impaired Skin Depth #10
+224895,Impaired Skin Depth #2
+224896,Impaired Skin Depth #3
+224897,Impaired Skin Depth #4
+224898,Impaired Skin Depth #5
+224899,Impaired Skin Depth #6
+224900,Impaired Skin Depth #7
+224901,Impaired Skin Depth #8
+227596,Impaired Skin Depth #9
+224259,Impaired Skin Drainage #1
+227599,Impaired Skin Drainage #10
+224902,Impaired Skin Drainage #2
+224903,Impaired Skin Drainage #3
+224904,Impaired Skin Drainage #4
+224905,Impaired Skin Drainage #5
+224906,Impaired Skin Drainage #6
+224907,Impaired Skin Drainage #7
+224908,Impaired Skin Drainage #8
+227598,Impaired Skin Drainage #9
+224847,Impaired Skin Drainage Amount #1
+227601,Impaired Skin Drainage Amount #10
+224909,Impaired Skin Drainage Amount #2
+224910,Impaired Skin Drainage Amount #3
+224911,Impaired Skin Drainage Amount #4
+224912,Impaired Skin Drainage Amount #5
+224913,Impaired Skin Drainage Amount #6
+224914,Impaired Skin Drainage Amount #7
+224915,Impaired Skin Drainage Amount #8
+227600,Impaired Skin Drainage Amount #9
+224562,Impaired Skin Length #1
+227603,Impaired Skin Length #10
+224916,Impaired Skin Length #2
+224917,Impaired Skin Length #3
+224918,Impaired Skin Length #4
+224919,Impaired Skin Length #5
+224920,Impaired Skin Length #6
+224921,Impaired Skin Length #7
+224922,Impaired Skin Length #8
+227602,Impaired Skin Length #9
+224564,Impaired Skin Odor #1
+227605,Impaired Skin Odor #10
+224923,Impaired Skin Odor #2
+224924,Impaired Skin Odor #3
+224925,Impaired Skin Odor #4
+224926,Impaired Skin Odor #5
+224927,Impaired Skin Odor #6
+224928,Impaired Skin Odor #7
+224929,Impaired Skin Odor #8
+227604,Impaired Skin Odor #9
+224032,Impaired Skin Site #1
+227607,Impaired Skin Site #10
+224930,Impaired Skin Site #2
+224931,Impaired Skin Site #3
+224932,Impaired Skin Site #4
+224933,Impaired Skin Site #5
+224934,Impaired Skin Site #6
+224935,Impaired Skin Site #7
+224936,Impaired Skin Site #8
+227606,Impaired Skin Site #9
+224038,Impaired Skin Treatment #1
+227609,Impaired Skin Treatment #10
+224937,Impaired Skin Treatment #2
+224938,Impaired Skin Treatment #3
+224939,Impaired Skin Treatment #4
+224940,Impaired Skin Treatment #5
+224941,Impaired Skin Treatment #6
+224942,Impaired Skin Treatment #7
+224943,Impaired Skin Treatment #8
+227608,Impaired Skin Treatment #9
+224561,Impaired Skin Type #1
+227613,Impaired Skin Type #10
+224944,Impaired Skin Type #2
+224945,Impaired Skin Type #3
+224946,Impaired Skin Type #4
+224947,Impaired Skin Type #5
+224948,Impaired Skin Type #6
+224949,Impaired Skin Type #7
+224950,Impaired Skin Type #8
+227612,Impaired Skin Type #9
+224846,Impaired Skin Width #1
+227615,Impaired Skin Width #10
+224951,Impaired Skin Width #2
+224952,Impaired Skin Width #3
+224953,Impaired Skin Width #4
+224954,Impaired Skin Width #5
+224955,Impaired Skin Width #6
+224956,Impaired Skin Width #7
+224957,Impaired Skin Width #8
+227614,Impaired Skin Width #9
+224226,Impaired Skin Wound Base #1
+227617,Impaired Skin Wound Base #10
+224958,Impaired Skin Wound Base #2
+224959,Impaired Skin Wound Base #3
+224960,Impaired Skin Wound Base #4
+224961,Impaired Skin Wound Base #5
+224962,Impaired Skin Wound Base #6
+224963,Impaired Skin Wound Base #7
+224964,Impaired Skin Wound Base #8
+227616,Impaired Skin Wound Base #9
+228924,Impaired Tissue Perfusion NCP - Expected outcomes
+228926,Impaired Tissue Perfusion NCP - Goal
+228928,Impaired Tissue Perfusion NCP - Interventions
+228930,Impaired Tissue Perfusion NCP - Outcomes met
+229100,Impaired Tissue Perfusion NCP - Plan revised
+229101,Impaired Tissue Perfusion NCP - Problem resolved
+228160,Impella Aortic Pressure Tubing Change
+228162,Impella Catheter Position
+228163,Impella Catheter Repositioned
+228164,Impella Catheter Site
+228165,Impella Daily Tubing Change
+228166,Impella Dressing Change
+228167,Impella Dressing Occlusive
+228168,Impella Insertion Date
+228169,Impella Line
+228170,Impella Line Discontinued
+228174,Impella Line Site Appear
+229680,Impella Line Type
+228171,Impella Placement Confirmed
+228173,Impella Position
+228172,Impella Postion Confirmed
+227807,In-line Suction Catheter Changed
+225189,Incentive Spirometry
+228565,Incision #1- Cleanse
+228594,Incision #1- Dressing Status
+228559,Incision #1- Location
+228571,Incision #1- Treatment
+229022,Incision #10- Cleanse
+229040,Incision #10- Dressing Status
+229018,Incision #10- Location
+229031,Incision #10- Treatment
+228566,Incision #2- Cleanse
+228595,Incision #2- Dressing Status
+228560,Incision #2- Location
+228572,Incision #2- Treatment
+228567,Incision #3- Cleanse
+228596,Incision #3- Dressing Status
+228561,Incision #3- Location
+228573,Incision #3- Treatment
+228568,Incision #4- Cleanse
+228597,Incision #4- Dressing Status
+228562,Incision #4- Location
+228574,Incision #4- Treatment
+228569,Incision #5- Cleanse
+228598,Incision #5- Dressing Status
+228563,Incision #5- Location
+228575,Incision #5- Treatment
+228570,Incision #6- Cleanse
+228599,Incision #6- Dressing Status
+228564,Incision #6- Location
+228576,Incision #6- Treatment
+229019,Incision #7- Cleanse
+229037,Incision #7- Dressing Status
+229015,Incision #7- Location
+229028,Incision #7- Treatment
+229020,Incision #8- Cleanse
+229038,Incision #8- Dressing Status
+229016,Incision #8- Location
+229029,Incision #8- Treatment
+229021,Incision #9- Cleanse
+229039,Incision #9- Dressing Status
+229017,Incision #9- Location
+229030,Incision #9- Treatment
+224848,Incision Appearance #1
+229036,Incision Appearance #10
+224993,Incision Appearance #2
+224994,Incision Appearance #3
+224995,Incision Appearance #4
+224996,Incision Appearance #5
+224997,Incision Appearance #6
+229033,Incision Appearance #7
+229034,Incision Appearance #8
+229035,Incision Appearance #9
+224043,Incision Cleansing #1
+224998,Incision Cleansing #2
+224999,Incision Cleansing #3
+225000,Incision Cleansing #4
+225001,Incision Cleansing #5
+225002,Incision Cleansing #6
+224040,Incision Closure #1
+229044,Incision Closure #10
+225004,Incision Closure #2
+225005,Incision Closure #3
+225006,Incision Closure #4
+225007,Incision Closure #5
+225003,Incision Closure #6
+229041,Incision Closure #7
+229042,Incision Closure #8
+229043,Incision Closure #9
+224041,Incision Drainage #1
+229048,Incision Drainage #10
+225013,Incision Drainage #2
+225014,Incision Drainage #3
+225015,Incision Drainage #4
+225016,Incision Drainage #5
+225017,Incision Drainage #6
+229045,Incision Drainage #7
+229046,Incision Drainage #8
+229047,Incision Drainage #9
+224850,Incision Drainage Amount #1
+229052,Incision Drainage Amount #10
+225018,Incision Drainage Amount #2
+225019,Incision Drainage Amount #3
+225020,Incision Drainage Amount #4
+225021,Incision Drainage Amount #5
+225022,Incision Drainage Amount #6
+229049,Incision Drainage Amount #7
+229050,Incision Drainage Amount #8
+229051,Incision Drainage Amount #9
+224042,Incision Dressing #1
+225023,Incision Dressing #2
+225024,Incision Dressing #3
+225025,Incision Dressing #4
+225026,Incision Dressing #5
+225027,Incision Dressing #6
+224044,Incision Packing #1
+225043,Incision Packing #2
+225044,Incision Packing #3
+225045,Incision Packing #4
+225046,Incision Packing #5
+225047,Incision Packing #6
+227472,Incision Site #1
+227473,Incision Site #2
+227474,Incision Site #3
+227475,Incision Site #4
+227476,Incision Site #5
+227477,Incision Site #6
+226713,Incontinent/voids (estimate)
+228460,Indication (Gen Proc)
+225291,Indication (Intubation)
+224489,Indication (LP)
+225254,Indication (PACEN)
+225242,Indication (THCEN)
+226525,Indications (A-Line)
+225511,Indications (Bronch)
+225578,Indications (CVL)
+228430,Indications (MBAL)
+224472,Indications (PA line)
+225281,Indications (PICC)
+229477,Indications (SBNET)
+225271,Induction/Drugs/Doses (Intubation)
+227361,Indwelling (PortaCath) Dressing Change
+227127,Indwelling (PortaCath) Port #1
+227126,Indwelling (PortaCath) Port #1 Date Accessed
+227198,Indwelling (PortaCath) Port #1 Date De-accessed
+227128,Indwelling (PortaCath) Port #2
+227197,Indwelling (PortaCath) Port #2 Date Accessed
+227199,Indwelling (PortaCath) Port #2 Date De-accessed
+227125,Indwelling (PortaCath) Port Type
+229532,Indwelling Port
+225202,Indwelling Port (PortaCath)
+225375,Indwelling Port (PortaCath) Cap Change
+225376,Indwelling Port (PortaCath) Change over Wire Date
+225748,Indwelling Port (PortaCath) Discontinued
+225377,Indwelling Port (PortaCath) Dressing Change
+227360,Indwelling Port (PortaCath) Dressing Occlusive
+225784,Indwelling Port (PortaCath) Dressing Type
+225378,Indwelling Port (PortaCath) Insertion Date
+225733,Indwelling Port (PortaCath) Line Tip Cultured
+229475,Indwelling Port (PortaCath) Power Port
+225379,Indwelling Port (PortaCath) Site Appear
+227439,Indwelling Port (PortaCath) placed in outside facility
+225380,Indwelling Port (PortaCath)Tubing Change
+229681,Indwelling Urinary Catheter Care
+221202,Infatrini
+228943,Infection NCP - Expected outcomes
+228945,Infection NCP - Goal
+228947,Infection NCP - Interventions
+229102,Infection NCP - Plan revised
+229103,Infection NCP - Problem resolved
+228949,Infection NCP - outcomes met
+228190,Infusate Drops/Minute
+228191,Infusion Pressure of Line
+229504,Inner Cannula Change
+220407,Inositol
+228019,Insertion kit used (A-Line)
+225565,Insertion kit used (A-Line)
+228031,Insertion kit used (CVL)
+225706,Insertion kit used (CVL)
+225599,Insertion kit used (LP)
+228113,Insertion kit used (PA line)
+225608,Insertion kit used (PA line)
+228080,Insertion kit used (PACEN)
+225501,Insertion kit used (PACEN)
+228041,Insertion kit used (PICC Line)
+225689,Insertion kit used (PICC Line)
+228087,Insertion kit used (THCEN)
+225485,Insertion kit used (THCEN)
+225552,Insertion site (A-Line)
+224337,Insertion site (CVL)
+224476,Insertion site (PA line)
+224512,Insertion site (PICC)
+225256,Insertion site prepped and draped (PACEN)
+223823,Insomnia
+226873,Inspiratory Ratio
+224738,Inspiratory Time
+223872,Inspired Gas Temp.
+223835,Inspired O2 Fraction
+223257,Insulin - 70/30
+223260,Insulin - Glargine
+223262,Insulin - Humalog
+223261,Insulin - Humalog 75/25
+223259,Insulin - NPH
+229299,Insulin - Novolog
+223258,Insulin - Regular
+229619,Insulin - U500
+226222,Insulin Ingredient
+228236,Insulin pump
+230045,Intellivent (Hamilton Vent Mode)
+225090,Interpreter
+230046,Interpreter Used
+225462,Interventional Radiology
+220120,Intra Aortic Ballon Pump Setting
+227980,Intra Aortic Balloon Pump Setting
+220765,Intra Cranial Pressure
+227989,Intra Cranial Pressure #2
+227990,Intra Cranial Pressure #2 Alarm - High
+227991,Intra Cranial Pressure #2 Alarm - Low
+223767,Intra Cranial Pressure Alarm - High
+223768,Intra Cranial Pressure Alarm - Low
+220984,Intralipid 10%
+220985,Intralipid 20%
+220986,Intralipid 30%
+228286,Intraosseous Device
+225103,Intravenous  / IV access prior to admission
+226475,Intraventricular Drain Inserted
+227021,Intubated_ApacheIV
+224385,Intubation
+223059,Intubation - Details
+225792,Invasive Ventilation
+220408,Iodine
+225667,Ionized Calcium
+220410,Iron (ingr)
+228030,Is alternative vascular access present (CVL)
+225580,Is alternative vascular access present (CVL)
+225067,Is the spokesperson the Health Care Proxy
+229983,Isoflurane (Inhaled)
+220411,Isoleucine
+225877,Isoniazid
+228131,Isosource 1.5 (1/2)
+228132,Isosource 1.5 (1/4)
+228133,Isosource 1.5 (2/3)
+228134,Isosource 1.5 (3/4)
+228135,Isosource 1.5 (Full)
+227692,Isuprel
+226598,JP Lateral
+226597,JP Medial
+226599,Jackson Pratt #1
+226600,Jackson Pratt #2
+226601,Jackson Pratt #3
+226602,Jackson Pratt #4
+226574,Jejunostomy
+221038,Jevity
+221037,Jevity 1.2
+229010,Jevity 1.2 (Full)
+229011,Jevity 1.5 (Full)
+225099,Judgement
+225834,K Phos
+227522,KCL (Bolus)
+227521,KCL Bolus)
+227536,KCl (CRRT)
+227691,Keflex
+221712,Ketamine
+227211,Ketamine (Intubation)
+229072,Ketorolac (Toradol)
+220412,Kilogram calory
+220413,Kilojoule
+224090,Knee Immobilizer Status
+227636,Knee Location - CPM
+225048,Knee Location - Immobilizer
+226814,Known difficult intubation
+226565,L Nephrostomy
+226590,L Pleural #1
+226591,L Pleural #2
+226558,L Ureteral Stent
+220415,L-carnitine
+220632,LDH
+225671,LDL calculated
+227441,LDL measured
+227834,LE Bathing
+227836,LE Dressing
+223920,LL Strength/Movement
+223983,LLE Color
+224762,LLE Sensation
+224773,LLE Temp
+223989,LLL Lung Sounds
+227022,LOS pre-ICU admission
+225828,LR
+223919,LU Strength/Movement
+223982,LUE Color
+224759,LUE Sensation
+224769,LUE Temp
+223988,LUL Lung Sounds
+229898,LVEDP (Impella)
+225153,Labetalol
+224670,Lacrimation
+220948,Lactate (ingr)
+225668,Lactic Acid
+225909,Lansoprazole (Prevacid)
+225128,Last dialysis
+226719,Last menses
+221032,Lauric acid
+229986,Leak test done (Anes)
+220983,Lecithin
+220069,Left Artrial Pressure
+220125,Left Ventricular Assit Device Flow
+229900,Left Ventricular Pressure Signal - Diastolic
+229899,Left Ventricular Pressure Signal - Systolic
+228372,Leg Raise Result (NICOM)
+226889,Legal Guardian
+221892,Lepirudin
+227958,Less Restrictive Measures
+224062,Less Restrictive Measures (Acute Med/Surgical)
+224857,Less Restrictive Measures (Behavioral)
+227681,Less Restrictive Measures_V1
+220417,Leucine
+226104,Level of Consciousness
+228316,Levetiracetam (Keppra)
+225879,Levofloxacin
+225945,Lidocaine
+224491,Lidocaine 1% (LP)
+225257,Lidocaine 1% (PACEN)
+224505,Lidocaine 1% (THCEN)
+229580,Line Placement at Bedside
+229535,Line Type
+228702,Lines/Tubes
+228695,Lines/Tubes_OLD_1
+225881,Linezolid
+220494,Linoleic acids
+220418,Linolenic acids
+225672,Lipase
+225969,Lipids (additive)
+227090,Lipids 10%
+225801,Lipids 20%
+225442,Liver Biopsy
+225072,Living situation
+225714,Location (A-Line)
+225516,Location (Bronch)
+225581,Location (CVL)
+228456,Location (Gen Proc)
+225615,Location (PA line)
+224508,Location (PICC)
+227651,Lochia Character
+227652,Lochia Estimate
+230038,Look of fear
+221385,Lorazepam (Ativan)
+229307,Low Flow Alarm (HeartWare)
+229826,Low Flow Alarm (VAD)
+229836,Low Speed Limit (VAD)
+229895,Low Speed Limit (VAD)
+227348,Low risk (25-50) interventions
+226610,Lumbar
+229524,Lumbar Drain
+225399,Lumbar Puncture
+220421,Lysine
+229526,MAC
+227023,MAP_ApacheIV
+224170,MDI #1 Drug
+224169,MDI #1 Puff
+224173,MDI #2 Drug
+224172,MDI #2 Puff
+224176,MDI #3 Drug
+224175,MDI #3 Puff
+229502,MDnoteConsent
+229985,Machine checked (Anes)
+220635,Magnesium
+220422,Magnesium (ingr)
+222011,Magnesium Sulfate
+227523,Magnesium Sulfate (Bolus)
+227524,Magnesium Sulfate (OB-GYN)
+223253,Magnetic Resonance Imaging
+222871,Mallampati classification (Intubation)
+225296,Mandibular Prognatism (Intubation)
+220423,Manganese
+227531,Mannitol
+220989,Mannitol 10%
+220990,Mannitol 15%
+220991,Mannitol 20%
+220992,Mannitol 25%
+220988,Mannitol 5%
+229605,Manometry
+229718,Manometry (PACath)
+229606,Manometry Method
+229719,Manometry Method (PACath)
+224643,Manual Blood Pressure Diastolic Left
+227242,Manual Blood Pressure Diastolic Right
+224167,Manual Blood Pressure Systolic Left
+227243,Manual Blood Pressure Systolic Right
+226765,MapApacheIIScore
+226766,MapApacheIIValue
+227024,MapScore_ApacheIV
+225303,Mask Ventilation (Intubation)
+229620,Massive Transfusion
+224697,Mean Airway Pressure
+229827,Mean BP (VAD)
+226260,Mechanically Ventilated
+226592,Mediastinal
+225952,Medication Added #1 (Peritoneal Dialysis)
+227638,Medication Added #2 (Peritoneal Dialysis)
+225959,Medication Added Amount  #1 (Peritoneal Dialysis)
+227639,Medication Added Amount  #2 (Peritoneal Dialysis)
+225961,Medication Added Units #1 (Peritoneal Dialysis)
+227640,Medication Added Units #2 (Peritoneal Dialysis)
+227813,Medication Bolus - Adjunctive Pain Management
+227812,Medication Infusion Rate - Adjunctive Pain Management
+224469,Medications / anesthetic (PA line)
+225882,Mefloquine
+220424,Menaquinon
+227346,Mental status
+225973,Meperidine (Demerol)
+225883,Meropenem
+229143,Metabolic disturbance NCP - Expected outcomes
+229145,Metabolic disturbance NCP - Interventions
+229147,Metabolic disturbance NCP - Plan revised
+229148,Metabolic disturbance NCP - Problem resolved
+227520,Methadone Hydrochloride
+220426,Methionine
+225974,Metoprolol
+225884,Metronidazole
+225885,Micafungin
+221668,Midazolam (Versed)
+225204,Midline
+225343,Midline Cap Change
+225344,Midline Change over Wire Date
+225743,Midline Discontinued
+225345,Midline Dressing Change
+227418,Midline Dressing Occlusive
+225779,Midline Dressing Type
+225346,Midline Insertion Date
+227755,Midline Placement Confirmed by X-ray
+225347,Midline Site Appear
+225728,Midline Tip Cultured
+225348,Midline Tubing Change
+226112,Midline placed in outside facility
+225995,Mighty Shake (Chocolate)
+225994,Mighty Shake (Vanilla/Strawberry)
+225996,Mighty Shake (no sugar added)
+221986,Milrinone
+224687,Minute Volume
+220293,Minute Volume Alarm - High
+220292,Minute Volume Alarm - Low
+225674,Mixed Venous O2% Sat
+228697,Mobilization Plan
+220427,Molybdenum
+227840,Money Management
+225154,Morphine Sulfate
+229311,Motor Current (mA) High
+229673,Motor Current (mA) High (R)
+229312,Motor Current (mA) Low
+229674,Motor Current (mA) Low (R)
+227120,Motor Deficit
+228404,Motor L Arm
+228405,Motor L Leg
+228406,Motor R Arm
+228407,Motor R Leg
+225294,Mouth Opening (Intubation)
+225886,Moxifloxacin
+224263,Multi Lumen
+229534,Multi Lumen - Obturator in place
+224261,Multi Lumen Cap Change
+224262,Multi Lumen Change over Wire Date
+229517,Multi Lumen Cooling Catheter
+224279,Multi Lumen Dressing Change
+227293,Multi Lumen Dressing Occlusive
+225780,Multi Lumen Dressing Type
+224280,Multi Lumen Insertion Date
+225744,Multi Lumen Line Discontinued
+225729,Multi Lumen Line Tip Cultured
+227756,Multi Lumen Placement Confirmed by X-ray
+224281,Multi Lumen Site Appear
+224282,Multi Lumen Tubing Change
+224283,Multi Lumen Waveform Appear
+225206,Multi Lumen Zero/Calibrate
+226113,Multi Lumen placed in outside facility
+225830,Multivitamins
+224675,Muscle Aches
+228703,Musculoskeletal
+229417,MyICU Reviewed
+229062,Mycophenolate mofetil (Cellcept)
+220429,Myristic acid
+227240,NBP Alarm Source
+228130,NEOB notified
+225949,NIV Mask
+223801,NMB Medication
+229894,NPT 30 mattress pump in use
+225835,Na Phos
+225159,NaCl 0.45%
+225158,NaCl 0.9%
+228341,NaCl 23.4%
+225161,NaCl 3% (Hypertonic Saline)
+225888,Nafcillin
+222021,Naloxone (Narcan)
+224879,Nares L
+224000,Nares R
+224666,Nasal Congestion
+225308,Nasal ETT
+225966,Nasal Swab
+230039,Nasal flaring.
+226575,Nasogastric
+224676,Nausea and Vomiting (CINA)
+223805,Nausea and Vomiting (CIWA)
+225298,Neck ROM (Intubation)
+224419,Negative Insp. Force
+229071,Neostigmine (Prostigmin)
+225922,Nephramine
+228348,Nepro (1/2)
+228349,Nepro (1/4)
+228350,Nepro (3/4)
+228351,Nepro (Full)
+223802,Nerve Stimulated
+222037,Nesiritide
+223932,Neuro Drain #1 Drainage
+227985,Neuro Drain #1 Landmark
+223930,Neuro Drain #1 Level
+223931,Neuro Drain #1 Status
+223926,Neuro Drain #1 Type
+227983,Neuro Drain #2 Drainage
+227986,Neuro Drain #2 Landmark
+227984,Neuro Drain #2 Level
+227982,Neuro Drain #2 Status
+227981,Neuro Drain #2 Type
+224765,Neuro Drain Head of Bed
+227122,Neuro Drain Landmark
+227591,Neuro Drain Landmark
+224764,Neuro Drain Location
+229243,Neuro Mon Line Type
+223921,Neuro Symptoms
+224380,Neuro Waveform Appearance
+228704,Neurological
+228402,Neurological Symptoms
+220432,Niacin
+222042,Nicardipine
+229624,Nicardipine 40mg/200
+224749,Nitric Oxide
+224750,Nitric Oxide Tank Pressure
+220435,Nitrogen
+222056,Nitroglycerin
+222051,Nitroprusside
+229996,Nitrous Oxide (Inhaled)
+226166,No Complications (Intubation)
+225300,No Drugs Administered (Intubation)
+229865,No Pressure Injury Present
+220180,Non Invasive Blood Pressure diastolic
+220181,Non Invasive Blood Pressure mean
+220179,Non Invasive Blood Pressure systolic
+223751,Non-Invasive Blood Pressure Alarm - High
+223752,Non-Invasive Blood Pressure Alarm - Low
+227025,Non-Operative Cardiovascular (CARDIOVASC)
+227026,Non-Operative Gastrointestinal (GI)
+227027,Non-Operative Genitourinary (GENITOURIN)
+227028,Non-Operative Hematology (HEMATO)
+227029,Non-Operative Metabolic/Endocrine (METAB/ENDO)
+227030,Non-Operative Musculoskeletal/Skin (MUSKELSKIN)
+227031,Non-Operative Neurologic (NEUROLOGIC)
+227032,Non-Operative Respiratory (RESPIRAT)
+227033,Non-Operative Transplant (TRANSPLANT)
+227034,Non-Operative Trauma (TRAUMA)
+227671,Non-Violent Restraints
+227673,Non-Violent Restraints Ordered
+225794,Non-invasive Ventilation
+228106,NonOperative Diagnoses
+221906,Norepinephrine
+221208,Normosol
+227973,NovaSource Renal (1/2)
+227972,NovaSource Renal (1/4)
+227974,NovaSource Renal (3/4)
+227975,NovaSource Renal (Full)
+221206,Novasource
+225443,Nuclear Medicine
+228478,Number of Attempts (Gen Proc)
+225306,Number of Attempts (Intubation)
+228479,Number of Operators (Gen Proc)
+226011,Number of attempts (PACEN)
+228090,Number of attempts (THCEN)
+225623,Number of attempts require to place line (PA line)
+225571,Number of attempts required to place line (A-Line)
+224351,Number of attempts required to place line (CVL)
+224584,Number of attempts required to place line (PICC)
+228074,Number of attempts to perform (LP)
+228384,Number of days (CVL)
+225719,Number of operators (A-Line)
+224629,Number of operators (CVL)
+228075,Number of operators (LP)
+226007,Number of operators (PA line)
+226010,Number of operators (PACEN)
+226239,Number of operators (PICC)
+228091,Number of operators (THCEN)
+229380,Nursing Water Swallow Screening
+226019,Nutren 2.0 (1/2)
+226016,Nutren 2.0 (1/4)
+226017,Nutren 2.0 (2/3)
+226018,Nutren 2.0 (3/4)
+227518,Nutren 2.0 (3/4)
+225931,Nutren 2.0 (Full)
+226882,Nutren Pulmonary (1/2)
+226881,Nutren Pulmonary (3/4)
+226880,Nutren Pulmonary (Full)
+226031,Nutren Renal (1/2)
+226028,Nutren Renal (1/4)
+226029,Nutren Renal (2/3)
+226030,Nutren Renal (3/4)
+221036,Nutren Renal (Full)
+221203,Nutrini
+221021,Nutrison Energy
+221022,Nutrison Energy Multi Fibre
+221024,Nutrison Multi Fibre
+221018,Nutrison Standard
+221020,Nutrison concentrated
+221205,Nutrison pre
+228705,Nutrition
+229288,Nutrition
+228962,Nutrition  NCP - Expected outcomes
+228964,Nutrition  NCP - Goal
+228966,Nutrition  NCP - Interventions
+229104,Nutrition  NCP - Plan revised
+229105,Nutrition  NCP - Problem resolved
+228968,Nutrition  NCP - outcomes met
+228971,Nutrition NCP - Body needs
+224726,O2 Consumption
+226732,O2 Delivery Device(s)
+223834,O2 Flow
+227287,O2 Flow (additional cannula)
+223769,O2 Saturation Pulseoxymetry Alarm - High
+223770,O2 Saturation Pulseoxymetry Alarm - Low
+220277,O2 saturation pulseoxymetry
+228343,OCAT - Lips Tongue Gums Palate
+228344,"OCAT - Saliva secretions, Voice quality"
+228345,OCAT - Swallow
+228346,OCAT - Teeth
+226370,OR Autologous Blood Intake
+226372,OR Cell Saver Intake
+226365,OR Colloid Intake
+226371,OR Cryoprecipitate Intake
+226364,OR Crystalloid Intake
+226626,OR EBL
+226367,OR FFP Intake
+226366,OR Intake_ingr
+226368,OR Packed RBC Intake
+226369,OR Platelet Intake
+225469,OR Received
+225470,OR Sent
+226627,OR Urine
+220972,Octoplas
+225155,Octreotide
+221035,Oleic acid
+227694,Omeprazole (Prilosec)
+229616,Ondansetron (Zofran)
+226237,Open Tracheostomy
+225478,Operation
+225993,Optisource
+226168,Oral Care
+223999,Oral Cavity
+225307,Oral ETT
+226576,Oral Gastric
+227075,Oral/Gastric Ingredient
+229499,Order to use in POE (SBNET)
+226532,Organ Bank Notified
+223821,Orient/Clouding Sensory
+223898,Orientation
+229381,Orientation
+229382,Orientation Score (new)_OLD_1
+228394,Orientation to Person
+228395,Orientation to Place
+228396,Orientation to Time
+226092,Orthostatic BPd lying
+226094,Orthostatic BPd sitting
+226096,Orthostatic BPd standing
+224645,Orthostatic BPs lying
+224646,Orthostatic BPs sitting
+223766,Orthostatic BPs standing
+223764,Orthostatic HR lying
+223765,Orthostatic HR sitting
+224647,Orthostatic HR standing
+221029,Osmolite
+229297,Osmolite 1.5 (Full)
+224796,Ostomy
+226582,Ostomy (output)
+224797,Ostomy Appearance
+225191,Ostomy Care
+227853,Other (Activity); Specify
+229837,Other Imaging Reviewed in OMR
+229838,Other Labs Reviewed in OMR
+229839,Other Micro / Path Reviewed in OMR
+225889,Oxacillin
+226767,OxygenApacheIIScore
+227035,OxygenScore_ApacheIV
+228192,Oxygenator Sweep Rate
+229875,Oxygenator visible (CH)
+229274,Oxygenator visible (ECMO)
+228193,Oxygenator/ECMO
+224705,P High (APRV)
+224706,P Low (APRV)
+229363,P1 (ECMO)
+229365,P1 - P2 (ECMO)
+229240,P1 Alarm - High
+229241,P1 Alarm - Low
+229364,P2 (ECMO)
+226862,PA %O2 Saturation (PA Line)
+224560,PA Catheter
+225351,PA Catheter Cap Change
+225352,PA Catheter Change over Wire Date
+225745,PA Catheter Discontinued
+225353,PA Catheter Dressing Change
+227351,PA Catheter Dressing Occlusive
+225781,PA Catheter Dressing Type
+225354,PA Catheter Insertion Date
+225730,PA Catheter Line Tip Cultured
+227757,PA Catheter Placement Confirmed by X-ray
+225355,PA Catheter Site Appear
+225356,PA Catheter Tubing Change
+225357,PA Catheter Waveform Appear
+225358,PA Catheter Zero/Calibrate
+226114,PA Catheter placed in outside facility
+223773,PA Line cm Mark
+226853,PA diastolic pressure(PA Line)
+228121,PA line ordered on POE
+225647,PA line ordered on POE
+226857,PA mean pressure (PA Line)
+226852,PA systolic pressure(PA Line)
+226376,PACU Colloid Intake
+226375,PACU Crystalloid Intake
+226628,PACU Drains
+226629,PACU EBL
+227072,PACU FFP Intake
+226630,PACU Gastric
+226374,PACU Intake_ingr
+226377,PACU PO Intake
+227070,PACU Packed RBC Intake
+227071,PACU Platelet Intake
+226631,PACU Urine
+224654,PAEDP
+227241,PAP Alarm Source
+229629,PAP Alarm Source (Veletri)
+228229,PAR-Activity
+228230,PAR-Circulation
+228231,PAR-Consciousness
+228232,PAR-Oxygen saturation
+228233,PAR-Remain sedated
+228234,PAR-Respiration
+228005,PBP (Prefilter) Replacement Rate
+228319,PC Assessment of spiritual issues
+228321,PC Date
+228322,PC Interpreter present
+228323,PC Ministries offered
+228327,PC Reason for visit
+228326,PC Sacrament of the Sick
+228328,PC Source of assessment data
+228324,PC Spiritual interventions
+228331,PC Time of visit
+227111,PCA  dose units
+224330,PCA 1 hour limit
+227113,PCA 1 hour limit units
+224663,PCA attempt
+224331,PCA basal rate (mL/hour)
+224410,PCA bolus
+227115,PCA bolus units
+224379,PCA cleared
+228296,PCA concentrations
+224328,PCA dose
+224332,PCA inject
+224329,PCA lockout (min)
+224327,PCA medication
+224665,PCA total dose
+227117,PCA total dose units
+227036,PCO2_ApacheIV
+224702,PCV Level
+223771,PCWP
+226855,PCWP (mean) (PA Line)
+226854,PCWP (v wave) (PA Line)
+220339,PEEP set
+225446,PEG Insertion
+229393,PF Ratio Value
+229405,PF Value
+229408,PFImputedRatio_Value
+229406,PFImputedValue
+229407,PFRatio_Value
+223830,PH (Arterial)
+228243,PH (SOFT)
+220274,PH (Venous)
+220734,PH (dipstick)
+226769,PHApacheIIValue
+227038,PHPaCO2Score_ApacheIV
+227037,PH_ApacheIV
+229538,PICC - Heparin Dependent
+229880,PICC Biopatch
+224264,PICC Line
+224183,PICC Line Cap Change
+224185,PICC Line Change over Wire Date
+225747,PICC Line Discontinued
+224186,PICC Line Dressing Change
+227358,PICC Line Dressing Occlusive
+224184,PICC Line Insertion Date
+227759,PICC Line Placement Confirmed by X-ray
+229476,PICC Line Power PICC
+224188,PICC Line Site Appear
+225732,PICC Line Tip Cultured
+224187,PICC Line Tubing Change
+226115,PICC Line placed in outside facility
+228046,PICC Ordered on POE
+225284,PICC Ordered on POE
+230049,PNC-1 Appearance
+230050,PNC-1 Bolus (mL)
+230051,PNC-1 Infusion Rate (mL/hr)
+230052,PNC-1 Location
+230053,PNC-1 Medication
+230055,PNC-1 Motor Deficit
+230056,PNC-2 Appearance
+230057,PNC-2 Bolus (mL)
+230058,PNC-2 Infusion Rate (mL/hr)
+230059,PNC-2 Location
+230060,PNC-2 Medication
+230062,PNC-2 Motor Deficit
+226452,PO Intake
+226506,PO Intake_Ingr
+227516,PO2 (Mixed Venous)
+226770,PO2ApacheIIValue
+227039,PO2_ApacheIV
+224701,PSV Level
+224114,PT Splint Location #1
+224456,PT Splint Location #2
+224457,PT Splint Location #3
+224455,PT Splint Location #4
+225180,PT Splint Status #1
+225182,PT Splint Status #2
+225194,PT Splint Status #3
+225196,PT Splint Status #4
+227466,PTT
+226863,PVR %O2 Saturation (PA Line)
+223957,Pacer Rate
+225168,Packed Red Blood Cells
+220996,Packed Red Cells
+227653,Pad Change/Hour
+227881,Pain (0-10)
+223795,Pain Assessment Method
+229687,Pain Assessment Method
+229688,Pain Assessment Method (BIS)
+223784,Pain Cause
+229293,Pain Control
+229079,Pain Controlled
+223791,Pain Level
+223794,Pain Level Acceptable
+224409,Pain Level Response
+229702,Pain Level Response-b
+223783,Pain Location
+223792,Pain Management
+228888,Pain NCP - Expected outcomes
+228886,Pain NCP - Goal
+228890,Pain NCP - Interventions
+228889,Pain NCP - Outcomes met
+229106,Pain NCP - Plan revised
+229107,Pain NCP - Problem resolved
+223781,Pain Present
+223782,Pain Type
+228706,Pain control old
+229150,Palliative Care NCP - Expected outcomes
+229152,Palliative Care NCP - Interventions
+229154,Palliative Care NCP - Plan revised
+229155,Palliative Care NCP - Problem resolved
+221033,Palmitic acid
+229063,Pamidronate
+225444,Pan Culture
+225910,Pantoprazole (Protonix)
+220444,Pantotanic acid
+225445,Paracentesis
+230040,Paradoxical breathing
+224168,Parameters Checked
+227079,Parenteral Nutrition Ingredient
+223810,Paroxysmal Sweats
+229851,Part (CH)
+229377,Part 1 Question
+229378,Part 2 Question
+229849,Part Alarm (Hi) (CH)
+223847,Passey Muir Valve in use
+228373,Passive Leg Raise Performed
+225059,Past medical history
+225510,Patient (Bronch)
+228462,Patient (Gen Proc)
+224503,Patient (THCEN)
+224858,Patient Behavior During Application
+228466,Patient Identified Correctly (Gen Proc)
+228474,Patient Position (Gen Proc)
+227905,Patient agrees with the above goals and is willing to participate in the rehabilitation program
+229480,Patient identified correctly  (SBNET)
+226526,Patient identified correctly (A-Line)
+225540,Patient identified correctly (Bronch)
+224348,Patient identified correctly (CVL)
+225597,Patient identified correctly (LP)
+228439,Patient identified correctly (MBAL)
+224618,Patient identified correctly (PA line)
+224517,Patient identified correctly (PICC)
+226189,Patient identified correctly by 2 means (Intubation)
+225499,Patient identified correctly by 2 means (PACEN)
+225491,Patient identified correctly by 2 means (THCEN)
+229625,Patient on Veletri
+225411,Patient on vent
+224495,Patient position (LP)
+225245,Patient position (THCEN)
+227960,Patient/Family Informed
+224855,Patient/Family Informed_V1
+227662,Patient/Family Informed_V2
+223873,Paw High
+228878,PeCO2
+224728,Peak Exp Flow Rate
+224695,Peak Insp. Pressure
+221025,Pediasure
+225461,Pelvis
+225890,Penicillin G potassium
+226623,Penrose #1
+226624,Penrose #2
+220976,Pentastarch
+220977,"Pentastarch 10% (HAES, Hemohes)"
+220975,"Pentastarch 6% (HAES, Hemohes)"
+225156,Pentobarbital
+226039,Peptamen 1.5 (1/2)
+226036,Peptamen 1.5 (1/4)
+226037,Peptamen 1.5 (2/3)
+226038,Peptamen 1.5 (3/4)
+225930,Peptamen 1.5 (Full)
+228383,Peptamen Bariatric (Full)
+227374,Peptamen VHP (1/2)
+227373,Peptamen VHP (1/4)
+227372,Peptamen VHP (2/3)
+227371,Peptamen VHP (3/4)
+227370,Peptamen VHP (Full)
+221209,Peptisorb
+225447,Percutaneous Drain Insertion
+225448,Percutaneous Tracheostomy
+228156,Performance Level
+229675,Performance Level (R)
+226612,Pericardial
+225989,Pericardial Drain Aspiration
+223953,Pericardial Drain Drainage
+225990,Pericardial Drain Flush
+227714,Pericardial Drain Removed
+223954,Pericardial Drain Site
+223952,Pericardial Drain Status
+225449,Pericardiocentesis
+225920,Peripheral Parenteral Nutrition
+228194,Peripheral Pulses (Tandem Heart)
+225805,Peritoneal Dialysis
+225965,Peritoneal Dialysis Catheter Status
+225963,Peritoneal Dialysis Catheter Type
+225951,Peritoneal Dialysis Fluid Appearance
+225815,Peritoneal Fluid
+224844,Permanent Pacemaker Mode
+224845,Permanent Pacemaker Rate
+226768,PhApacheIIScore
+227460,Phenobarbital
+220446,Phenylalanine
+221749,Phenylephrine
+229632,Phenylephrine (200/250)
+229631,Phenylephrine (200/250)_OLD_1
+229630,Phenylephrine (50/250)
+229789,Phenylephrine (Intubation)
+227461,Phenytoin (Dilantin)
+226504,Phenytoin (Free)
+228239,Phenytoin (Free) (SOFT)
+225203,Pheresis Catheter
+225367,Pheresis Catheter Cap Change
+225368,Pheresis Catheter Change over Wire Date
+225746,Pheresis Catheter Discontinued
+225369,Pheresis Catheter Dressing Change
+227362,Pheresis Catheter Dressing Occlusive
+225782,Pheresis Catheter Dressing Type
+225370,Pheresis Catheter Insertion Date
+225731,Pheresis Catheter Line Tip Cultured
+227758,Pheresis Catheter Placement Confirmed by X-ray
+225371,Pheresis Catheter Site Appear
+225372,Pheresis Catheter Tubing Change
+227129,Pheresis Catheter Type
+229537,Pheresis Catheter Type
+226122,Pheresis Catheter placed in outside facility
+220447,Philoquinone
+225677,Phosphorous
+220448,Phosphorus
+228061,Photodynamic therapy PDT (Bronch)
+225532,Photodynamic therapy PDT (Bronch)
+223871,Physio
+226089,Piggyback
+226619,Pigtail #1
+226620,Pigtail #2
+225190,Pin Care
+227187,Pinsp (Draeger only)
+229663,Pinsp (Hamilton)
+225892,Piperacillin
+225893,Piperacillin/Tazobactam (Zosyn)
+228157,Placement Monitoring Screen
+229676,Placement Monitoring Screen (R)
+229564,Plan-Abdominal/GI
+229561,Plan-Cardiac
+229569,Plan-Endocrine
+229568,Plan-Hematology
+229570,Plan-ID
+229571,Plan-MSK/Skin/Wound
+229562,Plan-Neuro
+229566,Plan-Nutritional
+229567,Plan-Renal/GU
+229563,Plan-Respiratory
+227532,Plasma Pheresis
+227551,Plasma Pheresis.
+224696,Plateau Pressure
+228866,Plateau Pressure (IABP)
+227457,Platelet Count
+225170,Platelets
+225818,Pleural Fluid Culture
+229662,Pminimum
+225472,Pneumothorax
+223946,Popliteal Pulse L
+223941,Popliteal Pulse R
+229582,Portable CT scan
+229581,Portable Chest X-Ray
+224093,Position
+227922,Position - Activity - Aerobic Activity Response
+227929,Position - Recovery - Aerobic Activity Response
+227915,Position - Rest - Aerobic Activity Response
+224066,Position Change
+227952,Position Change
+228006,Post Filter Replacement Rate
+225085,Post menopausal
+227040,Post-Operative Cardiovascular (CARDIOVASC)
+227041,Post-Operative Gastrointestinal (GI)
+227042,Post-Operative Genitourinary (GENITOURIN)
+227043,Post-Operative Hematology (HEMATO)
+227044,Post-Operative Metabolic/Endocrine (METAB/ENDO)
+227045,Post-Operative Musculoskeletal/Skin (MUSKELSKIN)
+227046,Post-Operative Neurologic (NEUROLOGIC)
+227047,Post-Operative Respiratory (RESPIRAT)
+227048,Post-Operative Transplant (TRANSPLANT)
+227049,Post-Operative Trauma (TRAUMA)
+228933,Post-op Care NCP - Expected outcomes
+228935,Post-op Care NCP - Goal
+228937,Post-op Care NCP - Interventions
+228939,Post-op Care NCP - Outcomes met
+229108,Post-op Care NCP - Plan revised
+229109,Post-op Care NCP - Problem resolved
+223947,PostTib. Pulses L
+223935,PostTib. Pulses R
+220451,Potassium (ingr)
+227442,Potassium (serum)
+227464,Potassium (whole blood)
+222139,Potassium ACEtate
+225166,Potassium Chloride
+225925,Potassium Phosphate
+226771,PotassiumApacheIIScore
+226772,PotassiumApacheIIValue
+229305,Power (Watts) (HeartWare)
+229859,Power (Watts) (VAD)
+226633,Pre-Admission
+226361,Pre-Admission/Non-ICU Intake
+225302,Pre-Oxygentated (Intubation)
+223759,Precautions: Standard +
+225083,Pregnancy due date
+225082,Pregnant
+229786,Preoxygenation (Intubation)
+228492,Present and Agree (Gen Proc)
+226232,Present during key moments and agree with checklist (CVL)
+225290,Present during key moments and agree with checklist (PICC)
+224273,Presep Catheter
+225383,Presep Catheter Cap Change
+225384,Presep Catheter Change over Wire Date
+225749,Presep Catheter Discontinued
+225385,Presep Catheter Dressing Change
+227419,Presep Catheter Dressing Occlusive
+225785,Presep Catheter Dressing Type
+225386,Presep Catheter Insertion Date
+225734,Presep Catheter Line Tip Cultured
+227760,Presep Catheter Placement Confirmed by X-ray
+225387,Presep Catheter Site Appear
+225390,Presep Catheter Tubing Change
+225388,Presep Catheter Waveform Appear
+225389,Presep Catheter Zero/Calibrate
+226116,Presep Catheter placed in outside facility
+229248,Pressure Drop
+229864,Pressure Injury Location
+229869,Pressure Injury Prevention Interventions
+224088,Pressure Reducing Device
+229884,Pressure Ulcer #1- Date Indentified
+228610,Pressure Ulcer #1- Depth
+228506,Pressure Ulcer #1- Location
+228539,Pressure Ulcer #1- Treatment
+228549,Pressure Ulcer #1- Type
+228620,Pressure Ulcer #1- Width
+229893,Pressure Ulcer #10- Date Indentified
+228619,Pressure Ulcer #10- Depth
+228515,Pressure Ulcer #10- Location
+228548,Pressure Ulcer #10- Treatment
+228558,Pressure Ulcer #10- Type
+228629,Pressure Ulcer #10- Width
+229885,Pressure Ulcer #2- Date Indentified
+228611,Pressure Ulcer #2- Depth
+228507,Pressure Ulcer #2- Location
+228540,Pressure Ulcer #2- Treatment
+228550,Pressure Ulcer #2- Type
+228621,Pressure Ulcer #2- Width
+229886,Pressure Ulcer #3- Date Indentified
+228612,Pressure Ulcer #3- Depth
+228508,Pressure Ulcer #3- Location
+228541,Pressure Ulcer #3- Treatment
+228551,Pressure Ulcer #3- Type
+228622,Pressure Ulcer #3- Width
+229887,Pressure Ulcer #4- Date Indentified
+228613,Pressure Ulcer #4- Depth
+228509,Pressure Ulcer #4- Location
+228542,Pressure Ulcer #4- Treatment
+228552,Pressure Ulcer #4- Type
+228623,Pressure Ulcer #4- Width
+229888,Pressure Ulcer #5- Date Indentified
+228614,Pressure Ulcer #5- Depth
+228510,Pressure Ulcer #5- Location
+228543,Pressure Ulcer #5- Treatment
+228553,Pressure Ulcer #5- Type
+228624,Pressure Ulcer #5- Width
+229889,Pressure Ulcer #6- Date Indentified
+228615,Pressure Ulcer #6- Depth
+228511,Pressure Ulcer #6- Location
+228544,Pressure Ulcer #6- Treatment
+228554,Pressure Ulcer #6- Type
+228625,Pressure Ulcer #6- Width
+229890,Pressure Ulcer #7- Date Indentified
+228616,Pressure Ulcer #7- Depth
+228512,Pressure Ulcer #7- Location
+228545,Pressure Ulcer #7- Treatment
+228555,Pressure Ulcer #7- Type
+228626,Pressure Ulcer #7- Width
+229891,Pressure Ulcer #8- Date Indentified
+228617,Pressure Ulcer #8- Depth
+228513,Pressure Ulcer #8- Location
+228546,Pressure Ulcer #8- Treatment
+228556,Pressure Ulcer #8- Type
+228627,Pressure Ulcer #8- Width
+229892,Pressure Ulcer #9- Date Indentified
+228618,Pressure Ulcer #9- Depth
+228514,Pressure Ulcer #9- Location
+228547,Pressure Ulcer #9- Treatment
+228557,Pressure Ulcer #9- Type
+228628,Pressure Ulcer #9- Width
+228649,Pressure Ulcer Present
+224631,Pressure Ulcer Stage #1
+227619,Pressure Ulcer Stage #10
+224965,Pressure Ulcer Stage #2
+224966,Pressure Ulcer Stage #3
+224967,Pressure Ulcer Stage #4
+224968,Pressure Ulcer Stage #5
+224969,Pressure Ulcer Stage #6
+224970,Pressure Ulcer Stage #7
+224971,Pressure Ulcer Stage #8
+227618,Pressure Ulcer Stage #9
+228783,Pressure ulcer #1- Cleanse
+229883,Pressure ulcer #1- Date Indentified_OLD_1
+228753,Pressure ulcer #1- Drainage
+228763,Pressure ulcer #1- Drainage amount
+228793,Pressure ulcer #1- Dressing change
+228803,Pressure ulcer #1- Dressing status
+228723,Pressure ulcer #1- Length
+228773,Pressure ulcer #1- Odor
+228813,Pressure ulcer #1- Stage
+228743,Pressure ulcer #1- Surrounding tissue
+228833,Pressure ulcer #1- Tunneling present
+228843,Pressure ulcer #1- Undermining present
+228733,Pressure ulcer #1- Wound Base
+228792,Pressure ulcer #10- Cleanse
+228762,Pressure ulcer #10- Drainage
+228772,Pressure ulcer #10- Drainage amount
+228802,Pressure ulcer #10- Dressing change
+228812,Pressure ulcer #10- Dressing status
+228732,Pressure ulcer #10- Length
+228782,Pressure ulcer #10- Odor
+228822,Pressure ulcer #10- Stage
+228752,Pressure ulcer #10- Surrounding tissue
+228842,Pressure ulcer #10- Tunneling present
+228852,Pressure ulcer #10- Undermining present
+228742,Pressure ulcer #10- Wound Base
+228784,Pressure ulcer #2- Cleanse
+228754,Pressure ulcer #2- Drainage
+228764,Pressure ulcer #2- Drainage amount
+228794,Pressure ulcer #2- Dressing change
+228804,Pressure ulcer #2- Dressing status
+228724,Pressure ulcer #2- Length
+228774,Pressure ulcer #2- Odor
+228814,Pressure ulcer #2- Stage
+228744,Pressure ulcer #2- Surrounding tissue
+228834,Pressure ulcer #2- Tunneling present
+228844,Pressure ulcer #2- Undermining present
+228734,Pressure ulcer #2- Wound Base
+228785,Pressure ulcer #3- Cleanse
+228755,Pressure ulcer #3- Drainage
+228765,Pressure ulcer #3- Drainage amount
+228795,Pressure ulcer #3- Dressing change
+228805,Pressure ulcer #3- Dressing status
+228725,Pressure ulcer #3- Length
+228775,Pressure ulcer #3- Odor
+228815,Pressure ulcer #3- Stage
+228745,Pressure ulcer #3- Surrounding tissue
+228835,Pressure ulcer #3- Tunneling present
+228845,Pressure ulcer #3- Undermining present
+228735,Pressure ulcer #3- Wound Base
+228786,Pressure ulcer #4- Cleanse
+228756,Pressure ulcer #4- Drainage
+228766,Pressure ulcer #4- Drainage amount
+228796,Pressure ulcer #4- Dressing change
+228806,Pressure ulcer #4- Dressing status
+228726,Pressure ulcer #4- Length
+228776,Pressure ulcer #4- Odor
+228816,Pressure ulcer #4- Stage
+228746,Pressure ulcer #4- Surrounding tissue
+228836,Pressure ulcer #4- Tunneling present
+228846,Pressure ulcer #4- Undermining present
+228736,Pressure ulcer #4- Wound Base
+228787,Pressure ulcer #5- Cleanse
+228757,Pressure ulcer #5- Drainage
+228767,Pressure ulcer #5- Drainage amount
+228797,Pressure ulcer #5- Dressing change
+228807,Pressure ulcer #5- Dressing status
+228727,Pressure ulcer #5- Length
+228777,Pressure ulcer #5- Odor
+228817,Pressure ulcer #5- Stage
+228747,Pressure ulcer #5- Surrounding tissue
+228837,Pressure ulcer #5- Tunneling present
+228847,Pressure ulcer #5- Undermining present
+228737,Pressure ulcer #5- Wound Base
+228788,Pressure ulcer #6- Cleanse
+228758,Pressure ulcer #6- Drainage
+228768,Pressure ulcer #6- Drainage amount
+228798,Pressure ulcer #6- Dressing change
+228808,Pressure ulcer #6- Dressing status
+228728,Pressure ulcer #6- Length
+228778,Pressure ulcer #6- Odor
+228818,Pressure ulcer #6- Stage
+228748,Pressure ulcer #6- Surrounding tissue
+228838,Pressure ulcer #6- Tunneling present
+228848,Pressure ulcer #6- Undermining present
+228738,Pressure ulcer #6- Wound Base
+228789,Pressure ulcer #7- Cleanse
+228759,Pressure ulcer #7- Drainage
+228769,Pressure ulcer #7- Drainage amount
+228799,Pressure ulcer #7- Dressing change
+228809,Pressure ulcer #7- Dressing status
+228729,Pressure ulcer #7- Length
+228779,Pressure ulcer #7- Odor
+228819,Pressure ulcer #7- Stage
+228749,Pressure ulcer #7- Surrounding tissue
+228839,Pressure ulcer #7- Tunneling present
+228849,Pressure ulcer #7- Undermining present
+228739,Pressure ulcer #7- Wound Base
+228790,Pressure ulcer #8- Cleanse
+228760,Pressure ulcer #8- Drainage
+228770,Pressure ulcer #8- Drainage amount
+228800,Pressure ulcer #8- Dressing change
+228810,Pressure ulcer #8- Dressing status
+228730,Pressure ulcer #8- Length
+228780,Pressure ulcer #8- Odor
+228820,Pressure ulcer #8- Stage
+228750,Pressure ulcer #8- Surrounding tissue
+228840,Pressure ulcer #8- Tunneling present
+228850,Pressure ulcer #8- Undermining present
+228740,Pressure ulcer #8- Wound Base
+228791,Pressure ulcer #9- Cleanse
+228761,Pressure ulcer #9- Drainage
+228771,Pressure ulcer #9- Drainage amount
+228801,Pressure ulcer #9- Dressing change
+228811,Pressure ulcer #9- Dressing status
+228731,Pressure ulcer #9- Length
+228781,Pressure ulcer #9- Odor
+228821,Pressure ulcer #9- Stage
+228751,Pressure ulcer #9- Surrounding tissue
+228841,Pressure ulcer #9- Tunneling present
+228851,Pressure ulcer #9- Undermining present
+228741,Pressure ulcer #9- Wound Base
+229854,Pressures Off (CH)
+227485,Print Job
+227486,Printer
+225162,Prismasate K2
+225163,Prismasate K4
+226043,ProBalance (1/2)
+226040,ProBalance (1/4)
+226041,ProBalance (2/3)
+226042,ProBalance (3/4)
+225929,ProBalance (Full)
+220001,Problem List
+222151,Procainamide
+227458,Procan
+227459,Procan Napa
+225915,Profilnine
+228707,Progress
+220453,Proline
+229009,Promote (Full)
+229014,Promote with Fiber (Full)
+228401,Pronator Drift
+227988,Pronator drift present
+229291,Prophylaxis
+229286,Prophylaxisold
+222168,Propofol
+227210,Propofol (Intubation)
+226224,Propofol Ingredient
+229068,Protamine sulfate
+220454,Protein
+227465,Prothrombin time
+228242,Pt. Temperature (BG) (SOFT)
+221027,Pulmocare
+228360,Pulmocare (1/2)
+228361,Pulmocare (1/4)
+228362,Pulmocare (3/4)
+228363,Pulmocare (Full)
+220063,Pulmonary Artery Pressure Alarm - High
+229626,Pulmonary Artery Pressure Alarm - High (Veletri)
+220066,Pulmonary Artery Pressure Alarm - Low
+229627,Pulmonary Artery Pressure Alarm - Low (Veletri)
+229668,Pulmonary Artery Pressure Signal - Diastolic
+220060,Pulmonary Artery Pressure diastolic
+220061,Pulmonary Artery Pressure mean
+220059,Pulmonary Artery Pressure systolic
+229669,Pulmonary Atrtery Pressure Signal - Systolic
+229828,Pulsatility Index (VAD)
+224192,Pulsus Paradoxus
+228195,Pump Speed
+229876,Pump plugged into RED outlet (CH)
+229275,Pump plugged into RED outlet (ECMO)
+227288,Pupil Response Left
+227121,Pupil Response Right
+229769,Pupil Size (COWS)
+224733,Pupil Size Left
+223907,Pupil Size Right
+224671,Pupils
+228158,Purge Pressure
+229677,Purge Pressure (R)
+228159,Purge Solution Flow Rate
+229678,Purge Solution Flow Rate (R)
+229850,Pven (CH)
+229848,Pven Alarm (Lo) (CH)
+225895,Pyrazinamide
+220455,Pyridoxine
+224359,QTc
+225896,Quinine
+226564,R Nephrostomy
+226593,R Pleural #1
+226595,R Pleural #2
+226557,R Ureteral Stent
+226860,RA %O2 Saturation (PA Line)
+226849,RA (mean) pressure (PA Line)
+229660,RCexp (Measured Time Constant)
+225205,RIC
+229741,RIC Cap Change
+229735,RIC Dressing Change
+227364,RIC Dressing Occlusive
+228018,RIC Infiltration Scale
+225758,RIC Insertion Date
+228017,RIC Phlebitis Scale
+225759,RIC Reason Discontinued
+225760,RIC Site Appear
+226140,RIC placed in outside facility
+223918,RL Strength/Movement
+223979,RLE Color
+223924,RLE Sensation
+224771,RLE Temp
+223987,RLL Lung Sounds
+229424,ROS-Cardiac
+229430,ROS-Endocrine
+229431,ROS-Extremeties / MSK
+229426,ROS-GI
+229427,ROS-GU
+229421,ROS-General
+229422,ROS-HEENT
+229429,ROS-Heme / Lymph
+229423,ROS-Neuro
+229432,ROS-Psych
+229425,ROS-Respiratory
+229428,ROS-Skin
+224718,RR > 35 for > 5 min
+230042,RR per min
+226774,RRApacheIIValue
+227051,RRScore_ApacheIV
+227050,RR_ApacheIV
+224740,RSBI Deferred
+225301,RSI (Intubation)
+223917,RU Strength/Movement
+223976,RUE Color
+224758,RUE Sensation
+224767,RUE Temp
+223986,RUL Lung Sounds
+226851,RV diastolic pressure(PA Line)
+226850,RV systolic pressure(PA Line)
+226545,Race
+223948,Radial Pulse L
+223936,Radial Pulse R
+225450,Radiation Therapy
+224067,Range of Motion
+227953,Range of Motion
+224092,Range of Motion Location
+225176,Range of Motion Status
+222190,Ranitidine
+225911,Ranitidine (Prophylaxis)
+223851,Rate
+226892,Re-admit < 48 hours
+228111,Readmission
+225956,Reason for CRRT Filter Change
+227667,Reason for Immobilizer
+224854,Reason for Restraint (Acute Medical/Surgical)_V1
+224061,Reason for Restraint (Behavioral)_V1
+227947,Reason for Restraint (Non-violent)
+227964,Reason for Restraint (Violent)
+227677,Reason for Restraint/Seclusion (Violent)
+227676,Reason for Restraints (Non-Violent)
+229744,Reason for Trigger
+229813,Reason for Trigger (RN)
+227930,Recovery HR - Aerobic Activity Response
+227870,Recovery HR - Aerobic Capacity
+227873,Recovery O2 Sat - Aerobic Capacity
+227933,Recovery O2 sat - Aerobic Activity Response
+227932,Recovery RR - Aerobic Activity Response
+227872,Recovery RR - Aerobic Capacity
+225110,Recreational drug use
+224711,Recruitment Duration
+224712,Recruitment Mode
+224710,Recruitment Press
+225967,Rectal Swab
+226583,Rectal Tube
+226622,Red Rubber
+227817,Referral Date
+227654,Reflexes LE
+227655,Reflexes UE
+228708,Renal
+228022,Replaced previous Arterial line over wire
+225556,Replaced previous Arterial line over wire
+225976,Replacement Fluid
+230084,Replacement Fluid (Post-Filter)
+230083,Replacement Fluid (Pre-Filter)
+224153,Replacement Rate
+226047,Replete (1/2)
+226044,Replete (1/4)
+226045,Replete (2/3)
+226046,Replete (3/4)
+225935,Replete (Full)
+226051,Replete with Fiber (1/2)
+226048,Replete with Fiber (1/4)
+226049,Replete with Fiber (2/3)
+226050,Replete with Fiber (3/4)
+225936,Replete with Fiber (Full)
+220283,Resistance
+229664,Resistance Exp
+229665,Resistance Insp
+225991,Resource Fruit Beverage
+224161,Resp Alarm - High
+224162,Resp Alarm - Low
+228709,Respiratory
+225475,Respiratory Arrest
+223990,Respiratory Effort
+223985,Respiratory Pattern
+224745,Respiratory Quotient
+220210,Respiratory Rate
+224688,Respiratory Rate (Set)
+224690,Respiratory Rate (Total)
+224689,Respiratory Rate (spontaneous)
+224756,Response
+223916,Response to Stimuli (Type)
+227916,Rest HR -  Aerobic Activity Response
+227858,Rest HR - Aerobic Capacity
+227919,Rest O2 Sat - Aerobic Activity Response
+227861,Rest O2 Sat - Aerobic Capacity
+227918,Rest RR - Aerobic Activity Response
+227860,Rest RR - Aerobic Capacity
+224727,Resting Energy Expenditure
+229770,Resting Pulse Rate (COWS)
+224669,Restlessness
+229771,Restlessness (COWS)
+230041,Restlessness.
+227945,Restraint (Non-violent)
+227678,Restraint Device (Non-Violent)
+227948,Restraint Device (Non-violent)
+227679,Restraint Device (Violent)
+227965,Restraint Device (Violent)
+227950,Restraint Location
+224064,Restraint Location_V1
+227680,Restraint Location_V2
+227946,Restraint Ordered (Non-violent)
+224063,Restraint Type
+227683,Restraint/Seclusion Observer Sheet
+227967,Restraint/Seclusion Observer Sheet
+227962,Restraints (Violent)
+227959,Restraints Evaluated
+224068,Restraints Evaluated_V1
+227682,Restraints Evaluated_V2
+224856,Restraints Ordered
+227963,Restraints Ordered (Violent)
+220456,Retinol
+224152,Return Pressure
+228196,Return Site Observed (Tandem Heart)
+220457,Rhenium
+220458,Rhodium
+225897,Ribavirin
+220459,Riboflavin
+228096,Richmond-RAS Scale
+225898,Rifampin
+220128,Right Ventricular Assist Device Flow
+229787,Rigid Stylette (Intubation)
+223753,Riker-SAS Scale
+220953,Ringers
+220956,Ringers Acetate
+220955,Ringers Lactate
+229868,Risk Factors for Pressure Injury
+223754,Risk for Falls
+229233,Rocuronium
+229788,Rocuronium (Intubation)
+227845,Rolling
+229082,Rounds included
+229484,Route  (SBNET)
+225513,Route (Bronch)
+228434,Route (MBAL)
+226773,RrApacheIIScore
+220460,Rubidium
+229772,Runny Nose/Tearing (COWS)
+224833,SBT Deferred
+224715,SBT Started
+224716,SBT Stopped
+224717,SBT Successfully Completed
+229522,SEPS (Subdural Evacuating Port System)
+229394,SF Ratio Value
+227428,SOFA Score
+228305,ST Segment Monitoring On
+227547,SV (Arterial)
+228182,SVI (PiCCO)
+228377,SVI Change
+226865,SVR %O2 Saturation (PA Line)
+228185,SVRI (PiCCO)
+228183,SVRI (PiCCO)_OLD_1
+227546,SVV (Arterial)
+228184,SVV (PiCCO)
+224719,SaO2 < 90% > 2 min
+227684,Safety Measures
+227700,Safety Measures
+227969,Safety Measures
+228983,Safety Restraints NCP - Expected outcomes
+228986,Safety Restraints NCP - Goal
+228988,Safety Restraints NCP - Interventions
+228990,Safety Restraints NCP - Outcomes met
+229110,Safety Restraints NCP - Plan revised
+229111,Safety Restraints NCP - Problem resolved
+221212,"Saline 0,18%"
+220958,"Saline 0,255%"
+220959,"Saline 0,3%"
+220960,"Saline 0,45%"
+220961,"Saline 0,65%"
+220954,"Saline 0,9%"
+220962,Saline 3%
+221213,Saline 30%
+220461,Samarium
+220462,Scandium
+227549,ScvO2 (Presep)
+227542,ScvO2 (Presep) Calibrated
+227806,ScvO2 (Presep) SQI
+226541,ScvO2 Central Venous O2% Sat
+227342,Secondary diagnosis
+227470,Sed Rate
+228710,Sedation goal
+225175,See chart for initial patient assessment
+229448,See eMAR for meds
+223824,Seizure
+223923,Seizure Activity
+228413,Seizure Activity
+223925,Seizure Duration
+227626,Seizure Pads
+220463,Selenium
+225092,Self ADL
+227830,Self Feeding
+229001,Self harm NCP - Expected outcomes
+229003,Self harm NCP - Interventions
+229005,Self harm NCP - Outcomes met
+229112,Self harm NCP - Plan revised
+229113,Self harm NCP - Problem resolved
+223797,Sensory Level
+229120,Sensory disturbance NCP - Expected outcomes
+229118,Sensory disturbance NCP - Interventions
+229116,Sensory disturbance NCP - Plan revised
+229115,Sensory disturbance NCP - Problem resolved
+220464,Serine
+225684,Serum Osmolality
+224640,Service
+225518,Services (Bronch)
+229984,Sevoflurane (Inhaled)
+226180,Sexuality / reproductive problems
+229525,Sheath (Arterial)
+225789,Sheath (Venous)
+225762,Sheath Cap Change
+225763,Sheath Change over Wire Date
+225765,Sheath Dressing Change
+225786,Sheath Dressing Type
+225761,Sheath Insertion
+225766,Sheath Insertion Date
+225764,Sheath Line Discontinued
+227356,Sheath Line Dressing Occlusive
+225768,Sheath Line Tip Cultured
+227761,Sheath Placement Confirmed by X-ray
+225767,Sheath Site Appear
+225772,Sheath Size
+225769,Sheath Tubing Change
+229540,Sheath Type
+225770,Sheath Waveform Appear
+225771,Sheath Zero/Calibrate
+226117,Sheath placed in outside facility
+227629,Shivering
+228318,Shivering Assessment
+229385,Shoulder Shrug
+227851,Shower / Tub
+227961,Side  Rails
+225550,Side (A-Line)
+224340,Side (CVL)
+228475,Side (Gen Proc)
+225631,Side (PA line)
+224577,Side (PICC)
+225244,Side (THCEN)
+227944,Side Rails
+227669,Side Rails (Restraint)
+224069,Side Rails_V1
+227668,Side Rails_V2
+227957,Signs of Injury from Intervention
+220465,Silicone
+220466,Silver
+229516,Single Lumen
+227847,Sit to Stand
+227815,Site Appearance - Adjunctive Pain Management
+228469,Site Cleansed With ChloraPrep (Gen Proc)
+228082,Site cleaned with ChloraPrep (PACEN)
+225504,Site cleaned with ChloraPrep (PACEN)
+228021,Site cleaned with ChloraPrep(TM) (A-Line)
+225568,Site cleaned with ChloraPrep(TM) (A-Line)
+228033,Site cleaned with ChloraPrep(TM) (CVL)
+225704,Site cleaned with ChloraPrep(TM) (CVL)
+225609,Site cleaned with ChloraPrep(TM) (PA line)
+228043,Site cleaned with ChloraPrep(TM) (PICC)
+225790,Site cleaned with ChloraPrep(TM) (PICC)
+228089,Site cleansed with ChloraPrep (THCEN)
+225489,Site cleansed with ChloraPrep (THCEN)
+224490,Site cleansed with ChloraPrep(TM) (LP)
+228115,Site cleansed with ChloraPrep(TM) (PA line)
+228073,Site cleansed with Providone Iodine (LP)
+224070,Sitter
+227775,Skeletal Traction #1 - Pounds
+227776,Skeletal Traction #2 - Pounds
+227777,Skeletal Traction #3 - Pounds
+227778,Skeletal Traction #4 - Pounds
+225185,Skin Care
+228517,Skin Cleanse
+224028,Skin Color
+224860,Skin Condition
+224026,Skin Integrity
+228495,Skin Location
+224027,Skin Temperature
+228528,Skin Treatment
+225978,Slope
+223828,Slurred Speech
+229501,Small Bore Nasal Enteral Tube Placement
+224178,Small Volume Neb Dose #2
+224181,Small Volume Neb Drug #1
+227133,Small Volume Neb Drug #2
+227570,Small Volume Neb Drug/Dose #1
+225078,Social work consult
+220467,Sodium (ingr)
+220645,Sodium (serum)
+228389,Sodium (serum) (soft)
+226534,Sodium (whole blood)
+228390,Sodium (whole blood) (soft)
+225926,Sodium ACEtate
+229861,Sodium Acetate.
+221211,"Sodium Bicarbonate 1,4%"
+220995,Sodium Bicarbonate 8.4%
+227533,Sodium Bicarbonate 8.4% (Amp)
+226775,SodiumApacheIIScore
+226776,SodiumApacheIIValue
+227053,SodiumScore_ApacheIV
+227052,Sodium_ApacheIV
+225943,Solution
+225953,Solution (Peritoneal Dialysis)
+220468,Sorbitol
+220982,Soya oil
+226253,SpO2 Desat Limit
+225122,Special diet
+227471,Specific Gravity (urine)
+229164,SpecrecPOE (Bronch)
+229194,SpecrecPOE (Gen Proc)
+229188,SpecrecPOE (LP)
+229170,SpecrecPOE (MBAL)
+229176,SpecrecPOE (PACEN)
+229182,SpecrecPOE (THCEN)
+229162,Specrecbyhand (Bronch)
+229192,Specrecbyhand (Gen Proc)
+229186,Specrecbyhand (LP)
+229168,Specrecbyhand (MBAL)
+229174,Specrecbyhand (PACEN)
+229180,Specrecbyhand (THCEN)
+229163,Specreclabeled (Bronch)
+229193,Specreclabeled (Gen Proc)
+229187,Specreclabeled (LP)
+229169,Specreclabeled (MBAL)
+229175,Specreclabeled (PACEN)
+229181,Specreclabeled (THCEN)
+229166,Specrectolabby (Bronch)
+229196,Specrectolabby (Gen Proc)
+229190,Specrectolabby (LP)
+229172,Specrectolabby (MBAL)
+229178,Specrectolabby (PACEN)
+229184,Specrectolabby (THCEN)
+229167,Specrectolabbyother (Bronch)_OLD_1
+229197,Specrectolabbyother (Gen Proc)old
+229191,Specrectolabbyother (LP)_OLD_1
+229173,Specrectolabbyother (MBAL)old
+229179,Specrectolabbyother (PACEN)_OLD_1
+229185,Specrectolabbyother (THCEN)_OLD_1
+223902,Speech
+228414,Speech
+229298,Speech and Swallow Evaluation
+229845,Speed (CH)
+229277,Speed (ECMO)
+229262,Speed (LVAD)
+229303,Speed (RPM) (HeartWare)
+229263,Speed (RVAD)
+229829,Speed (VAD)
+224025,Spiritual Support
+224422,Spont RR
+224421,Spont Vt
+223911,Spontaneous Movement
+224373,Sputum Amount
+224370,Sputum Color
+224369,Sputum Consistency
+225451,Sputum Culture
+224372,Sputum Source
+229317,StO2
+227954,Status and Comfort
+224859,Status and Comfort (Behavioral)
+220469,Stearic Acid
+225944,Sterile Water
+228024,Sterile field maintained throughout procedure (A-Line)
+226164,Sterile field maintained throughout procedure (A-Line)
+228034,Sterile field maintained throughout procedure (CVL)
+226005,Sterile field maintained throughout procedure (CVL)
+228116,Sterile field maintained throughout procedure (PA line)
+226162,Sterile field maintained throughout procedure (PA line)
+228044,Sterile field maintained throughout procedure (PICC)
+226161,Sterile field maintained throughout procedure (PICC)
+226579,Stool
+224794,Stool Color
+224011,Stool Consistency
+225814,Stool Culture
+226586,Stool Estimate
+224013,Stool Guaiac
+227801,Stool Guaiac QC
+224012,Stool Management
+230033,Stool Management
+228103,Stool containment device placed
+226567,Straight Cath
+228409,Strength L Arm
+228410,Strength L Leg
+228412,Strength R Arm
+228411,Strength R Leg
+221028,Stresson
+229655,Stroke NCP -  Fam Ed Given Date
+229641,Stroke NCP - Consults
+229643,Stroke NCP - Ed Given Date
+229644,Stroke NCP - Expected outcomes
+229652,Stroke NCP - Interventions
+229646,Stroke NCP - Plan revised
+229647,Stroke NCP - Problem
+229648,Stroke NCP - Problem resolved
+229649,Stroke NCP - Type
+229650,Stroke NCP - Water Swallow
+229651,Stroke NCP - Water Swallow Date
+229656,Stroke NCP - Water Swallow Deferred
+228374,Stroke Volume (SV NICOM)
+228375,Stroke Volume Index (SVI NICOM)
+228376,Stroke Volume Variation (SVV NICOM)
+220470,Strontium
+228067,Stylette (Intubation)
+225586,Stylette (Intubation)
+229523,Subdural Drain
+226169,Subglottal Suctioning
+229136,Substance withdrawal NCP - Expected outcomes
+229138,Substance withdrawal NCP - Interventions
+229140,Substance withdrawal NCP - Plan revised
+229141,Substance withdrawal NCP - Problem resolved
+227215,Succynlocholine (Intubation)
+229877,Suction events (CH)
+229276,Suction events (ECMO)
+229264,Suction events (LVAD)
+229265,Suction events (RVAD)
+220471,Sulfur
+226617,Sump #1
+226618,Sump #2
+227846,Supine / Side-lying to Sit
+221210,Suplena
+227080,Supplement Ingredient
+224023,Support Systems
+226563,Suprapubic
+229505,Surgibra
+229585,Surgical Procedure at Bedside
+224565,Surrounding Tissue #1
+227621,Surrounding Tissue #10
+224972,Surrounding Tissue #2
+224973,Surrounding Tissue #3
+224974,Surrounding Tissue #4
+224975,Surrounding Tissue #5
+224976,Surrounding Tissue #6
+224977,Surrounding Tissue #7
+224978,Surrounding Tissue #8
+227620,Surrounding Tissue #9
+223825,Sustained Nystagmus
+223772,SvO2
+229847,SvO2 Alarm (Lo) (CH)
+227541,SvO2 Calibrated
+227805,SvO2 SQI
+229379,Swallow Eval
+224668,Sweating
+229773,Sweating (COWS)
+229846,Sweep (CH)
+229278,Sweep (ECMO)
+224146,System Integrity
+229830,System controller in primary mode (VAD)
+229831,System power module and self test (VAD)
+229433,Systems reviewed
+224707,T High (APRV)
+224709,T Low (APRV)
+226603,T Tube
+225698,TCO2 (calc) Arterial
+223679,TCO2 (calc) Venous
+227510,TF Residual
+227511,TF Residual Output
+228378,TFCd (NICOM)
+228379,TFCd0 (NICOM)
+227715,TLS Clearance
+225463,TLS Spine
+224413,TOF Response
+223804,TOF Response/Twitch
+224414,TOF Twitch
+229316,TOF Twitch
+225916,TPN w/ Lipids
+225917,TPN without Lipids
+223818,Tactile Disturbances
+228003,Tamiflu
+228203,Tandem Heart Access Line Cannula Site
+228204,Tandem Heart Access Line Catheter Length
+228206,Tandem Heart Access Line Discontinued
+228207,Tandem Heart Access Line Dressing Change
+228208,Tandem Heart Access Line Dressing Occlusive
+228209,Tandem Heart Access Line Insertion Date
+228210,Tandem Heart Access Line Position
+228211,Tandem Heart Access Line Postion Confirmed
+228212,Tandem Heart Access Line Pump Housing Checked
+228213,Tandem Heart Access Line Repositioned
+228214,Tandem Heart Access Line Site Appear
+228215,Tandem Heart Access Line Tubing Change
+228216,Tandem Heart Access Line Type
+228198,Tandem Heart Flow
+228201,Tandem Heart Inflow Line
+228202,Tandem Heart Outflow Line
+228217,Tandem Heart Return Cannula Discontinued
+228218,Tandem Heart Return Cannula Dressing Change
+228219,Tandem Heart Return Cannula Dressing Occlusive
+228221,Tandem Heart Return Cannula Insertion Date
+228222,Tandem Heart Return Cannula Migration
+228223,Tandem Heart Return Cannula Position
+228224,Tandem Heart Return Cannula Repositioned
+228225,Tandem Heart Return Cannula Site
+228226,Tandem Heart Return Cannula Site Appear
+228227,Tandem Heart Return Cannula Size
+220472,Tantalum
+226625,Tap
+220473,Taurine
+225131,Teaching directed toward
+229748,Team members at bedside
+225297,Teeth/Dentition (Intubation)
+220474,Tellurium
+226777,TempApacheIIScore
+226778,TempApacheIIValue
+227055,TempScore_ApacheIV
+223762,Temperature Celsius
+223761,Temperature Fahrenheit
+224642,Temperature Site
+227054,TemperatureF_ApacheIV
+220194,Temporary AV interval
+224866,Temporary Atrial Capture
+224390,Temporary Atrial Sens
+224753,Temporary Atrial Sens Setting mV
+224752,Temporary Atrial Sens Threshold mV
+224755,Temporary Atrial Stim Setting mA
+224754,Temporary Atrial Stim Threshold mA
+223956,Temporary Pacemaker Mode
+224751,Temporary Pacemaker Rate
+223955,Temporary Pacemaker Type
+223961,Temporary Pacemaker Wire Condition
+224839,Temporary Pacemaker Wires Atrial
+226236,Temporary Pacemaker Wires Discontinued
+223963,Temporary Pacemaker Wires Ground
+226477,Temporary Pacemaker Wires Inserted
+223962,Temporary Pacemaker Wires Venticular
+223958,Temporary Venticular Sens Threshold mV
+223960,Temporary Venticular Stim Threshold mA
+224835,Temporary Ventricular Capture
+224834,Temporary Ventricular Sens
+224837,Temporary Ventricular Sens Setting mV
+224838,Temporary Ventricular Stim Setting mA
+221204,Tentrini
+220475,Terbium
+229636,Test Performed (AM-PAC)
+220476,Thallium
+228027,The Attending /Supervisor is the Clinician Operator (Aline)
+228070,The Attending/Supervisor is the Clinical Operator (Intubation)
+228123,The Attending/Supervisor is the Clinical Operator (PA Line)
+228085,The Attending/Supervisor is the Clinical Operator (PACEN)
+228063,The Attending/Supervisor is the Clinician Operator (Bronch)
+228039,The Attending/Supervisor is the Clinician Operator (CVL)
+228078,The Attending/Supervisor is the Clinician Operator (LP)
+229495,The Attending/Supervisor is the Clinician Operator (SBNET)
+228094,The Attending/Supervisor is the Clinician Operator (THCEN)
+221343,Theophylline_DI
+224087,Therapeutic Bed
+229604,Therapeutic Bed
+229858,Therapeutic Bed
+228117,Thermodilution (PA line)
+224604,Thermodilution (PA line)
+225833,Thiamine
+225685,Thiocynate
+225479,Thoracentesis
+228380,Thoracic Fluid Content (TFC) (NICOM)
+220477,Thorium
+220478,Threonine
+227469,Thrombin
+221004,Thrombocyte suspension
+227056,Thrombolytic therapy
+220479,Thryptophan
+220480,Thulium
+225295,Thyromental Distance (Intubation)
+224685,Tidal Volume (observed)
+224684,Tidal Volume (set)
+224686,Tidal Volume (spontaneous)
+229064,Tigecycline
+228711,Time spent
+228465,Timeout Performed By (Gen Proc)
+226188,Timeout Performed by (Intubation)
+225596,Timeout Performed by (LP)
+225490,Timeout Performed by (THCEN)
+229479,Timeout performed by  (SBNET)
+226527,Timeout performed by (A-Line)
+225539,Timeout performed by (Bronch)
+224347,Timeout performed by (CVL)
+228438,Timeout performed by (MBAL)
+224617,Timeout performed by (PA line)
+225498,Timeout performed by (PACEN)
+224515,Timeout performed by (PICC)
+229160,Timespent
+220481,Tin
+220482,Tintanium
+225157,Tirofiban (Aggrastat)
+227687,Tobacco Use History
+225108,Tobacco use
+225902,Tobramycin
+227450,Tobramycin (Peak)
+227451,Tobramycin (Random)
+227452,Tobramycin (Trough)
+220483,Tocopherol
+227849,Toilet
+227837,Toileting
+229384,Tongue
+228053,Topical Cetacaine used (Bronch)
+228052,Topical Lidocaine used (Bronch)
+229486,Topical Lidocaine used (SBNET)
+225690,Total Bilirubin
+225692,Total Granulocyte Count (TGC)
+224700,Total PEEP Level
+228381,Total Peripheral Resistance (TPR) (NICOM)
+228382,Total Peripheral Resistance Index (TPRI) (NICOM)
+220650,Total Protein
+227130,Trach Care
+224830,Trach Tube Manufacturer
+224831,Trach Tube Size (I.D.)
+224829,Trach Tube Type
+225590,Tracheal Confirmation (Intubation)
+224112,Traction/Immobile #1
+227771,Traction/Immobile #1
+224449,Traction/Immobile #2
+227772,Traction/Immobile #2
+224450,Traction/Immobile #3
+227773,Traction/Immobile #3
+224451,Traction/Immobile #4
+227774,Traction/Immobile #4
+224113,Traction/Immobile Location #1
+224452,Traction/Immobile Location #2
+224453,Traction/Immobile Location #3
+224454,Traction/Immobile Location #4
+221255,Trans Esophageal Echo
+229247,Trans Membrane Pressure
+228058,Transbronchial biopsy (Bronch)
+225529,Transbronchial biopsy (Bronch)
+228059,Transbronchial needle aspirate (Bronch)
+225530,Transbronchial needle aspirate (Bronch)
+228715,Transcranial Doppler
+223964,Transcutaneous Pacer
+223966,Transcutaneous Pacer Placement
+223969,Transcutaneous Pacer Rate
+227848,Transfer
+229579,Transfer Intercampus by Ambulance
+225406,Transferred to Floor
+225573,Transparent dressing applied and dated (A-Line)
+228025,Transparent dressing applied and dated (A-Line)_New
+228035,Transparent dressing applied and dated (CVL)
+225701,Transparent dressing applied and dated (CVL)
+228120,Transparent dressing applied and dated (PA line)
+225646,Transparent dressing applied and dated (PA line)
+228045,Transparent dressing applied and dated (PICC)
+225287,Transparent dressing applied and dated (PICC)
+224746,Transpulmonary Pressure (Exp. Hold)
+224747,Transpulmonary Pressure (Insp. Hold)
+225432,Transthoracic Echo
+225213,Trauma Line Cap Change
+225214,Trauma Line Change over Wire Date
+225750,Trauma Line Discontinued
+225216,Trauma Line Dressing Change
+227353,Trauma Line Dressing Occlusive
+225787,Trauma Line Dressing Type
+225317,Trauma Line Insertion Date
+227762,Trauma Line Placement Confirmed by X-ray
+225217,Trauma Line Site Appear
+225735,Trauma Line Tip Cultured
+225218,Trauma Line Tubing Change
+226119,Trauma Line placed in outside facility
+224268,Trauma line
+229575,Travel to Radiology
+229637,Treatments (AM-PAC)
+224677,Tremor (CINA)
+223806,Tremor (CIWA)
+229774,Tremor (COWS)
+229503,Trendelenburg position during insertion (CVL)
+229066,Treprostinil (Remodulin)
+229755,Trigger Initiated
+229743,Trigger Initiated by
+225693,Triglyceride
+225199,Triple Introducer
+225391,Triple Introducer Cap Change
+225392,Triple Introducer Change over Wire Date
+225751,Triple Introducer Discontinued
+225393,Triple Introducer Dressing Change
+227354,Triple Introducer Dressing Occlusive
+225788,Triple Introducer Dressing Type
+225394,Triple Introducer Insertion Date
+225736,Triple Introducer Line Tip Cultured
+227763,Triple Introducer Placement Confirmed by X-ray
+225395,Triple Introducer Site Appear
+225396,Triple Introducer Tubing Change
+225397,Triple Introducer Waveform Appear
+225398,Triple Introducer Zero/Calibrate
+226120,Triple Introducer placed in outside facility
+225164,Trisodium Citrate 0.4%
+227429,Troponin-T
+228069,Tube Secured (Intubation)
+225588,Tube Secured (Intubation)
+220484,Tungsten
+225327,Tunneled (Hickman) Cap Change
+225328,Tunneled (Hickman) Change over Wire Date
+225329,Tunneled (Hickman) Dressing Change
+227359,Tunneled (Hickman) Dressing Occlusive
+225777,Tunneled (Hickman) Dressing Type
+225330,Tunneled (Hickman) Insertion Date
+225315,Tunneled (Hickman) Line
+225741,Tunneled (Hickman) Line Discontinued
+225726,Tunneled (Hickman) Line Tip Cultured
+227764,Tunneled (Hickman) Placement Confirmed by X-ray
+225331,Tunneled (Hickman) Site Appear
+225332,Tunneled (Hickman) Tubing Change
+226121,Tunneled (Hickman) placed in outside facility
+229531,Tunneled Access Line
+224632,Tunneling Present #1
+227623,Tunneling Present #10
+224979,Tunneling Present #2
+224980,Tunneling Present #3
+224981,Tunneling Present #4
+224982,Tunneling Present #5
+224983,Tunneling Present #6
+224984,Tunneling Present #7
+224985,Tunneling Present #8
+227622,Tunneling Present #9
+224082,Turn
+228364,Two Cal HN (1/2)
+228365,Two Cal HN (1/4)
+228366,Two Cal HN (3/4)
+228367,Two Cal HN (Full)
+225514,Type (Bronch)
+228199,Type (Tandem Heart)
+229679,Type of Catheter (Impella)
+227057,Type of admission
+224336,Type of catheter (CVL)
+224478,Type of catheter (PA line)
+224511,Type of catheter (PICC)
+220485,Tyrosine
+227832,UE Bathing
+227835,UE Dressing
+229375,UF Heparin (Anti-Xa)
+229373,UF Heparin (Anti-Xa)_U_1
+223949,Ulnar Pulse L
+223938,Ulnar Pulse R
+226457,Ultrafiltrate Output
+221217,Ultrasound
+225718,Ultrasound (A-Line)
+229710,Ultrasound (Aline)
+224468,Ultrasound (CVL)
+225630,Ultrasound (PA line)
+225255,Ultrasound (PACEN)
+229720,Ultrasound (PACath)
+224581,Ultrasound (PICC)
+229589,Ultrasound Images Interpreted and Stored (A-Line)
+229588,Ultrasound Images Interpreted and Stored (CVL)
+229712,Ultrasound Images interpreted (Aline)
+229612,Ultrasound Images interpreted (CVL)
+229722,Ultrasound Images interpreted (PACath)
+229713,Ultrasound Images printed (Aline)
+229610,Ultrasound Images printed (CVL)
+229723,Ultrasound Images printed (PACath)
+229714,Ultrasound Images probe covered (Aline)
+229608,Ultrasound Images probe covered (CVL)
+229724,Ultrasound Images probe covered (PACath)
+229715,Ultrasound Images stored (Aline)
+229609,Ultrasound Images stored (CVL)
+229725,Ultrasound Images stored (PACath)
+229716,Ultrasound Images uploaded (Aline)
+229611,Ultrasound Images uploaded (CVL)
+229726,Ultrasound Images uploaded (PACath)
+229717,Ultrasound Images used for preproc assess (Aline)
+229607,Ultrasound Images used for preproc assess (CVL)
+229727,Ultrasound Images used for preproc assess (PACath)
+225091,Unable to assess activity / mobility
+225086,Unable to assess cognitive / perceptual
+225105,Unable to assess habits
+225117,Unable to assess nutrition / education
+225112,Unable to assess pain
+225070,Unable to assess psychological
+225129,Unable to assess teaching / learning needs
+228066,Unable to complete Airway Assessment (Intubation)
+225292,Unable to complete Airway Assessment (Intubation)
+229434,Unable to obtain
+224652,Unassisted Systole
+224633,Undermining Present #1
+227625,Undermining Present #10
+224986,Undermining Present #2
+224987,Undermining Present #3
+224988,Undermining Present #4
+224989,Undermining Present #5
+224990,Undermining Present #6
+224991,Undermining Present #7
+224992,Undermining Present #8
+227624,Undermining Present #9
+225124,Unintentional weight loss >10 lbs.
+225477,Unplanned Extubation (non-patient initiated)
+225468,Unplanned Extubation (patient-initiated)
+225476,Unplanned Line/Catheter Removal (Non-Patient initated)
+225821,Unplanned Line/Catheter Removal (Patient Initiated)
+223796,Untoward Effect
+225695,Uric Acid
+227956,Urinal/Bedpan
+224876,Urine Appearance
+224016,Urine Color
+225454,Urine Culture
+224015,Urine Source
+226566,Urine and GU Irrigant Out
+227519,Urine output_ApacheIV
+227059,UrineScore_ApacheIV
+227060,Use A-aDO2
+225101,Use of assistive devices
+229586,VAC Change
+224363,VAD Beat Rate L
+223775,VAD Beat Rate R
+228712,VAP - Prophy
+224406,VEN Lumen Volume
+224659,Vacuum Assist
+225903,Valgancyclovir
+220486,Valine
+221005,Vamin 14 Electrolyte free
+221007,Vamin 14 Plus electrolytes
+221006,Vamin 18 Electrolyte free
+221008,Vamin Novum 18
+220487,Vanadium
+225798,Vancomycin
+227453,Vancomycin (Peak)
+227454,Vancomycin (Random)
+227455,Vancomycin (Trough)
+226002,Vanilla Lactose Free Scandi Shake (mixed)
+225999,Vanilla Scandi Shake (mixed)
+229994,Vaporizer checked (Anes)
+229993,Vaporizer filled (Anes)
+228713,Vascular
+222315,Vasopressin
+229685,Vaulables Checklist
+224743,Vd/Vt Ratio
+222062,Vecuronium
+227213,Vecuronium (Intubation)
+221219,Venogram
+226062,Venous CO2 Pressure
+226063,Venous O2 Pressure
+228719,Vented
+227061,Ventilated at any time during ICU Day 1
+223849,Ventilator Mode
+229314,Ventilator Mode (Hamilton)
+227565,Ventilator Tank #1
+227566,Ventilator Tank #2
+223848,Ventilator Type
+225456,Ventricular Drain
+222318,Verapamil
+228467,Verification (Gen Proc)
+229481,Verification of  (SBNET)
+226528,Verification of (A-Line)
+225541,Verification of (Bronch)
+224349,Verification of (CVL)
+226431,Verification of (Intubation)
+225598,Verification of (LP)
+228440,Verification of (MBAL)
+224619,Verification of (PA line)
+225500,Verification of (PACEN)
+224582,Verification of (PICC)
+225492,Verification of (THCEN)
+228200,Vibration in Line
+227670,Violent Restraints
+227672,Violent Restraints Ordered
+225087,Visual / hearing deficit
+223819,Visual Disturbances
+228400,Visual Field Cut
+229012,Vital 1.5 (Full)
+224420,Vital Cap
+220218,Vital Capacity
+229296,Vital High Protein (Full)
+220488,Vitamin D12
+220489,Vitamin K
+227535,Vitamin K (Phytonadione)
+221009,Vivinox T.E.N.
+226059,Vivonex (1/2)
+226056,Vivonex (1/4)
+226057,Vivonex (2/3)
+226058,Vivonex (3/4)
+225934,Vivonex (Full)
+221012,Vivonex Pediatric
+221011,Vivonex Plus
+229693,Vocalization (CPOTb)_OLD_1
+226560,Void
+225806,Volume In (PD)
+225807,Volume Out (PD)
+228435,Volume instilled (MBAL)
+227438,Volume not removed
+228436,Volume obtained (MBAL)
+225905,Voriconazole
+223874,Vti High
+220546,WBC
+226780,WBCApacheIIValue
+227063,WBCScore_ApacheIV
+227062,WBC_ApacheIV
+224105,Warming Device
+229686,Warming Device
+225050,Warming Device Status
+220490,Water
+229834,Waveform Peak (VAD)
+229835,Waveform Trough (VAD)
+226779,WbcApacheIIScore
+223870,Wean
+227854,Weight Bearing Status
+221013,Whole Blood
+228476,With Ultrasound (Gen Proc)
+224504,With ultrasound (THCEN)
+225816,Wound Culture
+226613,Wound Vac #1
+226614,Wound Vac #2
+221216,X-ray
+224672,Yawning
+229775,Yawning (COWS)
+220491,Ytterbium
+224703,ZATC Tube #
+220574,ZAlbumin
+224699,ZAuto Peep Level
+225622,ZBrain Natiuretic Peptide (BNP)
+220612,ZC Reactive Protein (CRP)
+225632,ZCK-MB
+223877,ZCath Lab Intake
+227685,ZCentral Venous O2% Sat
+220611,ZCortisol
+225644,ZDigoxin
+225655,ZFK506
+220541,ZFibrinogen
+223880,ZFree Form Intake
+223881,ZGU Irrigant Intake
+226362,ZGastric/TF Residual Intake
+225662,ZGentamicin (Peak)
+226069,ZGentamicin (Random)
+226068,ZGentamicin (Trough)
+224826,ZHCO3 (serum)
+220561,ZINR
+225670,ZLDL measured
+223878,ZOR Intake
+226259,ZOn Pressors
+223879,ZPACU Intake
+220562,ZPTT
+225676,ZPhenobarbital
+225645,ZPhenytoin (Dilantin)
+225678,ZPlatelet Count
+220640,ZPotassium (serum)
+226535,ZPotassium (whole blood)
+225679,ZProcan
+225680,ZProcan Napa
+220560,ZProthrombin time
+225683,ZSed Rate
+220799,ZSpecific Gravity (urine)
+225686,ZThrombin
+225688,ZTobramycin (Peak)
+226067,ZTobramycin (Random)
+226066,ZTobramycin (Trough)
+224864,ZTrach Care
+225694,ZTropinin - T
+225697,ZVancomycin (Peak)
+226065,ZVancomycin (Random)
+226064,ZVancomycin (Trough)
+220492,Zinc (ingr)
+229833,ZzWaveform Variability (VAD)
+229832,ZzWaveform Variability (VAD)old
