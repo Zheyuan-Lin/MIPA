@@ -3,3 +3,6 @@ medcat/medmen/*
 venv-3.11/*
 venv/*
 secrets/*
+__pycache__/
+*.pyc
+.DS_Store
