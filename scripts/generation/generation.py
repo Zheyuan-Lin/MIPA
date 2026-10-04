@@ -3,6 +3,7 @@ from scripts.preprocessing.hosp.hosp_preprocess import *
 from scripts.constants import *
 from scripts.utils import *
 import os
+import gc
 import dask as dd
 # os.chdir('/Users/eyamga/Documents/Medecine/Recherche/Maitrise MSc/Thèse/MIPA-Git/MIMIC-IV-Phenotype-Atlas')
 
@@ -65,13 +66,26 @@ def process_and_save_shared_test_val_data(master_test_val_cohort, noisy_label=Fa
         ('DIAG', preproc_diagnoses),
         ('MEDS', preproc_meds),
         ('PROC', preproc_proc),
-        ('CHART', preproc_chart),
-        ('LABS', preproc_labs)
+        # TODO: CHART/LABS temporarily disabled -- chartevents.csv.gz (11G) and
+        # labevents.csv.gz (5G) are single non-splittable gzip files, so dask
+        # decompresses each fully into one partition before get_table()'s
+        # .compute() materializes it as pandas -- OOM-kills on 8GB RAM machines.
+        # Needs chunked/streaming reads (or re-sharded files + glob support in
+        # load_mimiciv) before re-enabling. (Same issue as the training branch.)
+        # ('CHART', preproc_chart),
+        # ('LABS', preproc_labs),
     ]
     if notes:
         data_types.extend([
             ('DSNOTES', preproc_dsnotes),
             ('RADNOTES', preproc_radnotes)
+        ])
+
+    # Large unsplittable gzip tables are opt-in on memory-constrained machines.
+    if debug in ('CHART', 'LABS'):
+        data_types.extend([
+            ('CHART', preproc_chart),
+            ('LABS', preproc_labs),
         ])
 
     if debug is not None:
@@ -133,76 +147,138 @@ def process_and_save_shared_test_val_data(master_test_val_cohort, noisy_label=Fa
             print(f"Error processing SHARED {df_type}: {e}")
 
 
+def process_and_save_shared_train_data(master_train_cohort, noisy_label=False, time=True, notes=True,
+                                       root_icd9=True, group_icd10=True, diag_options='ICD10',
+                                       med_grouping=True, debug=None):
+    """
+    Processes and saves all shared data types (DIAG, MEDS, etc.) ONCE for the full training
+    cohort (every non-test-subject admission).
+
+    The training cohort's hadm_id universe is identical across all 16 phenotypes when using
+    silver labels -- phenotype_cohort_train()/generate_silver_labels_df() only add a per-
+    phenotype 'y' column, they never shrink the row set -- so raw feature data only needs to
+    be computed once here and shared across phenotypes, exactly like
+    process_and_save_shared_test_val_data() already does for the golden test/val cohort.
+    Per-phenotype labels are written separately by process_and_save_phenotype_data() into
+    small index files under INDEXES_PATH.
+    """
+    print("[PROCESSING SHARED TRAINING DATA]")
+    data_types = [
+        ('BASELINE', lambda df: df), # Baseline is just the cohort itself
+        ('DIAG', preproc_diagnoses),
+        ('MEDS', preproc_meds),
+        ('PROC', preproc_proc),
+    ]
+    if notes:
+        data_types.extend([
+            ('DSNOTES', preproc_dsnotes),
+            ('RADNOTES', preproc_radnotes)
+        ])
+
+    # Large unsplittable gzip tables are opt-in on memory-constrained machines.
+    if debug in ('CHART', 'LABS'):
+        data_types.extend([
+            ('CHART', preproc_chart),
+            ('LABS', preproc_labs),
+        ])
+
+    if debug is not None:
+        data_types = [dt for dt in data_types if dt[0] == debug]
+
+    for df_type, func in data_types:
+        try:
+            # phenotype is None for shared paths -- see generate_file_path's use_shared_paths branch
+            path = generate_file_path(phenotype=None, df_type=df_type, train=True,
+                                      noisy_label=noisy_label, long=True, validation=False,
+                                      use_shared_paths=True)
+            print(f"[PROCESSING SHARED TRAIN {df_type} and path {path}]")
+
+            if path_exists(path) and debug is None:
+                print(f"Skipping SHARED TRAIN file already processed: {path}")
+                continue
+
+            if df_type == 'DIAG':
+                df_processed = func(cohort=master_train_cohort, icd_map_path=ICD_MAP_PATH,
+                                    root_icd9=root_icd9, group_icd10=group_icd10, options=diag_options)
+            elif df_type in ['RADNOTES', 'DSNOTES']:
+                nlp_path = generate_nlp_file_path(phenotype=None, df_type=df_type, train=True,
+                                                  noisy_label=noisy_label, use_shared_paths=True)
+                print(f"[PROCESSING SHARED TRAIN NLP {df_type} and path {nlp_path}]")
+                if path_exists(nlp_path) and debug is None:
+                    print(f"Skipping SHARED TRAIN NLP file already processed: {nlp_path}")
+                    continue
+                df_processed = func(cohort=master_train_cohort)
+                save_csv(df_processed, nlp_path)
+                print(f"SHARED TRAIN NLP File saved successfully: {nlp_path}")
+                continue # Continue to next df_type after handling NLP notes
+
+            elif df_type == 'MEDS':
+                df_processed = func(cohort=master_train_cohort, time=time, group=med_grouping)
+            elif df_type != 'BASELINE':
+                df_processed = func(cohort=master_train_cohort, time=time)
+            else: # BASELINE
+                df_processed = master_train_cohort
+
+            save_csv(df_processed, path)
+            print(f"SHARED TRAIN File saved successfully: {path}")
+        except Exception as e:
+            print(f"Error processing SHARED TRAIN {df_type}: {e}")
+
+
+def _write_phenotype_index(phenotype, new_index_rows):
+    """
+    Merge new_index_rows into data/processed/cohort/indexes/{phenotype}_indexes.csv,
+    replacing only the rows whose 'set' value matches one present in new_index_rows.
+
+    The train and test/val generation runs (`--train True` / `--train False`) are separate
+    invocations that both write into this same per-phenotype index file (train rows use
+    set='train', test/val rows use set='validation'/'test') -- save_csv() itself always
+    overwrites, so without this merge step whichever run happens second would silently wipe
+    out the other's rows.
+    """
+    index_file_path = f"{INDEXES_PATH}{phenotype}_indexes.csv"
+    sets_being_written = set(new_index_rows['set'].unique())
+
+    if path_exists(index_file_path):
+        existing = load_csv(index_file_path)
+        existing = existing[~existing['set'].isin(sets_being_written)]
+        combined = pd.concat([existing, new_index_rows], axis=0, ignore_index=True)
+    else:
+        combined = new_index_rows
+
+    os.makedirs(os.path.dirname(index_file_path), exist_ok=True)
+    save_csv(combined, index_file_path)
+    print(f'Index file for {phenotype} saved successfully to {index_file_path} (sets: {sets_being_written})')
+
+
 def process_and_save_phenotype_data(df_base_core, phenotype, train=True, noisy_label=True, time=True, notes=True, root_icd9=True, group_icd10=True,
                                     diag_options='ICD10', med_grouping=True, pos_split=0.5, debug=None):
-    """Process and save all phenotype data.
-       Pos plit determines the ratio of pos/negative controls for each phenotype
+    """Write per-phenotype index/label files.
+
+    Raw feature data (DIAG/MEDS/PROC/CHART/LABS/NOTES) is NOT computed here for either
+    train or test/val: the hadm_id universe is shared across all phenotypes (train: every
+    non-test-subject admission, labeled per-phenotype only via silver_labels' 'y' column;
+    test/val: the union of golden-labeled admissions), so it is computed once by
+    process_and_save_shared_train_data / process_and_save_shared_test_val_data and reused.
+    This function only derives the per-phenotype (hadm_id, y) label set and writes it to
+    INDEXES_PATH via _write_phenotype_index.
     """
     try:
-        if train: # Training data processing remains phenotype-specific
+        if train:
             core_df = phenotype_cohort_train(df_base_core, phenotype, silver_labels=noisy_label)
-            datasets = [('train', core_df)]
-            print(f'Training dataset created successfully for {phenotype} using silver labels: {noisy_label}')
+            print(f'Training index created for {phenotype} using silver labels: {noisy_label}')
 
-            # Define the data types and corresponding processing functions
-            data_types = [
-                ('BASELINE', lambda df: df),
-                ('DIAG', preproc_diagnoses),
-                ('MEDS', preproc_meds),
-                ('PROC', preproc_proc),
-                ('CHART', preproc_chart),
-                ('LABS', preproc_labs)
-            ]
-            if notes:
-                data_types.extend([
-                    ('DSNOTES', preproc_dsnotes),
-                    ('RADNOTES', preproc_radnotes)
-                ])
+            index_df = core_df.copy()
+            index_df['set'] = 'train'
+            index_df['phenotype_set'] = phenotype
+            if 'y' not in index_df.columns:
+                print(f"WARNING: 'y' column missing for {phenotype} during training index creation (silver_labels={noisy_label}).")
+                index_df['y'] = -1
+            index_df = index_df[['hadm_id', 'phenotype_set', 'y', 'set']].drop_duplicates(subset=['hadm_id'])
 
-            if debug is not None:
-                data_types = [dt for dt in data_types if dt[0] == debug]
+            _write_phenotype_index(phenotype, index_df)
+            return core_df
 
-            for dataset_name, dataset_df in datasets: # Should only be 'train'
-                for df_type, func in data_types:
-                    try:
-                        # For training, use_shared_paths is False, validation is False
-                        path = generate_file_path(phenotype, df_type, train=True,
-                                                  noisy_label=noisy_label, long=True,
-                                                  validation=False, use_shared_paths=False)
-                        print(f"[PROCESSING TRAINING {df_type} FOR {phenotype} and path {path}]")
-                        if path_exists(path) and debug is None:
-                            print(f"Skipping TRAINING file already processed: {path}")
-                            continue
-                        if df_type == 'DIAG':
-                            df_processed = func(cohort=dataset_df, icd_map_path=ICD_MAP_PATH, root_icd9=root_icd9, group_icd10=group_icd10, options=diag_options)
-                        elif df_type in ['RADNOTES', 'DSNOTES']:
-                             # Training NLP data path generation
-                            nlp_path = generate_nlp_file_path(phenotype, df_type, train=True, noisy_label=noisy_label, use_shared_paths=False)
-                            print(f"[PROCESSING TRAINING NLP {df_type} FOR {phenotype} and path {nlp_path}]")
-                            if path_exists(nlp_path) and debug is None:
-                                print(f"Skipping TRAINING NLP file already processed: {nlp_path}")
-                                continue
-                            df_processed = func(cohort=dataset_df)
-                            save_csv(df_processed, nlp_path)
-                            print(f"TRAINING NLP File saved successfully: {nlp_path}")
-                            if path != nlp_path: # if main long path for notes is different
-                                print(f"Skipping save for {path} as NLP data handled by {nlp_path} for training")
-                            continue # Continue to next df_type
-
-                        elif df_type == 'MEDS':
-                            df_processed = func(cohort=dataset_df, time=time, group=med_grouping)
-                        elif df_type != 'BASELINE':
-                            df_processed = func(cohort=dataset_df, time=time)
-                        else:
-                            df_processed = dataset_df
-
-                        save_csv(df_processed, path)
-                        print(f"TRAINING File saved successfully: {path}")
-                    except Exception as e:
-                        print(f"Error processing TRAINING {df_type} for {phenotype}: {e}")
-        # For non-train (test/validation), this function will now only create index files.
-        # The actual data processing is handled by process_and_save_shared_test_val_data
-        # and orchestrated by generate_raw_csv.
         else: # train == False logic for creating index files
             val_df, test_df = phenotype_cohort_test(df_base_core, phenotype, val_frac=pos_split)
             datasets_for_index = [('validation', val_df), ('test', test_df)]
@@ -223,11 +299,7 @@ def process_and_save_phenotype_data(df_base_core, phenotype, train=True, noisy_l
                 dfs_index.append(temp_df[['hadm_id', 'phenotype_set', 'y', 'set']])
 
             combined_index_df = pd.concat(dfs_index, axis=0, ignore_index=True)
-            # Ensure INDEXES_PATH is defined in constants.py and directory exists
-            index_file_path = f"{INDEXES_PATH}{phenotype}_indexes.csv"
-            os.makedirs(os.path.dirname(index_file_path), exist_ok=True) # Ensure directory exists
-            save_csv(combined_index_df, index_file_path)
-            print(f'Index file for {phenotype} saved successfully to {index_file_path}')
+            _write_phenotype_index(phenotype, combined_index_df)
             # Return the val_df and test_df so generate_raw_csv can collect all hadm_ids
             return val_df, test_df
 
@@ -235,7 +307,7 @@ def process_and_save_phenotype_data(df_base_core, phenotype, train=True, noisy_l
         print(f"Error in process_and_save_phenotype_data for {phenotype} (train={train}): {e}")
         if not train:
              return pd.DataFrame(), pd.DataFrame() # Return empty DFs on error for non-train
-         # For train, error is caught and printed, function effectively ends.
+        return None # For train, error is caught and printed, function effectively ends.
 
 
 def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=True, notes=True, root_icd9=True, group_icd10=True,
@@ -283,14 +355,61 @@ def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=T
 
 
     if train:
-        if not isinstance(phenotypes_to_process, str):
-            raise ValueError("For training, phenotypes_to_process must be a single phenotype string.")
-        phenotype = phenotypes_to_process
-        print(f"--- Generating TRAINING data for phenotype: {phenotype} ---")
-        # Training data likely uses the fully processed df_base_core_processed
-        process_and_save_phenotype_data(df_base_core_processed, phenotype, train=True, noisy_label=noisy_label,
-                                        time=time, notes=notes, root_icd9=root_icd9, group_icd10=group_icd10,
-                                        diag_options=diag_options, med_grouping=med_grouping, debug=debug)
+        if not isinstance(phenotypes_to_process, list):
+            raise ValueError("For training, phenotypes_to_process must be a list of phenotype strings.")
+
+        all_train_hadm_ids = set()
+        print("--- Generating TRAINING INDEXES for all specified phenotypes (using df_base_core_processed) ---")
+        for phenotype in phenotypes_to_process:
+            print(f"-- Creating training index for phenotype: {phenotype} --")
+            # This call only derives and saves the (hadm_id, y) index -- see
+            # process_and_save_phenotype_data's docstring for why raw feature data isn't
+            # computed per-phenotype here.
+            core_df = process_and_save_phenotype_data(
+                df_base_core_processed, phenotype, train=True, noisy_label=noisy_label,
+                time=time, notes=notes, root_icd9=root_icd9, group_icd10=group_icd10,
+                diag_options=diag_options, med_grouping=med_grouping, debug=debug
+            )
+            if core_df is not None and not core_df.empty:
+                all_train_hadm_ids.update(core_df['hadm_id'].unique())
+
+        if not all_train_hadm_ids:
+            print("WARNING: No hadm_ids collected for training sets. Skipping shared data generation.")
+            return
+
+        print(f"Total unique HADM_IDs for shared training processing: {len(all_train_hadm_ids)}")
+        # Create the master cohort for all training admissions using the *processed* base core,
+        # restricted to the hadm_ids actually returned by the per-phenotype index step above
+        # (in the common silver-label case this is the full non-test-subject population).
+        # df_base_core_processed carries one row per (hadm_id, icd_code) from
+        # generate_addition_icdcodes -- dedupe back to one row per admission here: none of
+        # BASELINE/DIAG/MEDS/PROC/CHART/LABS/NOTES need the icd_code fan-out (DIAG re-fetches
+        # diagnoses_icd fresh via get_table(), using cohort only for its hadm_id set), so
+        # carrying millions of duplicate rows through the whole shared-processing pass just
+        # wastes memory -- on a memory-constrained machine this alone can be the difference
+        # between finishing in seconds and swapping/thrashing for many minutes.
+        master_train_cohort = df_base_core_processed[
+            df_base_core_processed['hadm_id'].isin(list(all_train_hadm_ids))
+        ].drop_duplicates(subset=['hadm_id'])
+
+        if master_train_cohort.empty:
+            print("WARNING: Master training cohort is empty after filtering df_base_core_processed. Skipping shared data generation.")
+            return
+
+        # Both multi-million-row fan-out frames are done being read from at this point --
+        # free them before the shared processing pass. On a memory-constrained machine,
+        # holding these alongside the pass's own intermediate frames is enough to push the
+        # OS into heavy swap/compression, turning an otherwise-fast merge into a many-minute
+        # stall even though no algorithmic step is actually slow.
+        del df_base_core_processed, df_base_core_for_indexes, df_temp_before_dropna, data
+        gc.collect()
+
+        print("--- Generating SHARED data for all Training admissions (using master_train_cohort from df_base_core_processed) ---")
+        process_and_save_shared_train_data(
+            master_train_cohort, noisy_label=noisy_label, time=time, notes=notes,
+            root_icd9=root_icd9, group_icd10=group_icd10, diag_options=diag_options,
+            med_grouping=med_grouping, debug=debug
+        )
     else: # train == False : Processing for Test/Validation (Index creation + Shared Data)
         if not isinstance(phenotypes_to_process, list):
             raise ValueError("For test/validation (train=False), phenotypes_to_process must be a list of phenotype strings.")
@@ -318,12 +437,21 @@ def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=T
 
         print(f"Total unique HADM_IDs for shared test/validation processing: {len(all_test_val_hadm_ids)}")
         # Create the master cohort for all test/validation admissions using the *processed* base core
-        # Ensure it only contains hadm_ids that are in our collected all_test_val_hadm_ids
-        master_test_val_cohort = df_base_core_processed[df_base_core_processed['hadm_id'].isin(list(all_test_val_hadm_ids))]
+        # Ensure it only contains hadm_ids that are in our collected all_test_val_hadm_ids.
+        # Same dedup rationale as master_train_cohort above: df_base_core_processed carries
+        # one row per (hadm_id, icd_code), but nothing downstream needs that fan-out.
+        master_test_val_cohort = df_base_core_processed[
+            df_base_core_processed['hadm_id'].isin(list(all_test_val_hadm_ids))
+        ].drop_duplicates(subset=['hadm_id'])
 
         if master_test_val_cohort.empty:
             print("WARNING: Master test/validation cohort is empty after filtering df_base_core_processed. Skipping shared data generation.")
             return
+
+        # See the matching del/gc.collect() in the train branch above for why: these
+        # multi-million-row fan-out frames are done being read from at this point.
+        del df_base_core_processed, df_base_core_for_indexes, df_temp_before_dropna, data
+        gc.collect()
 
         print("--- Generating SHARED data for all Test/Validation admissions (using master_test_val_cohort from df_base_core_processed) ---")
         process_and_save_shared_test_val_data(
