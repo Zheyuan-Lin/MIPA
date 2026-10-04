@@ -24,6 +24,15 @@ def set_project_root():
     project_root_path = os.path.dirname(current_script_path)
     os.chdir(project_root_path)
 
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('true', '1', 'yes', 'y'):
+        return True
+    if v.lower() in ('false', '0', 'no', 'n'):
+        return False
+    raise argparse.ArgumentTypeError(f'Boolean value expected, got: {v!r}')
+
 def parse_args():
     """
     Parse command-line arguments.
@@ -33,14 +42,14 @@ def parse_args():
     """
     parser = argparse.ArgumentParser(description='Process some parameters.')
     parser.add_argument('--dataset_type', type=str, default='train', help='Type of dataset')
-    parser.add_argument('--noisy_label', type=bool, default=True, help='Use noisy labels')
-    parser.add_argument('--time', type=bool, default=True, help='Include time')
-    parser.add_argument('--notes', type=bool, default=True, help='Include notes')
-    parser.add_argument('--train', type=bool, default=True, help='Training mode')
-    parser.add_argument('--NLP', type=bool, default=False, help='Use NLP')
+    parser.add_argument('--noisy_label', type=str2bool, default=True, help='Use noisy labels')
+    parser.add_argument('--time', type=str2bool, default=True, help='Include time')
+    parser.add_argument('--notes', type=str2bool, default=True, help='Include notes')
+    parser.add_argument('--train', type=str2bool, default=True, help='Training mode')
+    parser.add_argument('--NLP', type=str2bool, default=False, help='Use NLP')
     parser.add_argument('--pivot_type', type=str, default='simple', choices=['simple', 'timeseries'], help='Type of pivot')
     parser.add_argument('--agg_window', type=str, default='D', help='Aggregation window')
-    parser.add_argument('--run_notes_nlp_parsing', default=False, help='Run notes NLP parsing instead of the full pipeline')
+    parser.add_argument('--run_notes_nlp_parsing', type=str2bool, default=False, help='Run notes NLP parsing instead of the full pipeline')
     parser.add_argument('--debug_type', type=str, choices=['DIAG', 'PROC', 'MEDS', 'CHART', 'LABS', 'RADNOTES', 'DSNOTES'], help='Debug type (refers to the database of interest)')
     parser.add_argument('--debug_phenotype', type=str, choices=["c_diff_complication", "c_diff_past", "dementia", "depression",
                                                                 "diabetes_type_1", "diabetes_type_2", "hfref", "hfpef", "hypertension", "sle",
@@ -48,11 +57,11 @@ def parse_args():
 
     # Grouping parameters
     # Diagnosis ICD code diagnosis grouping
-    parser.add_argument('--root_icd9', type=bool, default=True, help='Use root ICD9')
-    parser.add_argument('--group_icd10', type=bool, default=True, help='Group ICD10')
+    parser.add_argument('--root_icd9', type=str2bool, default=True, help='Use root ICD9')
+    parser.add_argument('--group_icd10', type=str2bool, default=True, help='Group ICD10')
     parser.add_argument('--options', type=str, default='ICD10', help='Options for ICD')
     # Medication grouping
-    parser.add_argument('--med_grouping', type=bool, default=True, help='Use medication grouping')
+    parser.add_argument('--med_grouping', type=str2bool, default=True, help='Use medication grouping')
 
     # Feature selection lower quantile
     parser.add_argument('--lower_labs', type=float, default=0.25, help='Lower threshold for labs')
@@ -66,69 +75,92 @@ def parse_args():
     return parser.parse_args()
 
 
-def notes_nlp_parsing(lower_quantile=0.20):
+def notes_nlp_parsing(lower_quantile=0.20, train=False, parallel=False, n_workers=3):
     """
     Process and parse notes using NLP techniques.
 
     This function processes the notes for each phenotype and data type (RADNOTES, DSNOTES),
     generates NLP features, applies feature selection, and saves the pivoted data.
+
+    Parameters:
+    - train: False (default) processes the shared test/val notes; True processes the shared
+      training notes (see process_and_save_shared_train_data) -- phenotype is irrelevant to
+      the actual path in both cases since use_shared_paths=True is used throughout (the
+      'c_diff_past' loop below is just a placeholder value for functions that need some
+      phenotype argument).
+    - parallel: use process_and_annotate_dataframe_parallel (multiprocessing) instead of the
+      serial process_and_annotate_dataframe. Serial MedCAT inference was measured at
+      ~240ms/note -- at training scale (~1.35M notes across DSNOTES+RADNOTES) that is ~3.7
+      days of continuous single-core work, so this should be True for the training run.
+    - n_workers: worker process count for the parallel path. Each worker loads its own full
+      MedCAT model copy (~1.1GB RSS measured, since CAT.load_model_pack isn't
+      picklable/shareable across macOS's 'spawn' multiprocessing start method) -- keep this
+      conservative on an 8GB machine rather than matching the full CPU core count.
     """
-    train = False
     noisy_label = False
     for phenotype in ['c_diff_past']:
         for df_type in ['RADNOTES', 'DSNOTES']:
             print(f"[PROCESSING {phenotype} and {df_type}]")
-            #path = generate_file_path(phenotype, df_type, train=False, noisy_label=False, long=True, validation=False, use_shared_paths=True)
-            #df = read_gzip_or_parts(path)
-            #cat = generate_cat()
-            # Generate NLP features
-            nlp_path = generate_nlp_file_path(phenotype, df_type, train=False, noisy_label=False,  use_shared_paths=True)
-            #dict_path = generate_dict_path(phenotype, df_type=df_type, train=train, label=noisy_label, use_shared_paths=True)
-            #print('FEATURE CREATION')
-            #df = process_and_annotate_dataframe(df, cat=cat, text_column="text")
-            #print('FEATURE CREATED')
-            # Generate dictionary path : NB dictionary is saved in the pivot step for the other data types
-            # Feature selection based on CUI frequency + Dictionary Export
-            #df = apply_feature_selection_and_export_cuis(df, cat=cat, output_file=dict_path, lower_quantile=lower_quantile)
-            #print(f"[NLP FEATURE SELECTION]")
-            #df = df[["subject_id", "hadm_id", "nlp_codes"]]
-            #save_gzip(df, nlp_path)
-            nlp_path = generate_nlp_file_path(phenotype, df_type, train=False, noisy_label=False,  use_shared_paths=True)
+            # generate_raw_csv (notes=True) already wrote the raw preprocessed text
+            # (subject_id, hadm_id, text, ...) to this same shared NLP path -- that's what
+            # we annotate here, then overwrite in place with the CUI-annotated version.
+            nlp_path = generate_nlp_file_path(phenotype, df_type, train=train, noisy_label=False, use_shared_paths=True)
             df = read_gzip_or_parts(nlp_path)
+            print(f"Loaded {len(df)} {df_type} notes to annotate")
+            cat = generate_cat()
+            dict_path = generate_dict_path(phenotype, df_type=df_type, train=train, label=noisy_label, use_shared_paths=True)
+            print('FEATURE CREATION')
+            if parallel:
+                df = process_and_annotate_dataframe_parallel(df, text_column="text", n_workers=n_workers)
+            else:
+                df = process_and_annotate_dataframe(df, cat=cat, text_column="text")
+            print('FEATURE CREATED')
+            # Feature selection based on CUI frequency + Dictionary Export
+            df = apply_feature_selection_and_export_cuis(df, cat=cat, output_file=dict_path, lower_quantile=lower_quantile)
+            print(f"[NLP FEATURE SELECTION]")
+            df = df[["subject_id", "hadm_id", "nlp_codes"]]
+            save_gzip(df, nlp_path)
             print('PIVOTING')
             pivoted_df = pivot_and_aggregate(df, id_column='hadm_id', cui_column='nlp_codes')
             save_path = generate_pivot_path(phenotype, df_type, train, noisy_label, use_shared_paths=True)  # getting path
-            save_csv(pivoted_df, save_path)
-            print(f"[SUCCESSFULLY SAVED DSNOTES PIVOTED DATA] {save_path}")
+            # save_pivot (not save_csv) since pivoted_df is now a pandas Sparse-dtype
+            # DataFrame -- see scripts/utils.py::save_pivot's docstring for why writing a
+            # sparse DataFrame out as plain CSV defeats the point of staying sparse.
+            actual_save_path = save_pivot(pivoted_df, save_path)
+            print(f"[SUCCESSFULLY SAVED {df_type} PIVOTED DATA] {actual_save_path}")
 
 def debug(TYPE, phenotype):
     """
-    Debug function to generate raw CSV, feature selection, summary, and pivot for a specific phenotype.
+    Debug function to generate raw CSV, feature selection, summary, and pivot restricted to a
+    single table type (TYPE), for fast local iteration.
+
+    Always runs the train=True path (as before). generate_raw_csv still only needs `phenotype`
+    to write that one phenotype's index file -- the actual table generation/feature-selection/
+    pivot run once against the shared training cohort (see generate_raw_csv's train=True branch
+    and process_and_save_shared_train_data), same as main()'s params['train'] branch.
 
     Args:
         TYPE (str): Debug type (refers to the database of interest).
         phenotype (str): Debug phenotype (refers to the phenotype tested).
     """
     params = {
-            'dataset_type': 'train',
+            'train'       : True,
             'debug'       : TYPE,
             'noisy_label' : True,
             'time'        : True,
             'notes'       : False,
-            'train'       : True,
             'NLP'         : False,
             'pivot_type'  : 'simple',  # alternative: 'timeseries'
             'agg_window'  : 'D',
     }
 
-    for phenotype in [phenotype]:
-        generate_raw_csv(phenotype, **{k: v for k, v in params.items() if k in ['dataset_type', 'noisy_label',
-                                                                                'time', 'notes', 'debug']})
-        generate_features_selection(phenotype, **{k: v for k, v in params.items() if k in ['train', 'noisy_label',
-                                                                                           'notes', 'NLP', 'debug']})
-        generate_summary(phenotype, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes',
+    generate_raw_csv([phenotype], **{k: v for k, v in params.items() if k in ['train', 'noisy_label',
+                                                                              'time', 'notes', 'debug']})
+    generate_features_selection(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label',
+                                                                                       'notes', 'NLP', 'debug']})
+    generate_summary(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes',
                                                                                 'NLP', 'debug']})
-        generate_pivot(phenotype, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label',
+    generate_pivot(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label',
                                                                               'notes', 'agg_window', 'debug']})
 
 def main(args):
@@ -157,7 +189,7 @@ def main(args):
         'agg_window': args.agg_window,
         'root_icd9': args.root_icd9,
         'group_icd10': args.group_icd10,
-        'options': args.options,
+        'diag_options': args.options,
         'med_grouping': args.med_grouping,
         'lower_labs': args.lower_labs,
         'lower_chart': args.lower_chart,
@@ -166,11 +198,26 @@ def main(args):
         'lower_nlp': args.lower_nlp,
     }
 
-    for phenotype in PHENOTYPES:
-        generate_raw_csv(phenotype, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'time', 'notes', 'root_icd9', 'group_icd10', 'options', 'med_grouping']})
-        generate_features_selection(phenotype, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP', 'lower_labs', 'lower_chart', 'lower_icd', 'lower_meds', 'lower_nlp']})
-        generate_summary(phenotype, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP']})
-        generate_pivot(phenotype, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label', 'notes', 'agg_window']})
+    if params['train']:
+        # train=True (silver-labeled training): the hadm_id universe is identical across all
+        # phenotypes (only the per-phenotype 'y' label differs -- see
+        # process_and_save_phenotype_data / process_and_save_shared_train_data), so
+        # generate_raw_csv takes the full phenotype list in one call (writes per-phenotype
+        # index files, then computes raw features once against the shared cohort), and
+        # downstream steps run once against the shared paths instead of per-phenotype --
+        # mirrors the train=False branch below exactly.
+        generate_raw_csv(PHENOTYPES, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'time', 'notes', 'root_icd9', 'group_icd10', 'diag_options', 'med_grouping']})
+        generate_features_selection(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP', 'lower_labs', 'lower_chart', 'lower_icd', 'lower_meds', 'lower_nlp']})
+        generate_summary(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP']})
+        generate_pivot(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label', 'notes', 'agg_window']})
+    else:
+        # train=False (golden test/val): generate_raw_csv requires the full phenotype
+        # list in one call (it builds a single shared cohort across all phenotypes),
+        # and downstream steps run once against the shared paths instead of per-phenotype.
+        generate_raw_csv(PHENOTYPES, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'time', 'notes', 'root_icd9', 'group_icd10', 'diag_options', 'med_grouping']})
+        generate_features_selection(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP', 'lower_labs', 'lower_chart', 'lower_icd', 'lower_meds', 'lower_nlp']})
+        generate_summary(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP']})
+        generate_pivot(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label', 'notes', 'agg_window']})
 
 
 def main_noarg():
@@ -276,6 +323,5 @@ def main_noarg():
 
 if __name__ == '__main__':
     set_project_root()
-    notes_nlp_parsing(0.20)
     args = parse_args()
     main(args)
