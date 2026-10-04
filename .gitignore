@@ -1,4 +1,18 @@
 data/filters/golden_notes_full.csv
+
+# Local MIMIC data and generated datasets
+raw/
+output/
+temp/
+data/raw/
+data/processed/
+data/features/
+data/models/
+data/temp/
+data/filters/golden_notes.csv
+data/filters/golden_notes.csv.bak
+data/filters/test_subject_ids.csv
+
 medcat/medmen/*
 venv-3.11/*
 venv/*
