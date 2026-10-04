@@ -38,32 +38,35 @@ def standardize_icd(mapping: pd.DataFrame, cohort: pd.DataFrame, root_icd9: bool
     Returns:
     - The cohort DataFrame with added columns for the standardized ICD codes.
     """
-    def icd_9to10(icd: str) -> str:
-        # Truncate ICD9 code to its root if root_icd9 is True
-        if root_icd9:
-            icd = icd[:3]
-        try:
-            # Attempt to map ICD9 code to ICD10
-            return mapping.loc[mapping['diagnosis_code'] == icd].icd10cm.iloc[0]
-        except IndexError:
-            # Return NaN if mapping not found
-            return np.nan
-
     # Determine column name for the standardized ICD10 codes
     icd_map_colname = 'icd10_convert'
     if root_icd9:
         icd_map_colname = 'icd9root_' + icd_map_colname
 
-    # Apply mapping function to the cohort DataFrame
-    cohort[icd_map_colname] = cohort['icd_code'].apply(icd_9to10)
+    # Match on 'icd9cm' (dot-free, e.g. "99676"), not 'diagnosis_code' (dotted
+    # presentation format, e.g. "996.76") -- MIMIC-IV's icd_code column is dot-free,
+    # so comparing against 'diagnosis_code' would essentially never match.
+    # Vectorized via a dict/Series lookup (.map) instead of a per-row linear scan
+    # of the whole mapping table (which was O(len(cohort) * len(mapping))).
+    if root_icd9:
+        mapping_key = mapping['icd9cm'].astype(str).str[:3]
+        cohort_key = cohort['icd_code'].astype(str).str[:3]
+    else:
+        mapping_key = mapping['icd9cm'].astype(str)
+        cohort_key = cohort['icd_code'].astype(str)
+
+    icd9_to_icd10 = (
+        mapping.assign(_key=mapping_key)
+               .drop_duplicates(subset='_key')
+               .set_index('_key')['icd10cm']
+    )
+    cohort[icd_map_colname] = cohort_key.map(icd9_to_icd10)
 
     # Group ICD10 codes based on the first 3 digits if group_icd10 is True
     if group_icd10:
-        cohort['root'] = cohort.apply(
-                lambda row: row[icd_map_colname][:3] if pd.notnull(row[icd_map_colname]) else (
-                        row['icd_code'][:3] if pd.notnull(row['icd_code']) and row['icd_version'] == '10' else np.nan),
-                axis=1
-        )
+        converted_root = cohort[icd_map_colname].str[:3]
+        native_icd10_root = cohort['icd_code'].where(cohort['icd_version'].astype(str) == '10').str[:3]
+        cohort['root'] = converted_root.fillna(native_icd10_root)
     return cohort
 
 
@@ -122,18 +125,17 @@ def preproc_diagnoses(cohort: pd.DataFrame, icd_map_path: str = None, root_icd9:
     if options == 'Original':
         cohort_df['new_icd_code'] = cohort_df['icd_code'] # Returns original ICD codes
     elif options == 'ICD10':
-        if root_icd9:
-            cohort_df['new_icd_code'] = cohort_df.apply(
-                    lambda row: row['icd9root_icd10_convert'] if pd.notna(row['icd9root_icd10_convert'])
-                    else (row['icd_code'] if row['icd_code'] == '10' else None),
-                    axis=1
-            )
-        else:
-            cohort_df['new_icd_code'] = cohort_df.apply(
-                    lambda row: row['icd10_convert'] if pd.notna(row['icd10_convert'])
-                    else (row['icd_code'] if row['icd_code'] == '10' else None),
-                    axis=1
-            )
+        # Codes already converted from ICD-9 are used as-is; codes that are natively
+        # ICD-10 (icd_version == '10', not '9' converted to nothing) pass through
+        # unchanged instead of being dropped. (Originally compared icd_code itself to
+        # the literal string '10', which is never true, so native ICD-10 rows were
+        # always dropped -- fixed to check icd_version instead.)
+        convert_colname = 'icd9root_icd10_convert' if root_icd9 else 'icd10_convert'
+        is_native_icd10 = cohort_df['icd_version'].astype(str) == '10'
+        cohort_df['new_icd_code'] = cohort_df[convert_colname].where(
+            cohort_df[convert_colname].notna(),
+            cohort_df['icd_code'].where(is_native_icd10)
+        )
     elif options == 'ICD10_grouped':
         cohort_df['new_icd_code'] = cohort_df['root']
 
@@ -182,6 +184,11 @@ def preproc_labs(cohort: pd.DataFrame, time = False) -> pd.DataFrame:
     Optimized function for getting hospital observations pertaining to a cohort using Dask for parallel processing.
     This function is structured to save memory when reading and transforming data.
     """
+    # `cohort` carries one row per (hadm_id, icd_code) from the upstream diagnoses merge
+    # (generate_addition_icdcodes) -- dedupe on hadm_id here, otherwise the merge below fans
+    # each lab event out once per diagnosis code on that admission (same fix as preproc_radnotes).
+    cohort = cohort.drop_duplicates(subset=['hadm_id'])
+
     # Read and preprocess labs data using Dask
     labs_df = read_labs(cohort)
     print(f'Initial Labs dataframe shape: {labs_df.shape}')
@@ -205,7 +212,7 @@ def preproc_labs(cohort: pd.DataFrame, time = False) -> pd.DataFrame:
         imputed_hadm_ids = impute_hadm_ids(missing_hadm_ids[['subject_id', 'hadm_id', 'itemid', 'charttime', 'value', 'valueuom']], cohort)
         imputed_hadm_ids = imputed_hadm_ids.rename(columns={'hadm_id_new': 'hadm_id'})
         labs_df = labs_df.dropna(subset=['hadm_id']) # Drop rows with NaN 'hadm_id' after imputation
-        labs_df = labs_df.append(imputed_hadm_ids, ignore_index=True)
+        labs_df = pd.concat([labs_df, imputed_hadm_ids], ignore_index=True)
         print(f'Imputed HADM ids: {imputed_hadm_ids.shape}')
     else:
         print("No missing HADM ids found. Skipping imputation.")
@@ -235,12 +242,16 @@ def preproc_labs(cohort: pd.DataFrame, time = False) -> pd.DataFrame:
 
     # Time series correction
     if time == False:
-        labs_df = labs_df.drop_duplicates(subset=['hadm_id', 'item_id'])
+        # Column is 'itemid' (no underscore) everywhere else in this function (see the
+        # nunique() call a few lines up) -- 'item_id' doesn't exist and would KeyError here.
+        labs_df = labs_df.drop_duplicates(subset=['hadm_id', 'itemid'])
         labs_df = labs_df.drop(columns=['lab_time_from_admit'])
     if time == True:
         pass
 
-    labs_df = labs_df.drop(columns=['category','charttime', 'admittime', 'dischtime'])
+    # 'category' isn't one of labevents' columns (see _LARGE_TABLE_SPECS['labevents'] in
+    # scripts/utils.py) -- errors='ignore' so this doesn't KeyError if it's ever absent.
+    labs_df = labs_df.drop(columns=['category', 'charttime', 'admittime', 'dischtime'], errors='ignore')
     # Convert Dask DataFrame back to Pandas DataFrame for final output
     return labs_df
 
@@ -340,7 +351,10 @@ def ndc_meds(med, mapping = MAP_PATH+'ndc_product.txt') -> pd.DataFrame:
     return med
 
 def preproc_meds(cohort: pd.DataFrame, time = False, group = True) -> pd.DataFrame:
-    adm = cohort[['hadm_id', 'admittime', 'dischtime']]
+    # `cohort` carries one row per (hadm_id, icd_code) from the upstream diagnoses merge
+    # (generate_addition_icdcodes) -- dedupe on hadm_id here, otherwise the merge below fans
+    # each prescription out once per diagnosis code on that admission (same fix as preproc_radnotes).
+    adm = cohort[['hadm_id', 'admittime', 'dischtime']].drop_duplicates(subset=['hadm_id'])
     med = read_prescriptions_table(adm)
     med = med.merge(adm, left_on='hadm_id', right_on='hadm_id', how='inner')
     med['start_hours_from_admit'] = med['starttime'] - med['admittime']
@@ -426,7 +440,11 @@ def preproc_proc(cohort, time=False) -> pd.DataFrame:
      No mapping done for procedures ICD codes
     """
 
-    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime', 'anchor_year']]
+    # `cohort` carries one row per (hadm_id, icd_code) from the upstream diagnoses merge
+    # (generate_addition_icdcodes) -- dedupe on hadm_id here -- admittime/dischtime/
+    # anchor_year are constant per admission -- otherwise the merge below fans each
+    # procedure out once per diagnosis code on that admission (same fix as preproc_radnotes).
+    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime', 'anchor_year']].drop_duplicates(subset=['hadm_id'])
     proc = read_procedures(adm)
 
     df_cohort = proc.merge(adm[['hadm_id', 'admittime', 'dischtime']], how='inner',
@@ -472,8 +490,11 @@ def preproc_radnotes(cohort) -> dd.DataFrame:
     """Function for getting hosp observations pertaining to a pickled cohort. Function
     is structured to save memory when reading and transforming data."""
 
-    # Extract necessary columns
-    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime']]
+    # Extract necessary columns. `cohort` carries one row per (hadm_id, icd_code)
+    # from the upstream diagnoses merge, so dedupe on hadm_id here -- admittime/
+    # dischtime/subject_id are constant per admission -- otherwise the merge below
+    # fans each radiology note out once per diagnosis code on that admission.
+    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime']].drop_duplicates(subset=['hadm_id'])
     radnotes = read_radiology_notes(adm)
 
     # Merge with checks for alignment on 'hadm_id'
@@ -527,8 +548,13 @@ def preproc_dsnotes(cohort) -> dd.DataFrame:
     """Function for getting hosp observations pertaining to a pickled cohort. Function
     is structured to save memory when reading and transforming data."""
 
-    # Extract necessary columns
-    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime', 'anchor_year']]
+    # Extract necessary columns. `cohort` carries one row per (hadm_id, icd_code) from the
+    # upstream diagnoses merge (generate_addition_icdcodes), so dedupe on hadm_id here --
+    # admittime/dischtime/anchor_year are constant per admission -- otherwise the merge below
+    # fans each discharge note out once per diagnosis code on that admission before the
+    # post-merge drop_duplicates trims it back down (same fix as preproc_radnotes, applied
+    # before the merge instead of after so the fan-out is never computed at all).
+    adm = cohort[['subject_id', 'hadm_id', 'admittime', 'dischtime', 'anchor_year']].drop_duplicates(subset=['hadm_id'])
     dsnotes = read_ds_notes(cohort)
 
     # Merge with checks for alignment on 'hadm_id'
@@ -611,8 +637,11 @@ def preproc_chart(cohort, time=False) -> dd.DataFrame:
     # Ensure 'valuenum' is not NaN
     df_chartevents = df_chartevents.dropna(subset=['value'])
 
-    # Merge with cohort data
-    cohort_data = cohort[['stay_id', 'intime']]
+    # Merge with cohort data. `cohort` carries one row per (hadm_id, icd_code) from the
+    # upstream diagnoses merge (generate_addition_icdcodes) -- dedupe on stay_id here
+    # (intime is constant per stay) -- otherwise the merge below fans each chart event out
+    # once per diagnosis code on that admission (same fix as preproc_radnotes).
+    cohort_data = cohort[['stay_id', 'intime']].drop_duplicates(subset=['stay_id'])
     df_chartevents = df_chartevents.merge(cohort_data, how='inner', on='stay_id')
 
     # Calculate event time from admission
