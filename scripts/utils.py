@@ -6,6 +6,8 @@
 import os
 import sys
 import gc
+import tempfile
+from scipy.sparse import coo_matrix, csr_matrix, vstack
 import gcsfs
 import logging
 import gzip
@@ -109,13 +111,17 @@ def generate_file_path(phenotype, df_type, train=True, noisy_label=True, long=Fa
     Returns:
     - str: The constructed file path.
     """
-    if not train and use_shared_paths:
-        # Paths for shared test/validation data
-        base_path = COHORT_SHARED_TEST_VAL_LONG_PATH if long else COHORT_SHARED_TEST_VAL_ROOT_PATH
+    if use_shared_paths:
+        # Paths for shared data (identical hadm_id universe across phenotypes)
+        if train:
+            base_path = COHORT_SHARED_TRAIN_LONG_PATH if long else COHORT_SHARED_TRAIN_ROOT_PATH
+            suffix = SHARED_TRAIN_DATA_FILE_SUFFIX
+        else:
+            base_path = COHORT_SHARED_TEST_VAL_LONG_PATH if long else COHORT_SHARED_TEST_VAL_ROOT_PATH
+            suffix = SHARED_DATA_FILE_SUFFIX
         # For shared paths, phenotype is not part of the directory structure,
         # and noisy_label/validation flags might be standardized (e.g., always False for golden test/val data)
-        # Filename uses a generic suffix
-        file_path = f"{base_path}{df_type}{SHARED_DATA_FILE_SUFFIX}.csv.gz"
+        file_path = f"{base_path}{df_type}{suffix}.csv.gz"
     elif train:
         base_path = COHORT_TRAIN_PATH
         label_suffix = "_silver" if noisy_label else ""
@@ -188,11 +194,15 @@ def generate_nlp_file_path(phenotype, df_type, train=True, noisy_label=True, use
     Returns:
     - str: The constructed file path.
     """
-    if not train and use_shared_paths:
-        # Shared NLP path for test/validation
-        # Assumes NLP data is stored under a 'long/NLP' like structure in the shared root
-        base_path = COHORT_SHARED_TEST_VAL_NLP_PATH
-        file_path = f"{base_path}{df_type}{SHARED_DATA_FILE_SUFFIX}.csv.gz"
+    if use_shared_paths:
+        # Shared NLP path (identical hadm_id universe across phenotypes)
+        if train:
+            base_path = COHORT_SHARED_TRAIN_NLP_PATH
+            suffix = SHARED_TRAIN_DATA_FILE_SUFFIX
+        else:
+            base_path = COHORT_SHARED_TEST_VAL_NLP_PATH
+            suffix = SHARED_DATA_FILE_SUFFIX
+        file_path = f"{base_path}{df_type}{suffix}.csv.gz"
     elif train:
         base_path = COHORT_TRAIN_PATH
         label_suffix = "_silver" if noisy_label else ""
@@ -218,11 +228,15 @@ def generate_summary_path(phenotype, train, label, df_type, use_shared_paths=Fal
     Returns:
     - The path for the summary file.
     """
-    if not train and use_shared_paths:
-        base_path = COHORT_SHARED_TEST_VAL_SUMMARY_PATH
+    if use_shared_paths:
         # For shared summaries, phenotype is not part of the directory structure.
-        # Label suffix might be standardized (e.g., always non-silver for shared golden test/val)
-        file_path = f"{base_path}{df_type}{SHARED_DATA_FILE_SUFFIX}_summary.csv"
+        if train:
+            base_path = COHORT_SHARED_TRAIN_SUMMARY_PATH
+            suffix = SHARED_TRAIN_DATA_FILE_SUFFIX
+        else:
+            base_path = COHORT_SHARED_TEST_VAL_SUMMARY_PATH
+            suffix = SHARED_DATA_FILE_SUFFIX
+        file_path = f"{base_path}{df_type}{suffix}_summary.csv"
 
     elif train:
         base_path = COHORT_TRAIN_PATH
@@ -249,10 +263,15 @@ def generate_dict_path(phenotype, train, label, df_type, use_shared_paths=False)
     Returns:
     - The path for the dictionary file.
     """
-    if not train and use_shared_paths:
-        base_path = COHORT_SHARED_TEST_VAL_DICT_PATH
+    if use_shared_paths:
         # For shared dictionaries, phenotype is not part of the directory structure.
-        file_path = f"{base_path}{df_type}{SHARED_DATA_FILE_SUFFIX}_dict.csv"
+        if train:
+            base_path = COHORT_SHARED_TRAIN_DICT_PATH
+            suffix = SHARED_TRAIN_DATA_FILE_SUFFIX
+        else:
+            base_path = COHORT_SHARED_TEST_VAL_DICT_PATH
+            suffix = SHARED_DATA_FILE_SUFFIX
+        file_path = f"{base_path}{df_type}{suffix}_dict.csv"
     elif train:
         base_path = COHORT_TRAIN_PATH
         suffix = "_silver" if label else ""
@@ -305,11 +324,16 @@ def generate_pivot_path(phenotype, df_type, train=True, noisy_label=True, use_sh
     Returns:
     - The path for the pivot file.
     """
-    if not train and use_shared_paths:
-        base_path = COHORT_SHARED_TEST_VAL_PIVOT_PATH
+    if use_shared_paths:
         # For shared pivot tables, phenotype is not part of the directory structure.
         # noisy_label might be standardized (e.g., always False for golden test/val data)
-        file_path = f"{base_path}{df_type}{SHARED_DATA_FILE_SUFFIX}_pivot.csv.gz"
+        if train:
+            base_path = COHORT_SHARED_TRAIN_PIVOT_PATH
+            suffix = SHARED_TRAIN_DATA_FILE_SUFFIX
+        else:
+            base_path = COHORT_SHARED_TEST_VAL_PIVOT_PATH
+            suffix = SHARED_DATA_FILE_SUFFIX
+        file_path = f"{base_path}{df_type}{suffix}_pivot.csv.gz"
     elif train:
         base_path = COHORT_TRAIN_PATH
         label_suffix = "_silver" if noisy_label else ""
@@ -662,6 +686,15 @@ def load_mimiciv(core_mimiciv_path: object, note_mimiciv_path: object, n_sample:
                                  blocksize=blocksize)
             else:
                 df = dd.read_csv(file_path, dtype=dtype_dict, compression=compression, blocksize=blocksize)
+            # gzip can't be split into multiple partitions (dask always falls back to a
+            # single partition for it -- see the "gzip compression does not support
+            # breaking apart files" warning), so there is no parallelism to lose by
+            # computing here. Doing so BEFORE the isin() filters below matters: applying
+            # isin() against a large (100K+ element) cohort_ids/sample_ids array while the
+            # frame is still a lazy dask-expr graph makes query planning pathologically
+            # slow (many minutes, observed on procedures_icd/prescriptions-sized tables)
+            # even though the same filter is near-instant in plain pandas once materialized.
+            df = df.compute()
 
         # Filter by sample_ids if provided and applicable
         if sample_ids is not None and 'subject_id' in df.columns:
@@ -844,7 +877,7 @@ def load_mimiciv(core_mimiciv_path: object, note_mimiciv_path: object, n_sample:
                                        'dose_val_rx': 'object', 'form_val_disp': 'object'
                                        },
                     'services': {'prev_service': 'object'},
-                    'd_items': {},
+                    'd_items': {'unitname': 'object'},
                     'procedureevents': {
                         'value': 'object', 'secondaryordercategoryname': 'object',
                         'totalamountuom': 'object'
@@ -866,7 +899,8 @@ def load_mimiciv(core_mimiciv_path: object, note_mimiciv_path: object, n_sample:
                                       'valueuom'  : 'object'
                                       },
                     'dsnotes': {'charttime': 'object', 'storetime': 'object', 'text': 'object'},
-                    'radnotes': {'charttime': 'object', 'storetime': 'object', 'text': 'object'}
+                    'radnotes': {'charttime': 'object', 'storetime': 'object', 'text': 'object',
+                                 'hadm_id': 'float64'}
                 }
 
                 if file_path:  # If a file path was found for the table
@@ -882,15 +916,11 @@ def load_mimiciv(core_mimiciv_path: object, note_mimiciv_path: object, n_sample:
                         selected_columns = ['subject_id', 'hadm_id', 'stay_id', 'itemid', 'charttime', 'value',
                                             'valuenum', 'valueuom']
 
-                    if selected_columns:
-                        dfs[table] = load_csv_dd(file_path, dtype_dict=dtype_dicts.get(table, None),
-                                              sample_ids=sampled_subject_ids, cohort_ids=cohort_ids,
-                                              selected_columns=selected_columns)
-                    else:
-                        # Handle the case where selected_columns is not set (None)
+                    if not selected_columns:
                         print("Reading all columns")
 
-
+                    # (selected_columns is passed straight through below -- no need to call
+                    # load_csv_dd twice, once per branch, and discard the first result.)
                     dfs[table] = load_csv_dd(file_path, dtype_dict=dtype_dicts.get(table, None),
                                           sample_ids=sampled_subject_ids, cohort_ids=cohort_ids, selected_columns=selected_columns)
 
@@ -958,17 +988,147 @@ def load_json(json_file):
     return data
 
 
+def load_csv_filtered_chunked(file_path, cohort_ids=None, dtype_dict=None, selected_columns=None,
+                              datetime_columns=None, chunksize=1_000_000,
+                              dropna_subset=None, dedup_subset=None):
+    """
+    Stream a gzip CSV in fixed-size row chunks, keeping only rows whose 'hadm_id' is in
+    cohort_ids, without ever materializing the whole file in memory.
+
+    Needed for tables where the compressed file is one unsplittable gzip stream: gzip
+    cannot be partitioned, so dd.read_csv(...).compute() must decompress the ENTIRE table
+    into RAM before any cohort row-filter can shrink it. On chartevents/labevents
+    (10GB+ compressed, hundreds of millions of rows) that OOM-kills a machine with limited
+    RAM -- the OS kills the process directly, so no Python exception/traceback is raised.
+    Reading with pandas' own chunksize instead bounds peak memory to roughly one chunk's
+    worth of rows.
+
+    If dedup_subset is given (e.g. ['hadm_id', 'itemid']), the accumulated result is
+    compacted via drop_duplicates(subset=dedup_subset, keep='first') after every chunk,
+    bounding memory to roughly the number of unique combinations rather than the raw row
+    count. This matters a lot for a table like chartevents: the hadm_id-only cohort filter
+    barely shrinks it (chartevents' ~85K total hadm_ids are nearly all within a broad
+    training-population cohort), and vitals get recorded every few minutes for the length of
+    an ICU stay, so the eventual per-(hadm_id, itemid) dedup that preproc_chart does at the
+    very end can collapse the row count by 100x+ -- doing that dedup here, during streaming,
+    instead of after reading everything, is the difference between finishing in minutes and
+    the filtered-but-not-yet-deduped intermediate alone approaching the size of the 12GB
+    source file (confirmed: it reached ~7.8GB, growing, before being stopped).
+    Trade-off: this dedup happens before preproc_chart's own stay_id-merge and
+    event-time-from-admit >= 0 filtering, so if a given (hadm_id, itemid) pair has both a
+    valid and an invalid (wrong stay_id, or negative time delta) raw measurement, keeping an
+    arbitrary "first" one here could occasionally keep the invalid one where the original
+    (materialize-everything-then-dedup) order might have kept the valid one. Both orderings
+    are equally arbitrary about *which* duplicate survives when several valid ones exist, so
+    this only changes behavior in the rare case a pair has a mix of valid/invalid readings.
+    dropna_subset additionally drops rows with NaN in those columns per-chunk (e.g. ['value']
+    for chartevents), reducing volume further before the dedup step.
+
+    Without dedup_subset, filtered chunks are appended straight to a temp gzip CSV on disk
+    instead of being kept in a Python list for a final pd.concat -- with a broad cohort
+    filter the result can still be tens of millions of rows, and holding "list of chunks" +
+    "concat copy" at once doubles the peak. Writing incrementally bounds the peak to about
+    one chunk plus the final single read-back below.
+    """
+    cohort_ids_set = set(cohort_ids) if cohort_ids is not None else None
+    reader = pd.read_csv(file_path, compression='gzip', dtype=dtype_dict,
+                         usecols=selected_columns, chunksize=chunksize)
+
+    if dedup_subset:
+        accumulated = None
+        for chunk in reader:
+            if cohort_ids_set is not None and 'hadm_id' in chunk.columns:
+                chunk = chunk[chunk['hadm_id'].isin(cohort_ids_set)]
+            if dropna_subset:
+                chunk = chunk.dropna(subset=dropna_subset)
+            if chunk.empty:
+                continue
+            for col in (datetime_columns or []):
+                chunk[col] = pd.to_datetime(chunk[col])
+            chunk = chunk.drop_duplicates(subset=dedup_subset, keep='first')
+            accumulated = chunk if accumulated is None else pd.concat(
+                [accumulated, chunk], ignore_index=True
+            ).drop_duplicates(subset=dedup_subset, keep='first')
+        return accumulated if accumulated is not None else pd.DataFrame(columns=selected_columns or [])
+
+    tmp_path = tempfile.NamedTemporaryFile(suffix='.csv.gz', delete=False).name
+    wrote_any_rows = False
+    try:
+        for chunk in reader:
+            if cohort_ids_set is not None and 'hadm_id' in chunk.columns:
+                chunk = chunk[chunk['hadm_id'].isin(cohort_ids_set)]
+            if dropna_subset:
+                chunk = chunk.dropna(subset=dropna_subset)
+            if chunk.empty:
+                continue
+            for col in (datetime_columns or []):
+                chunk[col] = pd.to_datetime(chunk[col])
+            # Each to_csv(mode='a', compression='gzip') call appends a new gzip member;
+            # Python's gzip reader (and thus pandas' later read_csv) transparently
+            # concatenates members back into one stream on read.
+            chunk.to_csv(tmp_path, mode='a', header=not wrote_any_rows, index=False, compression='gzip')
+            wrote_any_rows = True
+
+        if not wrote_any_rows:
+            return pd.DataFrame(columns=selected_columns or [])
+
+        result = pd.read_csv(tmp_path, compression='gzip', dtype=dtype_dict)
+        for col in (datetime_columns or []):
+            result[col] = pd.to_datetime(result[col])
+        return result
+    finally:
+        if os.path.exists(tmp_path):
+            os.remove(tmp_path)
+
+
+# File specs for tables whose compressed size (10GB+) makes full in-memory materialization
+# unsafe -- routed through load_csv_filtered_chunked() in get_table() instead of Dask.
+_LARGE_TABLE_SPECS = {
+    'labevents': {
+        'path': CORE_MIMICIV_PATH + 'hosp/labevents.csv.gz',
+        'selected_columns': ['subject_id', 'hadm_id', 'itemid', 'charttime', 'value', 'valuenum', 'valueuom'],
+        'dtype_dict': {'subject_id': 'int32', 'itemid': 'int32', 'valuenum': 'float64',
+                       'value': 'object', 'valueuom': 'object', 'charttime': 'object'},
+        'datetime_columns': ['charttime'],
+        # See load_csv_filtered_chunked's dedup_subset docstring: labs are drawn repeatedly
+        # over a stay, and preproc_labs itself only keeps one row per (hadm_id, itemid) in
+        # the end (time=False) -- doing that dedup during streaming instead of after
+        # materializing everything keeps peak memory bounded.
+        'dropna_subset': ['value'],
+        'dedup_subset': ['hadm_id', 'itemid'],
+    },
+    'chartevents': {
+        'path': CORE_MIMICIV_PATH + 'icu/chartevents.csv.gz',
+        'selected_columns': ['subject_id', 'hadm_id', 'stay_id', 'itemid', 'charttime', 'value', 'valuenum', 'valueuom'],
+        'dtype_dict': {'subject_id': 'int32', 'hadm_id': 'int32', 'itemid': 'int32', 'stay_id': 'int32',
+                       'valuenum': 'float64', 'value': 'object', 'valueuom': 'object', 'charttime': 'object'},
+        # Same rationale as labevents above -- confirmed necessary by measurement: without
+        # this, the filtered-but-not-yet-deduped intermediate reached ~7.8GB (and climbing)
+        # against a 12GB source file, because the hadm_id-only cohort filter barely shrinks
+        # chartevents (its ~85K total hadm_ids are nearly all within a broad training
+        # cohort) while vitals are recorded every few minutes for the length of an ICU stay.
+        'dropna_subset': ['value'],
+        'dedup_subset': ['hadm_id', 'itemid'],
+        'datetime_columns': ['charttime'],
+    },
+}
+
+
 def get_table(table_name: str, cohort = None, compute = False) -> pd.DataFrame:
     """
     Load a table from MIMIC-IV and return it as a pandas dataframe, providing cohort to filter table according to
-    cohort's hadm_ids. For 'd_labitems' and 'labevents', the function returns a Dask DataFrame without computing it.
+    cohort's hadm_ids.
+
+    'labevents' and 'chartevents' are streamed in bounded chunks (see load_csv_filtered_chunked)
+    instead of through Dask, since their compressed files are too large to safely materialize
+    in memory whole -- see that function's docstring for why Dask can't help here either.
 
     Parameters:
     table_name (str): Name of the table to load
     cohort (pd.DataFrame): Pandas dataframe containing subject_id column
 
     Returns:
-    pd.DataFrame: The requested table filtered by the cohort. For 'd_labitems' and 'labevents', a Dask DataFrame is returned.
+    pd.DataFrame: The requested table filtered by the cohort.
 
     Raises:
     ValueError: If the table_name is not a valid MIMIC-IV table
@@ -1007,6 +1167,19 @@ def get_table(table_name: str, cohort = None, compute = False) -> pd.DataFrame:
     if table_name not in all_tables:
         raise ValueError(f"Table name not in list of tables: {all_tables}")
 
+    if table_name in _LARGE_TABLE_SPECS:
+        if cohort is None:
+            raise ValueError(f"A cohort is required to stream large table: {table_name}")
+        spec = _LARGE_TABLE_SPECS[table_name]
+        cohort_ids = cohort["hadm_id"].dropna().unique()
+        print(f"Streaming {table_name} in chunks for {len(cohort_ids)} admissions")
+        return load_csv_filtered_chunked(
+            spec['path'], cohort_ids=cohort_ids, dtype_dict=spec['dtype_dict'],
+            selected_columns=spec['selected_columns'], datetime_columns=spec['datetime_columns'],
+            chunksize=250_000,
+            dropna_subset=spec.get('dropna_subset'), dedup_subset=spec.get('dedup_subset'),
+        )
+
     # load table using load_mimiciv
     df_dict = load_mimiciv(
         CORE_MIMICIV_PATH,
@@ -1022,20 +1195,6 @@ def get_table(table_name: str, cohort = None, compute = False) -> pd.DataFrame:
     # Debugging: Print the type of df to ensure it's a Dask DataFrame
     print(f"Type of df: {type(df)}")
 
-    # Check if the table is 'd_labitems' or 'labevents' and return a Dask DataFrame without computing
-    # TODO: if script run locally remove condition
-    def off():
-        if table_name in ['d_labitems', 'labevents', 'chartevents', 'radnotes', 'dsnotes']:
-            df = df if isinstance(df, dd.DataFrame) else dd.from_pandas(df, npartitions=100)
-            print(f"Returning {isinstance(df, dd.DataFrame)} Dask DataFrame for table {table_name}")
-            return df
-        else:
-            try:
-                # Compute all the small datframes
-                return ensure_pandas_df(df)
-            except Exception as e:
-                print(f"Error computing DataFrame: {e}")
-                return None
     return ensure_pandas_df(df)
 
 
@@ -1159,6 +1318,203 @@ def read_gzip_or_parts(path, use_gcs=True, chunk_size=None):
     except Exception as e_plain_csv:
         print(f"Failed to read {path} as plain text CSV. Error: {type(e_plain_csv).__name__} - {e_plain_csv}")
         return pd.DataFrame()
+
+
+def generate_pivot_sparse_path(csv_path):
+    """
+    Derive the sparse-pickle sibling path for a pivot file from its (legacy) .csv.gz path
+    returned by generate_pivot_path(). See save_pivot()/load_pivot_sparse() for why pivot
+    files need this second format.
+    """
+    if csv_path.endswith('.csv.gz'):
+        return csv_path[: -len('.csv.gz')] + '.pkl'
+    return csv_path + '.pkl'
+
+
+def save_pivot(df, csv_path):
+    """
+    Save a pivot DataFrame, written by pivot_cohort(). If it has pandas Sparse-dtype columns
+    (the normal case: pivot_cohort builds these directly from a scipy COO/CSR matrix instead
+    of a dense pivot_table to avoid materializing a mostly-zero rows x columns array that can
+    run into the tens of billions of cells for high-cardinality tables like DIAG), save as a
+    pickle at the .pkl sibling path (see generate_pivot_sparse_path) instead of CSV: writing a
+    sparse DataFrame out as CSV text still requires expanding every cell (including all the
+    implicit zeros) into a string, which is the same cost class as densifying it in memory,
+    defeating the entire point of staying sparse. Non-sparse pivots (e.g. from
+    pivot_cohort_timeseries or the NLP CUI pivot, unchanged by this) still go through the
+    original save_csv() path. Returns the path actually written to.
+    """
+    if any(isinstance(t, pd.SparseDtype) for t in df.dtypes):
+        path = generate_pivot_sparse_path(csv_path)
+        if not is_gcs_path(path):
+            base_dir = os.path.dirname(path)
+            if base_dir and not os.path.exists(base_dir):
+                os.makedirs(base_dir, exist_ok=True)
+        df.to_pickle(path)
+        return path
+    save_csv(df, csv_path)
+    return csv_path
+
+
+def load_pivot_sparse(path, id_col_name='hadm_id', target_index=None):
+    """
+    Load a pivot file saved by save_pivot(), indexed by id_col_name, with numeric feature
+    columns as pandas Sparse[float64]. Returns None if id_col_name is missing from the file
+    (caller should treat this the same as the old "skip this df_type" branch).
+
+    Checks for the .pkl sibling path (generate_pivot_sparse_path) first -- that's what
+    save_pivot() writes for the normal case (pivot_cohort's sparse construction) and
+    pd.read_pickle round-trips Sparse dtype exactly as saved, no conversion needed. Falls back
+    to the plain .csv.gz path for pivots that were saved dense (pivot_cohort_timeseries/NLP
+    CUI pivot, or pre-existing files from before this), converting their numeric columns to
+    Sparse[float64] after reading.
+
+    Pivot tables are mostly-zero wide matrices (DIAG alone can be tens of thousands of
+    columns) -- load_and_filter_train/val (scripts/model/modeling.py) and
+    load_and_filter_test (scripts/model/evaluate.py) each hold several of these
+    simultaneously in `all_feature_dfs` before pd.concat(axis=1, join='outer'). Confirmed on
+    pandas 2.2.3: axis=1 concat preserves SparseDtype columns -- BUT ONLY stays cheap if every
+    frame already shares the same row index. Each df_type's pivot only covers the admissions
+    that actually have that kind of event (e.g. CHART only covers ICU stays), so a plain
+    outer-join concat has to introduce new rows for the ones it's missing -- and those show up
+    as NaN, which is a different value from the SparseDtype's fill_value (0.0) and so can't be
+    stored implicitly. Confirmed by measurement: concatenating a 5,000-row sparse frame into a
+    50,000-row outer join ballooned it from 210MB back up to ~4,000MB even though dtype still
+    reported as Sparse. Passing target_index here reindexes with fill_value=0 (matching the
+    SparseDtype's own fill_value) BEFORE that concat ever happens, which keeps it at ~210MB --
+    always pass the caller's already-known master/core hadm_id index.
+
+    impute_features_data() is safe to call directly on the result: these columns never have
+    NaN (pivot generation already fills with 0, and the target_index reindex above uses
+    fill_value=0, not NaN), so the imputer naturally skips them. process_numerical_columns()
+    is NOT safe as-is though -- its per-row divide-by-los/admissions_number step uses
+    Series.div(), which silently densifies a Sparse column in this pandas version -- see
+    sparse_series_div() for the fix applied there.
+    """
+    sparse_path = generate_pivot_sparse_path(path)
+    if path_exists(sparse_path):
+        df = pd.read_pickle(sparse_path)
+        if id_col_name not in df.columns:
+            return None
+        df = df.set_index(id_col_name)
+    else:
+        df = read_gzip_or_parts(path)
+        if id_col_name not in df.columns:
+            return None
+        df = df.set_index(id_col_name)
+        numeric_cols = df.select_dtypes(include=[np.number]).columns
+        df[numeric_cols] = df[numeric_cols].astype(pd.SparseDtype('float64', fill_value=0.0))
+    if target_index is not None:
+        df = reindex_sparse_df(df, target_index)
+    return df
+
+
+def reindex_sparse_df(df, target_index):
+    """
+    Reindex a DataFrame whose columns are all pandas Sparse dtype to target_index, filling
+    new rows with each column's own fill_value (0.0) -- a fast, vectorized equivalent of
+    df.reindex(target_index, fill_value=0).
+
+    Plain DataFrame.reindex() reindexes a wide sparse DataFrame column by column internally,
+    each one redoing an index alignment lookup -- confirmed by measurement to take over 750
+    seconds for a real pivot table (PROC, 165,588 -> 504,763 rows, 8,591 columns) despite the
+    result itself being small (the earlier-confirmed fill_value=0 reindex IS still necessary --
+    see load_pivot_sparse's docstring for why a plain outer-join concat can't do this instead).
+    This does the row-index alignment ONCE (a single pd.Index.get_indexer call) and applies it
+    to the columns' combined data in one vectorized scipy.sparse operation instead -- confirmed
+    equivalent output, and the same case went from ~789s to ~0.25s.
+    """
+    old_index = df.index
+    n_rows, n_cols = len(df), len(df.columns)
+
+    # Build one big COO matrix from every column's SparseArray directly (same technique
+    # pivot_cohort uses to build these in the first place) rather than pd.DataFrame.sparse.
+    # to_coo(), which this pandas version gates behind a newer scipy than this repo pins.
+    rows, cols, data = [], [], []
+    for j, col in enumerate(df.columns):
+        arr = df[col].values
+        positions = arr.sp_index.indices
+        if len(positions):
+            rows.append(positions)
+            cols.append(np.full(len(positions), j))
+            data.append(arr.sp_values)
+    rows = np.concatenate(rows) if rows else np.array([], dtype=np.int64)
+    cols = np.concatenate(cols) if cols else np.array([], dtype=np.int64)
+    data = np.concatenate(data) if data else np.array([])
+    csr = coo_matrix((data, (rows, cols)), shape=(n_rows, n_cols)).tocsr()
+
+    # indexer[i] = row position in `df` that should land at position i of target_index, or -1
+    # if target_index[i] isn't in df.index at all. Append one all-zero row to the matrix and
+    # point every -1 at it, so a single fancy-index select handles both cases at once.
+    indexer = old_index.get_indexer(target_index)
+    csr_padded = vstack([csr, csr_matrix((1, n_cols))]).tocsr()
+    new_csr = csr_padded[np.where(indexer == -1, n_rows, indexer)]
+
+    return pd.DataFrame.sparse.from_spmatrix(new_csr, index=target_index, columns=df.columns)
+
+
+def sparse_series_div(series, divisor):
+    """
+    Divide a pandas Series with Sparse[float64, 0.0] dtype by a per-row divisor (array-like,
+    aligned by position to `series`), without ever densifying.
+
+    Series.div() silently converts a Sparse column to a regular dense float64 Series in
+    pandas 2.2.3 (confirmed by measurement) -- for a wide pivot-derived column (hundreds of
+    thousands of rows) that single call can require tens of gigabytes, which is exactly the
+    per-column normalization process_numerical_columns does (dividing every DIAG/MEDS/PROC/
+    CHART/LABS count column by 'los'/'admissions_number'). This instead operates directly on
+    the underlying SparseArray's stored (non-fill) values: since fill_value is 0.0 and the
+    divisor is never 0 here (caller replaces 0s with 1 first), 0 / divisor == 0 always, so the
+    result can reuse the exact same sparse index and fill_value -- cost is O(stored values),
+    not O(rows).
+    """
+    arr = series.values
+    if not isinstance(arr, pd.arrays.SparseArray) or arr.fill_value != 0:
+        raise ValueError("sparse_series_div requires a Series with Sparse dtype and fill_value == 0")
+    divisor_values = np.asarray(divisor)
+    positions = arr.sp_index.indices
+    new_sp_values = arr.sp_values / divisor_values[positions]
+    new_arr = pd.arrays.SparseArray(new_sp_values, sparse_index=arr.sp_index, fill_value=0.0, dtype='float64')
+    return pd.Series(new_arr, index=series.index, name=series.name)
+
+
+def sparse_df_div(df, sparse_columns, divisor):
+    """
+    Divide every column in sparse_columns (all pandas Sparse[float64, 0.0] dtype, same index
+    as df) by a per-row divisor (array-like, aligned by position to df.index), in one
+    vectorized pass instead of calling sparse_series_div() once per column.
+
+    Calling sparse_series_div() in a Python for-loop over thousands of pivot-derived columns
+    is correct but still has per-call overhead that adds up -- confirmed by measurement at
+    ~197 seconds for 20,990 columns. This instead gathers every column's stored (row, value)
+    pairs into one combined array, divides all of them by their row's divisor in a single
+    numpy operation, and rebuilds the sparse columns from that -- same technique as
+    reindex_sparse_df. Returns a new DataFrame with sparse_columns replaced; other columns in
+    df are left untouched.
+    """
+    if not sparse_columns:
+        return df
+    n_rows = len(df)
+    divisor_values = np.asarray(divisor)
+    rows, cols, data = [], [], []
+    for j, col in enumerate(sparse_columns):
+        arr = df[col].values
+        positions = arr.sp_index.indices
+        if len(positions):
+            rows.append(positions)
+            cols.append(np.full(len(positions), j))
+            data.append(arr.sp_values)
+    rows = np.concatenate(rows) if rows else np.array([], dtype=np.int64)
+    cols_arr = np.concatenate(cols) if cols else np.array([], dtype=np.int64)
+    data = np.concatenate(data) if data else np.array([])
+    new_data = data / divisor_values[rows]
+    csr = coo_matrix((new_data, (rows, cols_arr)), shape=(n_rows, len(sparse_columns))).tocsr()
+    result = pd.DataFrame.sparse.from_spmatrix(csr, index=df.index, columns=sparse_columns)
+
+    df = df.copy()
+    df[sparse_columns] = result
+    return df
+
 
 def save_gzip(df, path):
     """
