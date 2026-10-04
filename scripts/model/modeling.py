@@ -60,19 +60,39 @@ def load_and_filter_train(phenotype, notes=True, nlp=True, train=True, noisy_lab
     - y (pd.DataFrame): The target variable with hadm_id as index.
     - combined_features (pd.DataFrame): The combined features with hadm_id as index.
     """
-    # Loading baseline: y_train, baseline_features_train, corrector_train
-    # y_train.index will serve as our master list of hadm_ids
-    y_train, baseline_features_train, corrector_train = load_baseline(phenotype, train, noisy_label, use_shared_paths=False)
-    master_hadm_ids = y_train.index
-    print(f"Master list: {len(master_hadm_ids)} hadm_ids from y_train.index for phenotype {phenotype}")
+    # 1. Load hadm_ids and y for the training set from the phenotype-specific index file
+    # (mirrors load_and_filter_val). The training hadm_id universe is identical across
+    # phenotypes (only 'y' differs), so features/pivots below come from the shared training
+    # paths (see process_and_save_shared_train_data) instead of a per-phenotype baseline.
+    index_file_path = os.path.join(k_const.INDEXES_PATH, f"{phenotype}_indexes.csv")
+    if not path_exists(index_file_path):
+        print(f"[SKIPPING TRAINING DATA] Index file does not exist: {index_file_path}")
+        empty_y = pd.DataFrame(columns=['y'], index=pd.Index([], name='hadm_id'))
+        empty_X = pd.DataFrame(index=pd.Index([], name='hadm_id'))
+        return empty_y, empty_X, None
 
-    # Filter baseline_features and corrector_train to master_hadm_ids
-    # This is implicitly handled if load_baseline already ensures y, features, and corrector are aligned.
-    # If load_baseline could return more baseline_features_train than in y_train, explicit reindex/filter here would be good.
-    # Assuming load_baseline's inner joins mean y_train.index, baseline_features_train.index, and corrector_train.index are already aligned.
-    
+    index_df = load_csv(index_file_path)
+    train_index_df = index_df[index_df['set'].astype(str).str.lower() == 'train']
+    if train_index_df['hadm_id'].duplicated().any():
+        train_index_df = train_index_df.drop_duplicates(subset=['hadm_id'], keep='first')
+
+    if train_index_df.empty:
+        print(f"No 'train' entries found in index file {index_file_path} for phenotype {phenotype}.")
+        empty_y = pd.DataFrame(columns=['y'], index=pd.Index([], name='hadm_id'))
+        empty_X = pd.DataFrame(index=pd.Index([], name='hadm_id'))
+        return empty_y, empty_X, None
+
+    indexed_hadm_ids = pd.Index(train_index_df['hadm_id'].unique(), name='hadm_id')
+    y_train_initial = train_index_df[['hadm_id', 'y']].set_index('hadm_id').reindex(indexed_hadm_ids)
+
+    # 2. Load shared baseline features/corrector and intersect with the index's hadm_ids
+    baseline_features_train, corrector_train = load_baseline(phenotype, train=True, noisy_label=noisy_label, use_shared_paths=True)
+    master_hadm_ids = indexed_hadm_ids.intersection(baseline_features_train.index).intersection(corrector_train.index)
+    y_train = y_train_initial.reindex(master_hadm_ids)
+    print(f"Master list: {len(master_hadm_ids)} hadm_ids from index file for phenotype {phenotype}")
+
     # Initialize a list to store dataframes for merging, starting with baseline features
-    all_feature_dfs = [baseline_features_train[baseline_features_train.index.isin(master_hadm_ids)]]
+    all_feature_dfs = [baseline_features_train.reindex(master_hadm_ids)]
 
     # Loading pivot tables
     df_types = ['DIAG', 'MEDS', 'PROC', 'CHART', 'LABS']
@@ -80,17 +100,24 @@ def load_and_filter_train(phenotype, notes=True, nlp=True, train=True, noisy_lab
         df_types.extend(['RADNOTES', 'DSNOTES'])
 
     for df_type in df_types:
-        path = generate_pivot_path(phenotype, df_type, train, noisy_label, use_shared_paths=False)
-        if not path_exists(path):
+        path = generate_pivot_path(phenotype, df_type, train=True, noisy_label=noisy_label, use_shared_paths=True)
+        # save_pivot() writes the normal (sparse) case to a .pkl sibling path instead of this
+        # .csv.gz one -- check both, since load_pivot_sparse checks the .pkl path itself.
+        if not path_exists(path) and not path_exists(generate_pivot_sparse_path(path)):
             print(f"[SKIPPING {df_type.upper()} DATA] File does not exist: {path}")
             continue
-        df = read_gzip_or_parts(path)
-        print(f"Loaded {df_type} data, shape: {df.shape}")
-
-        if 'hadm_id' not in df.columns:
+        # load_pivot_sparse keeps these wide, mostly-zero pivot tables as pandas
+        # Sparse[float64] columns through the merge below instead of holding several of
+        # them dense simultaneously.
+        # target_index=master_hadm_ids: reindex to the full training population *now*,
+        # with fill_value=0, instead of letting the pd.concat below do it via an implicit
+        # outer-join NaN fill (which silently turns the sparse table back into a
+        # near-dense one -- see load_pivot_sparse's docstring).
+        df = load_pivot_sparse(path, target_index=master_hadm_ids)
+        if df is None:
             print(f"Warning: 'hadm_id' not found in {df_type} data columns. Skipping this df_type.")
             continue
-        df.set_index('hadm_id', inplace=True)
+        print(f"Loaded {df_type} data, shape: {df.shape}")
         all_feature_dfs.append(df)
 
     print(f"[ALL FEATURES DATA FOR PHENOTYPE {phenotype} LOADED FOR POTENTIAL MERGE]")
@@ -125,6 +152,9 @@ def load_and_filter_train(phenotype, notes=True, nlp=True, train=True, noisy_lab
     combined_features = pd.concat([combined_features, los_admissions.reindex(combined_features.index)], axis=1, join='outer')
 
 
+    # impute_features_data is safe to call directly on sparse columns (they have no NaN by
+    # construction -- see load_pivot_sparse's docstring); process_numerical_columns has its
+    # own sparse-safe path for the divide-by-los step (see sparse_series_div).
     # Impute missing values in features
     combined_features, fitted_imputer = impute_features_data(combined_features, method=method)
     combined_features = process_numerical_columns(combined_features, corrector_column)
@@ -231,15 +261,21 @@ def load_and_filter_val(phenotype, train_features, notes=True, nlp=True, train=F
 
     for df_type in df_types:
         path = generate_pivot_path(phenotype, df_type, train=False, noisy_label=noisy_label, use_shared_paths=True)
-        if not path_exists(path):
+        # save_pivot() writes the normal (sparse) case to a .pkl sibling path instead of this
+        # .csv.gz one -- check both, since load_pivot_sparse checks the .pkl path itself.
+        if not path_exists(path) and not path_exists(generate_pivot_sparse_path(path)):
             print(f"[SKIPPING SHARED {df_type.upper()} DATA] File does not exist: {path}")
             continue
-        df = read_gzip_or_parts(path)
-        print(f"Loaded shared {df_type} data, shape: {df.shape}")
-        if id_col_name not in df.columns:
+        # load_pivot_sparse keeps these wide, mostly-zero pivot tables as pandas
+        # Sparse[float64] columns through the merge below.
+        # target_index=core_hadm_ids: reindex now with fill_value=0 instead of letting the
+        # pd.concat below do it via an implicit outer-join NaN fill (see load_pivot_sparse's
+        # docstring for why that silently turns the sparse table back into a near-dense one).
+        df = load_pivot_sparse(path, id_col_name=id_col_name, target_index=core_hadm_ids)
+        if df is None:
             print(f"Warning: '{id_col_name}' not found in {df_type} data columns. Skipping this df_type.")
             continue
-        df.set_index(id_col_name, inplace=True)
+        print(f"Loaded shared {df_type} data, shape: {df.shape}")
         all_feature_dfs.append(df) # Add to list for outer concatenation (not yet filtered by core_hadm_ids)
 
     # 7. Concatenate ALL Feature Tables using an outer join
@@ -298,6 +334,8 @@ def load_and_filter_val(phenotype, train_features, notes=True, nlp=True, train=F
     combined_val_features = combined_val_features.reindex(columns=train_features)
     print(f"Shape of combined_val_features after OHE and aligning with train_features: {combined_val_features.shape}")
 
+    # impute_features_data/process_numerical_columns handle sparse columns directly -- see
+    # load_pivot_sparse's docstring (scripts/utils.py) for why no densify call is needed here.
     # Impute missing values - use fitted_imputer_obj if provided
     # Pass combined_val_features directly to imputation, as 'los' and 'admissions_number'
     # might not be part of the imputer's vocabulary and should be added post-imputation.
