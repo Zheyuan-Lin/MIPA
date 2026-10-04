@@ -50,12 +50,23 @@ def outlier_imputation(data, id_attribute, value_attribute, cut_off, left_thresh
     Returns:
     - The modified DataFrame with outliers imputed or replaced with NaN based on the specified thresholds.
     """
-    grouped = data.groupby([id_attribute])[value_attribute]
+    # Vectorized equivalent of looping over each group and writing results back via
+    # data.loc[index, value_attribute] = values: that pattern re-triggers pandas' index
+    # alignment machinery on every iteration (cost scales with the full frame size, not just
+    # the group), which is dramatically slower than groupby().transform()'s single vectorized
+    # broadcast -- for LABS-sized tables (hundreds of thousands of rows x ~1000 itemid groups)
+    # the loop version can take minutes where transform() takes seconds. Confirmed equivalent
+    # output on synthetic data before making this change.
+    grouped = data.groupby(id_attribute)[value_attribute]
+    perc_up = grouped.transform(lambda s: np.percentile(s, left_thresh))
+    perc_down = grouped.transform(lambda s: np.percentile(s, cut_off))
 
-    for id_number, values in grouped:
-        index = values.index
-        values = compute_outlier_imputation(values, cut_off, left_thresh, impute)
-        data.loc[index, value_attribute] = values
+    values = data[value_attribute]
+    if impute:
+        values = values.clip(lower=perc_up, upper=perc_down)
+    else:
+        values = values.where((values >= perc_up) & (values <= perc_down))
+    data[value_attribute] = values
 
     data = data.dropna(subset=[value_attribute])
 
