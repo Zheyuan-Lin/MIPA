@@ -112,19 +112,40 @@ def generate_addition_icdcodes(df_core: pd.DataFrame, df_diagnoses_icd: pd.DataF
 
     return df_core
 
-# Attempt to import the actual generate_silver_labels_df
-# Fallback to a placeholder if not found (for isolated execution/linting)
-_actual_generate_silver_labels_df_imported = True
-try:
-    from scripts.preprocessing.cohort import generate_silver_labels_df # Adjust path as needed
-except ImportError:
-    _actual_generate_silver_labels_df_imported = False
-    print("WARNING: Actual generate_silver_labels_df not found. Using placeholder.")
-    def generate_silver_labels_df(df_core_placeholder, phenotype_placeholder):
-        print(f"[PLACEHOLDER] generate_silver_labels_df called for {phenotype_placeholder}")
-        if isinstance(df_core_placeholder, pd.DataFrame) and 'hadm_id' in df_core_placeholder.columns:
-            return df_core_placeholder[['hadm_id']].copy().assign(y=0)
-        return pd.DataFrame(columns=['hadm_id', 'y'])
+def generate_silver_labels_df(df_core, phenotype):
+    """
+    Rule-based silver labeling: an admission (hadm_id) is labeled y=1 if any of its
+    diagnosis ICD codes (ICD-9 or ICD-10, mixed together) appear in the code list for
+    `phenotype` in data/filters/silver_labels.json, else y=0. No denoising/confidence
+    weighting is applied — this mirrors the administrative-code rule mapping MIPA calls
+    "silver" labels (see data/filters/silver_labels.json and golden_labels.csv for the
+    human-adjudicated benchmark used to evaluate against this noise).
+
+    :param df_core: pd.DataFrame with at least ['subject_id', 'hadm_id', 'icd_code'] columns
+                     (one row per diagnosis code per admission).
+    :param phenotype: str - phenotype key in silver_labels.json.
+    :return: pd.DataFrame with one row per (subject_id, hadm_id) and a 'y' column (0/1).
+    """
+    silver_codes = load_json(FILTERS_PATH + 'silver_labels.json')
+    codes_for_phenotype = set(silver_codes[phenotype])
+
+    matched = df_core['icd_code'].isin(codes_for_phenotype)
+    y_by_hadm = (
+        df_core.assign(_match=matched)
+               .groupby(['subject_id', 'hadm_id'])['_match']
+               .max()
+               .astype(int)
+               .rename('y')
+               .reset_index()
+    )
+    # Keep one row per admission with its other columns (admittime, dischtime, age, ...)
+    # intact -- downstream steps (preproc_meds, preproc_proc, ...) need them -- and merge
+    # the derived label in, rather than collapsing df_core down to just the label.
+    df_labels = df_core.drop_duplicates(subset=['subject_id', 'hadm_id']).merge(
+        y_by_hadm, on=['subject_id', 'hadm_id'], how='left'
+    )
+
+    return df_labels
 
 def phenotype_cohort_train(df_core, phenotype, silver_labels=False):
     """
