@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import datetime as dt
+from scipy.sparse import coo_matrix
 from scripts.utils import *
 from scripts.featureselection.medcat_parser import *
 
@@ -49,7 +50,6 @@ def pivot_cohort(df: pd.DataFrame, df_type, index_col: str, target_col: str, val
     Explanation of Aggregation Function:
     - The aggregation function used in the pivot table is determined by the encoding method.
     """
-    aggfunc = np.max # NB sum aggregation is computed via add_count_column although np max figures here
     df = df.dropna(subset=[target_col]) # safety check
 
     # Add count
@@ -63,8 +63,29 @@ def pivot_cohort(df: pd.DataFrame, df_type, index_col: str, target_col: str, val
         top_features = df[target_col].value_counts().index[:max_features]
         df = df[df[target_col].isin(top_features)] #filter out the top max_features
 
-    # Pivot the DataFrame
-    pivot_df = df.pivot_table(index=index_col, columns=target_col, values=values, aggfunc=aggfunc, fill_value=0)
+    # Build the pivot directly as a pandas Sparse[int64]/Sparse[float64] DataFrame via a
+    # scipy COO->CSR matrix, instead of df.pivot_table(..., fill_value=0). pivot_table builds
+    # a dense (rows x columns) array before anything else happens -- for a high-cardinality
+    # column like DIAG's icd_code (thousands of distinct codes) across the full admission
+    # population, that's tens of billions of cells (pandas itself warns about this -- e.g.
+    # "may generate 6252133755 cells" was observed for one phenotype's DIAG table), which
+    # OOMs well before it can ever be saved. The actual data is highly sparse (each admission
+    # only has a handful of the possible codes), so building straight from the sparse (row,
+    # col, value) triplets avoids ever materializing that dense array at all. Confirmed
+    # equivalent to the old aggfunc='max' pivot_table: 'count' (from add_count_column above)
+    # is already the per-(index_col, target_col) aggregated value, broadcast to every row in
+    # that group, so any one row per (index_col, target_col) pair carries the correct value --
+    # drop_duplicates before building the matrix reproduces aggfunc='max' exactly without
+    # needing a true duplicate-combining aggregation.
+    df_dedup = df.drop_duplicates(subset=[index_col, target_col])
+    row_cat = pd.Categorical(df_dedup[index_col])
+    col_cat = pd.Categorical(df_dedup[target_col])
+    coo = coo_matrix(
+        (df_dedup[values].values, (row_cat.codes, col_cat.codes)),
+        shape=(len(row_cat.categories), len(col_cat.categories)),
+    ).tocsr()
+    pivot_df = pd.DataFrame.sparse.from_spmatrix(coo, index=row_cat.categories, columns=col_cat.categories)
+    pivot_df.index.name = index_col
 
     # Rename features
     pivot_df.columns = [df_type + '_' + str(col) for col in pivot_df.columns]
@@ -92,7 +113,8 @@ def pivot_cohort_timeseries(df: pd.DataFrame, index_col: str, target_col: str, t
     DataFrame: Pivoted DataFrame with time series data.
     """
     #TODO: verify if this function is working correctly + add feature renaming
-    aggfunc = np.max
+    # 'max' (string) instead of the np.max callable -- see pivot_cohort's comment above.
+    aggfunc = 'max'
     df = df.dropna(subset=[target_col, timedelta_col])  # Drop rows with NaN in crucial columns
 
     # Convert timedelta column to timedelta if it's in string format
@@ -156,8 +178,8 @@ def generate_pivot(phenotype, pivot_type='simple', train=True, noisy_label=True,
     if debug is not None:
         df_types = [dt for dt in df_types if dt == debug] # Corrected debug type check
 
-    current_phenotype_for_paths = None if (not train and use_shared_paths) else phenotype
-    current_noisy_label_for_paths = False if (not train and use_shared_paths) else noisy_label
+    current_phenotype_for_paths = None if use_shared_paths else phenotype
+    current_noisy_label_for_paths = False if use_shared_paths else noisy_label
     # For dictionary path generation (non-NLP), the 'label' parameter corresponds to noisy_label
     current_label_for_dict_path = current_noisy_label_for_paths
 
@@ -180,7 +202,7 @@ def generate_pivot(phenotype, pivot_type='simple', train=True, noisy_label=True,
 
     for df_type in df_types:
         # Determine input path for pivot generation
-        if not train and use_shared_paths:
+        if use_shared_paths:
             if df_type in ['RADNOTES', 'DSNOTES'] and NLP:
                 # For shared NLP pivot, read the output of NLP feature selection
                 input_path = generate_nlp_file_path(current_phenotype_for_paths, df_type, train, current_noisy_label_for_paths, use_shared_paths)
@@ -252,8 +274,8 @@ def generate_pivot(phenotype, pivot_type='simple', train=True, noisy_label=True,
                 continue
 
             save_output_path = generate_pivot_path(current_phenotype_for_paths, df_type, train, current_noisy_label_for_paths, use_shared_paths)
-            save_csv(pivoted_df, save_output_path)
-            print(f"[SUCCESSFULLY SAVED {df_type.upper()} PIVOTED DATA] {save_output_path}")
+            actual_save_path = save_pivot(pivoted_df, save_output_path)
+            print(f"[SUCCESSFULLY SAVED {df_type.upper()} PIVOTED DATA] {actual_save_path}")
 
             # Generate and save dictionary (only for non-NLP data types, NLP dicts are done in feature_selection)
             if df_type not in ['DSNOTES', 'RADNOTES'] and target_col:
