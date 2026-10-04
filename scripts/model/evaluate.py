@@ -114,15 +114,21 @@ def load_and_filter_test(phenotype, train_features, notes=True, nlp=True, train=
 
     for df_type in df_types:
         path = generate_pivot_path(phenotype, df_type, train=False, noisy_label=noisy_label, use_shared_paths=True)
-        if not path_exists(path):
+        # save_pivot() writes the normal (sparse) case to a .pkl sibling path instead of this
+        # .csv.gz one -- check both, since load_pivot_sparse checks the .pkl path itself.
+        if not path_exists(path) and not path_exists(generate_pivot_sparse_path(path)):
             print(f"[SKIPPING SHARED {df_type.upper()} DATA] File does not exist: {path}")
             continue
-        df = read_gzip_or_parts(path)
-        print(f"Loaded shared {df_type} data, shape: {df.shape}")
-        if id_col_name not in df.columns:
+        # load_pivot_sparse keeps these wide, mostly-zero pivot tables as pandas
+        # Sparse[float64] columns through the merge below.
+        # target_index=core_hadm_ids: reindex now with fill_value=0 instead of letting the
+        # pd.concat below do it via an implicit outer-join NaN fill (see load_pivot_sparse's
+        # docstring for why that silently turns the sparse table back into a near-dense one).
+        df = load_pivot_sparse(path, id_col_name=id_col_name, target_index=core_hadm_ids)
+        if df is None:
             print(f"Warning: '{id_col_name}' not found in {df_type} data columns. Skipping this df_type.")
             continue
-        df.set_index(id_col_name, inplace=True)
+        print(f"Loaded shared {df_type} data, shape: {df.shape}")
         all_feature_dfs.append(df) # Add to list for outer concatenation (not yet filtered by core_hadm_ids)
 
     # 7. Concatenate ALL Feature Tables using an outer join
@@ -146,6 +152,8 @@ def load_and_filter_test(phenotype, train_features, notes=True, nlp=True, train=
     combined_test_features = combined_test_features.reindex(columns=train_features)
     print(f"Shape of combined_test_features after OHE and aligning with train_features: {combined_test_features.shape}")
 
+    # impute_features_data/process_numerical_columns handle sparse columns directly -- see
+    # load_pivot_sparse's docstring (scripts/utils.py) for why no densify call is needed here.
     # Impute missing values. For the test set, we ideally should use the imputer
     # fitted on the training set. This needs to be passed into this function.
     # For now, if no imputer is passed, it will fit a new one based on 'method'.
