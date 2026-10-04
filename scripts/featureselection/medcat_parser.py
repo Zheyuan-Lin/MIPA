@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+import multiprocessing as mp
+from scipy.sparse import coo_matrix
 from scripts.constants import *
 from scripts.utils import *
 from medcat.cat import CAT
@@ -56,6 +58,81 @@ def process_and_annotate_dataframe(df, cat, text_column='text'):
     # Add a new column 'nlp_codes' to the DataFrame
     df['nlp_codes'] = df.apply(annotate_text, axis=1)
     return df
+
+
+def _annotate_texts_chunk(texts):
+    """
+    Worker function for process_and_annotate_dataframe_parallel. Runs in a separate process
+    (see pool initializer below) -- annotates a list of raw strings and returns the same
+    'CUI: count, CUI: count' string format as process_and_annotate_dataframe's annotate_text,
+    in the same order as the input list.
+    """
+    global _WORKER_CAT
+    results = []
+    for text in texts:
+        cui_counts = {}
+        if isinstance(text, str) and len(text) > 10:
+            entities = _WORKER_CAT.get_entities(text)
+            for entity in entities['entities'].values():
+                cui = entity['cui']
+                cui_counts[cui] = cui_counts.get(cui, 0) + 1
+        results.append(', '.join(f"{cui}: {count}" for cui, count in cui_counts.items()))
+    return results
+
+
+def _init_worker_cat():
+    """
+    multiprocessing.Pool initializer: loads one MedCAT model per worker process. Each
+    loaded model is ~1.1GB RSS (measured) -- this is why process_and_annotate_dataframe_parallel
+    keeps n_workers conservative by default rather than maxing out CPU core count.
+    """
+    global _WORKER_CAT
+    _WORKER_CAT = generate_cat()
+
+
+def process_and_annotate_dataframe_parallel(df, text_column='text', n_workers=3, chunksize=50):
+    """
+    Parallel version of process_and_annotate_dataframe. MedCAT's per-document inference is
+    independent across documents, so this is an easy, safe speedup for large note counts --
+    at train scale (~1.35M notes across DSNOTES+RADNOTES), the serial version was measured
+    at ~240ms/note, i.e. ~3.7 DAYS of continuous single-core work. CAT.load_model_pack's
+    loaded object isn't picklable/shareable across macOS's default 'spawn' multiprocessing
+    start method, so each worker loads its OWN full copy of the model via the pool
+    initializer below -- this is why n_workers is kept conservative (default 3, ~3.3GB of
+    model copies total) rather than matching the machine's full core count: more workers
+    would speed up wall-clock time further but risks running this 8GB machine out of memory
+    on top of everything else already using it.
+
+    Returns a copy of df with an 'nlp_codes' column, in the exact same row order as the
+    input -- verified identical output to process_and_annotate_dataframe on the same input
+    before using this for the real run.
+    """
+    df = df.reset_index(drop=True)
+    texts = df[text_column].tolist()
+
+    # Force 'spawn' instead of the platform default. On Linux the default is 'fork',
+    # which deadlocks here: by the time this runs, torch/spacy (imported transitively via
+    # medcat.cat.CAT) have already initialized internal thread pools (BLAS/OpenMP) in this
+    # process, and fork()'ing with live threads copies their lock state into each child
+    # without the owning threads -- the child then hangs forever the first time it touches
+    # one of those locks (confirmed: workers sat at 0% CPU indefinitely on an 8-core Linux
+    # VM, whereas macOS -- where 'spawn' is already the default -- never hit this).
+    ctx = mp.get_context('spawn')
+    with ctx.Pool(n_workers, initializer=_init_worker_cat) as pool:
+        # Split into many small chunks (chunksize param, not len(texts)//n_workers) so
+        # pool.map load-balances across workers instead of giving one worker a
+        # disproportionately slow batch (e.g. a run of unusually long discharge summaries)
+        # while the others sit idle.
+        chunk_results = pool.map(_annotate_texts_chunk, _chunk_list(texts, chunksize))
+
+    all_results = [item for chunk in chunk_results for item in chunk]
+    df['nlp_codes'] = all_results
+    return df
+
+
+def _chunk_list(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
 
 
 def apply_feature_selection_and_export_cuis(df, cui_column='nlp_codes', cat=None, lower_quantile=0.10,
@@ -141,8 +218,23 @@ def pivot_and_aggregate(df, id_column='hadm_id', cui_column='nlp_codes'):
     df_expanded['Count'] = pd.to_numeric(df_expanded['Count'], errors='coerce')
     df_expanded['Count'].fillna(0, inplace=True)  # Fill NaN with 0
 
-    # Pivot the DataFrame to get hadm_id as index and CUIs as columns, summing the counts
-    pivoted_df = df_expanded.pivot_table(index=id_column, columns='CUI', values='Count', aggfunc='sum', fill_value=0)
+    # Build the pivot directly as a pandas Sparse DataFrame via a scipy COO matrix instead
+    # of df.pivot_table(..., fill_value=0) -- same rationale as pivot_cohort in
+    # scripts/featureselection/pivot.py: pivot_table builds a dense (admissions x CUIs)
+    # array before anything else happens, and the UMLS CUI vocabulary observed across a
+    # large note corpus can run into the thousands-to-tens-of-thousands, which at full
+    # training-cohort scale (hundreds of thousands of admissions) is the same "tens of
+    # billions of cells" problem DIAG hit. coo_matrix sums duplicate (row, col) entries
+    # automatically on conversion, which is exactly aggfunc='sum' semantics -- simpler than
+    # pivot_cohort's case (which needed aggfunc='max' and a pre-dedup workaround).
+    row_cat = pd.Categorical(df_expanded[id_column])
+    col_cat = pd.Categorical(df_expanded['CUI'])
+    coo = coo_matrix(
+        (df_expanded['Count'].values, (row_cat.codes, col_cat.codes)),
+        shape=(len(row_cat.categories), len(col_cat.categories)),
+    ).tocsr()
+    pivoted_df = pd.DataFrame.sparse.from_spmatrix(coo, index=row_cat.categories, columns=col_cat.categories)
+    pivoted_df.index.name = id_column
 
     # Reset the index to turn 'hadm_id' back into a column
     pivoted_df = pivoted_df.reset_index()
