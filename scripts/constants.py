@@ -32,9 +32,9 @@ HUGGINGFACE_API_KEY = 'eyJhbGciOiJIUzI1NiIsImtpZCI6IlV6SXJWd1h0dnprLVRvdzlLZWstc
 
 # FILE PATHS
 # Define MIMIC IV Data Location
-# Constants for Google Cloud Storage paths
-CORE_MIMICIV_PATH = 'gs://mipa-bucket/raw/'
-NOTE_MIMICIV_PATH = 'gs://mipa-bucket/raw/'
+# Local raw data root (hosp/, icu/, note/ subfolders), replacing the original gs://mipa-bucket/raw/
+CORE_MIMICIV_PATH = '/Users/soukasumi/mimiciv-3.1/'
+NOTE_MIMICIV_PATH = '/Users/soukasumi/mimiciv-3.1/'
 
 
 # GOLDEN DATASET PATH
@@ -45,8 +45,8 @@ CHALLENGING_PATH = os.path.join(PROJECT_ROOT, 'data', 'filters', 'challenging_ca
 EASY_PATH = os.path.join(PROJECT_ROOT, 'data', 'filters', 'easy_cases.csv')
 
 # FILTERS
-FILTERS_PATH = os.path.join(PROJECT_ROOT, 'data', 'filters')
-MAP_PATH = os.path.join(PROJECT_ROOT, 'data', 'mappings')
+FILTERS_PATH = os.path.join(PROJECT_ROOT, 'data', 'filters') + os.sep
+MAP_PATH = os.path.join(PROJECT_ROOT, 'data', 'mappings') + os.sep
 ICD_MAP_PATH = os.path.join(MAP_PATH, 'ICD9_to_ICD10_mapping.txt')
 ABV_PATH = os.path.join(MAP_PATH, 'abbreviations.json')
 
@@ -55,15 +55,15 @@ CAT_PATH = os.path.join(PROJECT_ROOT, 'medcat', 'medmen')
 CDB_PATH = os.path.join(PROJECT_ROOT, 'medcat', 'umls_full', 'cdb.dat')
 VOCAB_PATH = os.path.join(PROJECT_ROOT, 'medcat', 'umls_full', 'vocab.dat')
 
-# EXPORT GCS PATHS
-MODEL_PATH = 'gs://mipa-bucket/models/'
-INDEXES_PATH = 'gs://mipa-bucket/processed/cohort/indexes/'
-COHORT_TRAIN_PATH = 'gs://mipa-bucket/processed/cohort/train/'
-COHORT_TEST_PATH = 'gs://mipa-bucket/processed/cohort/test/'
-COHORT_VAL_PATH = 'gs://mipa-bucket/processed/cohort/val/'
-PIVOT_PATH = 'gs://mipa-bucket/processed/cohort/PIVOT/'
-NLP_DEMO_PATH = 'gs://mipa-bucket/raw/demo_ds/data.csv'
-PROCESSED_PATH = 'gs://mipa-bucket/processed/'
+# EXPORT PATHS (local, replacing the original gs://mipa-bucket/ locations)
+PROCESSED_PATH = os.path.join(PROJECT_ROOT, 'data', 'processed') + os.sep
+MODEL_PATH = os.path.join(PROJECT_ROOT, 'data', 'models') + os.sep
+INDEXES_PATH = f"{PROCESSED_PATH}cohort/indexes/"
+COHORT_TRAIN_PATH = f"{PROCESSED_PATH}cohort/train/"
+COHORT_TEST_PATH = f"{PROCESSED_PATH}cohort/test/"
+COHORT_VAL_PATH = f"{PROCESSED_PATH}cohort/val/"
+PIVOT_PATH = f"{PROCESSED_PATH}cohort/PIVOT/"
+NLP_DEMO_PATH = os.path.join(PROJECT_ROOT, 'data', 'raw', 'demo_ds', 'data.csv')
 
 #LOCAL_PATH
 #LOCAL_PROCESSED_PATH = os.path.join(PROJECT_ROOT, 'data', 'processed')
@@ -85,9 +85,20 @@ COHORT_SHARED_TEST_VAL_SUMMARY_PATH = f"{COHORT_SHARED_TEST_VAL_ROOT_PATH}summar
 COHORT_SHARED_TEST_VAL_DICT_PATH = f"{COHORT_SHARED_TEST_VAL_ROOT_PATH}dict/"
 COHORT_SHARED_TEST_VAL_NLP_PATH = f"{COHORT_SHARED_TEST_VAL_ROOT_PATH}long/NLP/" # If you process NLP for shared data
 
+# Shared training data: the training cohort (hadm_id universe) is identical across all
+# phenotypes when using silver labels (only the 'y' column differs), so raw/feature-selected/
+# pivoted data is computed once here and shared; per-phenotype 'y' labels live in INDEXES_PATH.
+COHORT_SHARED_TRAIN_ROOT_PATH = f"{PROCESSED_PATH}cohort/shared_train/"
+COHORT_SHARED_TRAIN_LONG_PATH = f"{COHORT_SHARED_TRAIN_ROOT_PATH}long/"
+COHORT_SHARED_TRAIN_PIVOT_PATH = f"{COHORT_SHARED_TRAIN_ROOT_PATH}pivot/"
+COHORT_SHARED_TRAIN_SUMMARY_PATH = f"{COHORT_SHARED_TRAIN_ROOT_PATH}summary/"
+COHORT_SHARED_TRAIN_DICT_PATH = f"{COHORT_SHARED_TRAIN_ROOT_PATH}dict/"
+COHORT_SHARED_TRAIN_NLP_PATH = f"{COHORT_SHARED_TRAIN_ROOT_PATH}long/NLP/"
+
 
 # Name for shared data files (to distinguish from phenotype-specific or train files)
 SHARED_DATA_FILE_SUFFIX = "_shared_test_val"
+SHARED_TRAIN_DATA_FILE_SUFFIX = "_shared_train"
 
 # EXPORT LOCAL PATHS
 # MODEL_PATH = 'data/models/'
