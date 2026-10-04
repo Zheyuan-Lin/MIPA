@@ -145,12 +145,12 @@ def generate_features_selection(phenotype, train = True, noisy_label = True, not
     if debug is not None:
         df_types = [dt for dt in df_types if dt == debug] # Corrected debug type check
 
-    current_phenotype_for_paths = None if (not train and use_shared_paths) else phenotype
-    current_noisy_label_for_paths = False if (not train and use_shared_paths) else noisy_label
+    current_phenotype_for_paths = None if use_shared_paths else phenotype
+    current_noisy_label_for_paths = False if use_shared_paths else noisy_label
 
     print("[LOADING FILES FOR FEATURE SELECTION]")
     for df_type in df_types:
-        if not train and use_shared_paths:
+        if use_shared_paths:
             # For shared test/val data, NLP files are the primary source for RADNOTES/DSNOTES if NLP=True
             if df_type in ['RADNOTES', 'DSNOTES'] and NLP:
                 path = generate_nlp_file_path(current_phenotype_for_paths, df_type, train, current_noisy_label_for_paths, use_shared_paths)
@@ -279,14 +279,14 @@ def generate_summary(phenotype, train = True, noisy_label = True, notes = False,
     if debug is not None:
         df_types = [dt for dt in df_types if dt == debug] # Corrected debug type check
 
-    current_phenotype_for_paths = None if (not train and use_shared_paths) else phenotype
-    current_noisy_label_for_paths = False if (not train and use_shared_paths) else noisy_label
+    current_phenotype_for_paths = None if use_shared_paths else phenotype
+    current_noisy_label_for_paths = False if use_shared_paths else noisy_label
     # For summaries, the 'label' parameter in generate_summary_path corresponds to noisy_label
     current_label_for_summary_path = current_noisy_label_for_paths
 
     for df_type in df_types:
         # Determine input path
-        if not train and use_shared_paths:
+        if use_shared_paths:
             if df_type in ['RADNOTES', 'DSNOTES'] and NLP:
                 # For shared NLP summaries, read the output of NLP feature selection
                 input_path = generate_nlp_file_path(current_phenotype_for_paths, df_type, train, current_noisy_label_for_paths, use_shared_paths)
