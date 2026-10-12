@@ -59,7 +59,7 @@ def parse_args():
     # Diagnosis ICD code diagnosis grouping
     parser.add_argument('--root_icd9', type=str2bool, default=True, help='Use root ICD9')
     parser.add_argument('--group_icd10', type=str2bool, default=True, help='Group ICD10')
-    parser.add_argument('--options', type=str, default='ICD10', help='Options for ICD')
+    parser.add_argument('--options', type=str, default='ICD10_grouped', help='Options for ICD (ICD10_grouped = first-3-character root, matching the MIPA paper)')
     # Medication grouping
     parser.add_argument('--med_grouping', type=str2bool, default=True, help='Use medication grouping')
 
@@ -240,7 +240,7 @@ def main_noarg():
         'agg_window': "D",
         'root_icd9': True,
         'group_icd10': True,
-        'diag_options': "ICD10",
+        'diag_options': "ICD10_grouped",
         'med_grouping': True,
         'lower_labs': 0.25,
         'lower_chart': 0.25,
