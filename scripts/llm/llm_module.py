@@ -447,8 +447,25 @@ class PromptEngineering:
 
         return template.format(phenotype=phenotype, reasoning_analysis=reasoning_analysis)
 
+    # Emory BMI cluster -- self-hosted OpenAI-compatible endpoints (llama.cpp/gguf backend), no
+    # API key. Routed through the sesame.bmi.emory.edu nginx gateway (reachable from the Emory
+    # campus network -- confirmed DNS + TLS work without any special VPN) under the
+    # /SarkerlabLLM/<model>/ prefix; the llm1/llm2.priv.bmi.emory.edu hostnames from the original
+    # doc are internal-only and did NOT resolve from a normal Emory wifi connection.
+    # 'base' + '/v1/chat/completions' is the normal (one note at a time) path used by parse().
+    # 'base' + '/v1/completions' takes a list of prompts in one request -- see parse_batch() --
+    # confirmed working for all 4 models here, though the source doc warns v1/completions is
+    # less consistently supported across models than the chat endpoint.
+BMI_ENDPOINTS = {
+    'bmi_llama3_70b': {'base': 'https://sesame.bmi.emory.edu/SarkerlabLLM/llama3_70B', 'model_id': 'llama3_70B'},
+    'bmi_gpt_oss_120b': {'base': 'https://sesame.bmi.emory.edu/SarkerlabLLM/gpt-oss-120b', 'model_id': 'gpt-oss-120b'},
+    'bmi_gemma4_31b': {'base': 'https://sesame.bmi.emory.edu/SarkerlabLLM/gemma4', 'model_id': 'google/gemma-4-31B'},
+    'bmi_medgemma_27b': {'base': 'https://sesame.bmi.emory.edu/SarkerlabLLM/medgemma-27b', 'model_id': 'google/medgemma-27b-text-it'},
+}
+
+
 class LLMParser:
-    def __init__(self, model_name: str, prompt_engineering: PromptEngineering, api_url: str, api_key: str, max_retries = 2, temperature = 0.5):
+    def __init__(self, model_name: str, prompt_engineering: PromptEngineering, api_url: str = None, api_key: str = None, max_retries = 2, temperature = 0.5):
         # Dictionary mapping simplified model names to their API paths
         self.models = {
             #Mistral AI
@@ -497,11 +514,21 @@ class LLMParser:
             'openbio_70b': 'aaditya/Llama3-OpenBioLLM-70B',
         }
         self.model_name = model_name
-        self.model = self.models.get(model_name, 'mistralai/mistral-7b-instruct:free')  # Default to
-        # mistral-7b-instruct [free model]
+        if model_name in BMI_ENDPOINTS:
+            # BMI cluster: api_url/api_key are ignored even if passed -- each model has its own
+            # fixed base URL and no key is needed.
+            self.backend = 'bmi'
+            endpoint = BMI_ENDPOINTS[model_name]
+            self.api_url = endpoint['base'] + '/v1/chat/completions'
+            self.batch_url = endpoint['base'] + '/v1/completions'
+            self.model = endpoint['model_id']
+        else:
+            self.backend = 'openrouter'
+            self.model = self.models.get(model_name, 'mistralai/mistral-7b-instruct:free')  # Default to
+            # mistral-7b-instruct [free model]
+            self.api_url = api_url
+            self.api_key = api_key
         self.prompt_engineering = prompt_engineering
-        self.api_url = api_url
-        self.api_key = api_key
         self.max_retries = max_retries
         self.temperature = temperature
         # self.semaphore = asyncio.Semaphore(50)  # Limit concurrent requests
@@ -562,10 +589,13 @@ class LLMParser:
                     "top_logprobs": 5
                 })
 
-            data_dict["provider"] = {
-                "order": ["DeepInfra", "Lambda", "Novita", "Hyperbolic", "Lepton", "Together", "Fireworks", "OpenAI"],
-                "allow_fallbacks": True
-            }
+            if self.backend != 'bmi':
+                # BMI's self-hosted vLLM servers don't understand OpenRouter's provider-routing
+                # extension -- only add it for OpenRouter.
+                data_dict["provider"] = {
+                    "order": ["DeepInfra", "Lambda", "Novita", "Hyperbolic", "Lepton", "Together", "Fireworks", "OpenAI"],
+                    "allow_fallbacks": True
+                }
 
             # Convert to JSON string after all updates are done
             data = json.dumps(data_dict)
@@ -575,11 +605,21 @@ class LLMParser:
             for attempt in range(self.max_retries):
                 try:
                     start_time = time.time()
-                    response = requests.post(
-                        self.api_url,
-                        headers={"Authorization": f"Bearer {self.api_key}"},
-                        data=data
-                    )
+                    if self.backend == 'bmi':
+                        # No API key -- BMI cluster endpoints are only reachable from inside the
+                        # BMI network / Emory VPN in the first place, and require Content-Type to
+                        # be set explicitly (unlike OpenRouter, which this code sends to without it).
+                        response = requests.post(
+                            self.api_url,
+                            headers={"Content-Type": "application/json"},
+                            json=data_dict,
+                        )
+                    else:
+                        response = requests.post(
+                            self.api_url,
+                            headers={"Authorization": f"Bearer {self.api_key}"},
+                            data=data
+                        )
                     response.raise_for_status()
                     end_time = time.time()
                     processing_time = end_time - start_time
@@ -718,6 +758,12 @@ class LLMParser:
         result_df = pd.DataFrame(results)
         error_df = pd.DataFrame(errors) if errors else None
 
+        # If every row in this batch failed (e.g. a network outage for the whole batch),
+        # `results` is empty and pd.DataFrame([]) has no columns at all -- result_df['hadm_id']
+        # below would then raise KeyError instead of just reporting an all-failed batch.
+        if result_df.empty:
+            return result_df, error_df
+
         # Calculate and add parsed ratios
         parsed_ratios = {
             hadm_id: counts['success'] / counts['total']
@@ -725,6 +771,105 @@ class LLMParser:
         }
         result_df['parsed_ratio'] = result_df['hadm_id'].map(parsed_ratios)
 
+        return result_df, error_df
+
+    def parse_batch(self, chunk_df: pd.DataFrame, phenotype: str, batch_size: int = 8, pbar=None) -> Tuple[pd.DataFrame, Optional[pd.DataFrame]]:
+        """
+        BMI-cluster-only batched version of parse(): sends `batch_size` prompts in ONE request
+        to the backend's 'v1/completions' endpoint (self.batch_url) instead of one request per
+        row like parse()/_push_to_llm() do. Same return shape as parse() -- (result_df, error_df)
+        with identical columns -- so it's a drop-in replacement wherever parse() is called.
+
+        'v1/completions' is plain text completion (a `prompt` string per item, no chat roles), so
+        SYSTEM_PROMPT + the per-row zero_shot/few_shot/etc. prompt are concatenated into one text
+        block per row instead of being sent as separate system/user messages. The source BMI doc
+        warns this endpoint is less consistently supported across models than 'v1/chat/completions'
+        -- confirmed working for all 4 BMI_ENDPOINTS models with a 2-prompt batch, but verify on
+        your actual phenotype prompts before relying on it for a full run.
+
+        Raises ValueError if called on a non-BMI backend (OpenRouter has no equivalent -- its
+        provider-routing makes a single request's batch behavior provider-dependent, and this
+        was never verified against it).
+        """
+        if self.backend != 'bmi':
+            raise ValueError("parse_batch() is only implemented for the BMI backend "
+                              "(self.backend == 'bmi') -- use parse() for OpenRouter.")
+
+        results = []
+        errors = []
+        parse_counts = defaultdict(lambda: {'success': 0, 'total': 0})
+        n_total = len(chunk_df)
+        n_batches = (n_total + batch_size - 1) // batch_size
+
+        for b in range(n_batches):
+            batch = chunk_df.iloc[b * batch_size: (b + 1) * batch_size]
+            hadm_ids = batch['hadm_id'].tolist()
+            prompts = [SYSTEM_PROMPT + "\n\n" + self.prompt_engineering.get_prompt(phenotype, chunk)
+                       for chunk in batch['chunk'].tolist()]
+            for hadm_id in hadm_ids:
+                parse_counts[hadm_id]['total'] += 1
+
+            data_dict = {"model": self.model, "prompt": prompts, "temperature": self.temperature}
+            try:
+                response = requests.post(self.batch_url, headers={"Content-Type": "application/json"},
+                                          json=data_dict, timeout=120)
+                response.raise_for_status()
+                parsed_response = response.json()
+                choices = parsed_response.get('choices', [])
+                usage = parsed_response.get('usage', {})
+                # Split the batch-level token usage evenly across rows -- the API only reports
+                # one usage total for the whole request, not per-prompt.
+                per_row_tokens = usage.get('completion_tokens', 0) / max(len(prompts), 1)
+            except Exception as e:
+                logging.error(f"Batch request failed for batch {b+1}/{n_batches}: {e}")
+                for hadm_id, chunk in zip(hadm_ids, batch['chunk'].tolist()):
+                    errors.append({'hadm_id': hadm_id, 'chunk': chunk, 'raw_output': None,
+                                   'error_type': f"Batch request error: {e}", 'input_tokens': 0,
+                                   'output_tokens': 0, 'total_tokens': 0})
+                if pbar:
+                    pbar.update(len(batch))
+                continue
+
+            if len(choices) != len(prompts):
+                logging.warning(f"Batch {b+1}/{n_batches}: expected {len(prompts)} choices, got "
+                                 f"{len(choices)} -- response may not preserve prompt order reliably.")
+
+            for idx, hadm_id in enumerate(hadm_ids):
+                chunk = batch['chunk'].iloc[idx]
+                if idx >= len(choices):
+                    errors.append({'hadm_id': hadm_id, 'chunk': chunk, 'raw_output': None,
+                                   'error_type': "Missing choice in batch response", 'input_tokens': 0,
+                                   'output_tokens': 0, 'total_tokens': 0})
+                    continue
+                response_text = choices[idx].get('text', '')
+                extracted_json = self._extract_json_from_output_classic(response_text)
+                phenotype_status = self._extract_phenotype(extracted_json) if extracted_json else None
+
+                if phenotype_status is None:
+                    errors.append({'hadm_id': hadm_id, 'chunk': chunk, 'raw_output': response_text,
+                                   'error_type': "Failed to extract phenotype status from JSON",
+                                   'input_tokens': 0, 'output_tokens': 0, 'total_tokens': 0})
+                else:
+                    results.append({
+                        'hadm_id': hadm_id, 'chunk': chunk, 'llm_response': extracted_json,
+                        'phenotype_status': phenotype_status,
+                        'justification': self._extract_justification(extracted_json),
+                        'chunk_tokens': self._return_ntokens(chunk),
+                        'input_tokens': 0, 'output_tokens': per_row_tokens, 'total_tokens': per_row_tokens,
+                        'processing_time': None, 'avg_logprob': None,
+                    })
+                    parse_counts[hadm_id]['success'] += 1
+
+            if pbar:
+                pbar.update(len(batch))
+
+        result_df = pd.DataFrame(results)
+        error_df = pd.DataFrame(errors) if errors else None
+        if result_df.empty:
+            return result_df, error_df
+
+        parsed_ratios = {hadm_id: counts['success'] / counts['total'] for hadm_id, counts in parse_counts.items()}
+        result_df['parsed_ratio'] = result_df['hadm_id'].map(parsed_ratios)
         return result_df, error_df
 
     def extract_then_phenotype(self, chunk_df: pd.DataFrame, phenotype: str, pbar=None) -> Tuple[
