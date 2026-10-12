@@ -185,7 +185,10 @@ def generate_pivot(phenotype, pivot_type='simple', train=True, noisy_label=True,
 
     target_columns = {
         'DIAG': 'icd_code',
-        'MEDS': 'ndc',
+        # Pivot identity is the generic drug name, not the NDC code -- two NDCs (different
+        # manufacturer/formulation) for the same drug should collapse into one feature
+        # column, matching the paper's "medications normalized to generic names".
+        'MEDS': 'nonproprietaryname',
         'PROC': 'icd_code',
         'CHART': 'itemid',
         'LABS': 'itemid'
@@ -194,7 +197,8 @@ def generate_pivot(phenotype, pivot_type='simple', train=True, noisy_label=True,
 
     target_labels = {
             'DIAG'    : 'long_title',
-            'MEDS'    : 'nonproprietaryname',
+            # No separate label needed for MEDS -- target_columns['MEDS'] is already the
+            # human-readable generic name.
             'PROC'    : 'long_title',
             'CHART'   : 'label',
             'LABS'    : 'label'

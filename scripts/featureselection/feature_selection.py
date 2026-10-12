@@ -91,12 +91,14 @@ def apply_summary(df, df_type, NLP = False):
         summary = pd.merge(freq, total, on='icd_code', how='right')
         summary = summary.fillna(0)
     elif df_type == 'MEDS':
-        freq = df.groupby(['hadm_id', 'ndc']).size().reset_index(name="mean_frequency")
-        freq = freq.groupby(['ndc'])['mean_frequency'].mean().reset_index()
-        missing = df[df['ndc'].isna()].groupby('ndc').size().reset_index(name="missing_count")
-        total = df.groupby('ndc').size().reset_index(name="total_count")
-        summary = pd.merge(missing, total, on='ndc', how='right')
-        summary = pd.merge(freq, summary, on='ndc', how='right')
+        # Grouped by generic drug name (nonproprietaryname), not NDC -- see pivot.py's
+        # target_columns['MEDS'] for why: two NDCs for the same drug should be one feature.
+        freq = df.groupby(['hadm_id', 'nonproprietaryname']).size().reset_index(name="mean_frequency")
+        freq = freq.groupby(['nonproprietaryname'])['mean_frequency'].mean().reset_index()
+        missing = df[df['nonproprietaryname'].isna()].groupby('nonproprietaryname').size().reset_index(name="missing_count")
+        total = df.groupby('nonproprietaryname').size().reset_index(name="total_count")
+        summary = pd.merge(missing, total, on='nonproprietaryname', how='right')
+        summary = pd.merge(freq, summary, on='nonproprietaryname', how='right')
         summary = summary.fillna(0)
     elif df_type == 'PROC':
         freq = df.groupby(['hadm_id', 'icd_code']).size().reset_index(name="mean_frequency")
@@ -179,7 +181,7 @@ def generate_features_selection(phenotype, train = True, noisy_label = True, not
                 df = apply_feature_selection(df, 'icd_code', lower_quantile=lower_icd)
                 save_gzip(df, path) # Overwrite existing file with selected features
             elif df_type == 'MEDS':
-                df = apply_feature_selection(df, 'ndc', lower_quantile=lower_meds)
+                df = apply_feature_selection(df, 'nonproprietaryname', lower_quantile=lower_meds)
                 save_gzip(df, path)
             elif df_type == 'CHART':
                 df = apply_feature_selection(df, 'itemid', lower_quantile=lower_chart)
