@@ -435,9 +435,15 @@ def read_procedures(cohort: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def preproc_proc(cohort, time=False) -> pd.DataFrame:
+def preproc_proc(cohort, time=False, group_icd=True) -> pd.DataFrame:
     """Function for getting procedures ICD codes for cohort
      No mapping done for procedures ICD codes
+
+    - group_icd: If True (default), truncates icd_code to its first 3 characters --
+      matching the granularity preproc_diagnoses uses for options='ICD10_grouped'. There is
+      no ICD9-PCS<->ICD10-PCS mapping table in this repo (unlike diagnoses, which has
+      ICD_MAP_PATH), so this groups each code system's native codes to their own
+      first-3-character root rather than attempting a cross-version conversion first.
     """
 
     # `cohort` carries one row per (hadm_id, icd_code) from the upstream diagnoses merge
@@ -467,6 +473,10 @@ def preproc_proc(cohort, time=False) -> pd.DataFrame:
     print("\nValue counts of each ICD version:\n", df_cohort.icd_version.value_counts())
     print("# Admissions:  ", df_cohort.hadm_id.nunique())
     print("Total number of rows: ", df_cohort.shape[0])
+
+    if group_icd:
+        df_cohort['icd_code'] = df_cohort['icd_code'].astype(str).str[:3]
+        print("# Unique procedure roots (after 3-character grouping): ", df_cohort['icd_code'].nunique())
 
     if time == False:
         df_cohort = df_cohort.drop_duplicates(subset=['hadm_id', 'icd_code'])
