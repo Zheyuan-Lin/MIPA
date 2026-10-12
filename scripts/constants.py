@@ -36,6 +36,17 @@ HUGGINGFACE_API_KEY = 'eyJhbGciOiJIUzI1NiIsImtpZCI6IlV6SXJWd1h0dnprLVRvdzlLZWstc
 CORE_MIMICIV_PATH = '/Users/soukasumi/mimiciv-3.1/'
 NOTE_MIMICIV_PATH = '/Users/soukasumi/mimiciv-3.1/'
 
+# Set to 'bigquery_2_2' to source hosp/icu tables from the physionet-data BigQuery project's
+# MIMIC-IV 2.2 release instead of the local 3.1 csv.gz files above -- see get_table_bigquery()
+# in scripts/utils.py. This exists to reproduce the MIPA paper (medRxiv 10.64898/2026.04.16.
+# 26350888), which was built on 2.2 (431,231 admissions) -- local files are 3.1 (546,028
+# admissions, not a superset: 187 of 2.2's admissions don't even exist in 3.1 under the same
+# hadm_id). Notes (discharge.csv.gz/radiology.csv.gz) are unaffected either way -- they are
+# already MIMIC-IV-Note 2.2 regardless of this setting, since that's the only note release
+# that exists (there has never been a 3.1-numbered note release).
+MIMIC_DATA_SOURCE = 'bigquery_2_2'  # 'local' or 'bigquery_2_2'
+BIGQUERY_PROJECT = 'project-f23a0397-1f18-4018-815'
+
 
 # GOLDEN DATASET PATH
 GOLDEN_NOTES_PATH = os.path.join(PROJECT_ROOT, 'data', 'filters', 'golden_notes.csv')

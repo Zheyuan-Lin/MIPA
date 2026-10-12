@@ -1114,6 +1114,171 @@ _LARGE_TABLE_SPECS = {
 }
 
 
+# Maps every get_table()-recognized table name to its MIMIC-IV 2.2 BigQuery dataset
+# (physionet-data.mimiciv_2_2_hosp / mimiciv_2_2_icu). Table names themselves match the local
+# csv.gz basenames exactly (confirmed by querying the actual schemas) -- only the dataset
+# prefix differs by hosp/ vs icu/ in the original local file layout.
+_BIGQUERY_TABLE_DATASET = {
+    'admissions': 'mimiciv_2_2_hosp', 'patients': 'mimiciv_2_2_hosp', 'transfers': 'mimiciv_2_2_hosp',
+    'diagnoses_icd': 'mimiciv_2_2_hosp', 'drgcodes': 'mimiciv_2_2_hosp', 'emar': 'mimiciv_2_2_hosp',
+    'emar_detail': 'mimiciv_2_2_hosp', 'hcpcsevents': 'mimiciv_2_2_hosp', 'labevents': 'mimiciv_2_2_hosp',
+    'microbiologyevents': 'mimiciv_2_2_hosp', 'poe': 'mimiciv_2_2_hosp', 'poe_detail': 'mimiciv_2_2_hosp',
+    'prescriptions': 'mimiciv_2_2_hosp', 'procedures_icd': 'mimiciv_2_2_hosp', 'services': 'mimiciv_2_2_hosp',
+    'd_icd_diagnoses': 'mimiciv_2_2_hosp', 'd_icd_procedures': 'mimiciv_2_2_hosp', 'd_hcpcs': 'mimiciv_2_2_hosp',
+    'd_labitems': 'mimiciv_2_2_hosp',
+    'procedureevents': 'mimiciv_2_2_icu', 'outputevents': 'mimiciv_2_2_icu', 'inputevents': 'mimiciv_2_2_icu',
+    'icustays': 'mimiciv_2_2_icu', 'datetimeevents': 'mimiciv_2_2_icu', 'chartevents': 'mimiciv_2_2_icu',
+    'd_items': 'mimiciv_2_2_icu',
+}
+
+# Same date-column lists load_mimiciv's preprocess_dataframe() uses for the local-csv path --
+# duplicated here (rather than refactoring that nested function out) to keep this addition
+# isolated from the already-working local-file code path.
+_BIGQUERY_DATETIME_COLUMNS = {
+    'admissions': ['admittime', 'dischtime', 'deathtime', 'edregtime', 'edouttime'],
+    'transfers': ['intime', 'outtime'],
+    'prescriptions': ['starttime', 'stoptime'],
+    'emar': ['charttime', 'scheduletime', 'storetime'],
+    'microbiologyevents': ['chartdate', 'charttime', 'storedate'],
+    'poe': ['ordertime'],
+    'services': ['transfertime'],
+    'procedureevents': ['starttime', 'endtime'],
+    'outputevents': ['charttime'],
+    'inputevents': ['starttime', 'endtime'],
+    'icustays': ['intime', 'outtime'],
+    'datetimeevents': ['charttime', 'storetime'],
+    'chartevents': ['charttime'],
+    'labevents': ['charttime'],
+}
+_BIGQUERY_ICD_STRIP_COLUMNS = {
+    'diagnoses_icd': ['icd_code', 'icd_version'], 'd_icd_diagnoses': ['icd_code', 'icd_version'],
+    'procedures_icd': ['icd_code', 'icd_version'], 'd_icd_procedures': ['icd_code', 'icd_version'],
+    'hcpcsevents': ['hcpcs_cd'], 'd_hcpcs': ['code'],
+}
+# Columns where BigQuery's native column type doesn't match what the local-csv dtype_dicts in
+# load_mimiciv() assume -- confirmed for prescriptions.ndc: BigQuery stores it as STRING
+# (preserving leading zeros), but the local path reads it as float64 (the local csv.gz's ndc
+# values already lost their leading zeros when the file was written, which is the exact quirk
+# ndc_meds()'s to_str() padding-back logic exists to undo) -- so ndc_meds()'s
+# med.ndc.astype("Int64") call expects a float/int-like column, not a string, and raises
+# "cannot safely cast non-equivalent object to int64" on the BigQuery version unless coerced
+# here first.
+_BIGQUERY_NUMERIC_COERCE = {
+    'prescriptions': ['ndc'],
+}
+
+
+def _get_bigquery_client():
+    from google.cloud import bigquery
+    return bigquery.Client(project=BIGQUERY_PROJECT)
+
+
+def get_table_bigquery(table_name: str, cohort=None) -> pd.DataFrame:
+    """
+    Load a table from physionet-data's MIMIC-IV 2.2 BigQuery release instead of the local 3.1
+    csv.gz files -- see MIMIC_DATA_SOURCE in scripts/constants.py for why. Mirrors
+    load_mimiciv()'s local-file behavior closely enough to be a drop-in: pulls the full table
+    (admissions/patients aren't filtered -- they define the cohort), applies the same
+    cohort_ids.isin() filter by hadm_id for everything else, and the same datetime
+    conversion / ICD code stripping load_mimiciv's preprocess_dataframe() does.
+
+    Not used for labevents/chartevents -- see get_table_bigquery_large() for those (full-table
+    pull would be hundreds of millions of rows; this does the cohort filter AND the
+    one-row-per-(hadm_id,itemid) dedup server-side in SQL instead).
+    """
+    dataset = _BIGQUERY_TABLE_DATASET[table_name]
+    client = _get_bigquery_client()
+    query = f"SELECT * FROM `physionet-data.{dataset}.{table_name}`"
+    print(f"[BigQuery 2.2] Querying {dataset}.{table_name}...")
+    df = client.query(query).to_dataframe()
+
+    if cohort is not None and table_name not in ('admissions', 'patients') and 'hadm_id' in df.columns:
+        cohort_ids = cohort['hadm_id'].dropna().unique()
+        df = df[df['hadm_id'].isin(cohort_ids)]
+
+    for col in _BIGQUERY_DATETIME_COLUMNS.get(table_name, []):
+        if col in df.columns:
+            df = convert_to_datetime(df, col)
+    for col in _BIGQUERY_ICD_STRIP_COLUMNS.get(table_name, []):
+        if col in df.columns:
+            df[col] = df[col].astype(str).str.strip()
+    for col in _BIGQUERY_NUMERIC_COERCE.get(table_name, []):
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+
+    print(f"[BigQuery 2.2] {table_name}: {len(df)} rows after cohort filter")
+    return df
+
+
+def get_table_bigquery_large(table_name: str, cohort: pd.DataFrame, max_attempts: int = 3) -> pd.DataFrame:
+    """
+    labevents/chartevents via BigQuery: uploads cohort's hadm_ids to a temp staging table in
+    BIGQUERY_PROJECT, then JOINs against physionet-data's 2.2 table and does the same
+    one-row-per-(hadm_id, itemid) dedup _LARGE_TABLE_SPECS' local-chunked-streaming path does
+    (load_csv_filtered_chunked's dedup_subset) -- but server-side in SQL via QUALIFY, so we
+    only ever download the already-filtered-and-deduped result instead of streaming through
+    hundreds of millions of source rows client-side.
+
+    Both the staging-table load job and the main query are given bounded timeouts: observed a
+    hang where load_table_from_dataframe(...).result() never returned even though the job had
+    already succeeded server-side in ~1s (confirmed via `bq ls -j`), so a plain blocking
+    .result() with no timeout can silently wait forever. On a timeout we retry with a brand-new
+    client/job rather than waiting indefinitely.
+    """
+    from google.cloud import bigquery
+    import concurrent.futures
+
+    spec = _LARGE_TABLE_SPECS[table_name]
+    dataset = _BIGQUERY_TABLE_DATASET[table_name]
+    cohort_ids = pd.DataFrame({'hadm_id': cohort['hadm_id'].dropna().unique().astype('int64')})
+    staging_table = f"{BIGQUERY_PROJECT}.mipa_staging.cohort_hadm_ids_{table_name}"
+    cols = ', '.join(spec['selected_columns'])
+    query = f"""
+        SELECT {cols} FROM (
+            SELECT {cols}, ROW_NUMBER() OVER (
+                PARTITION BY hadm_id, itemid ORDER BY charttime DESC
+            ) AS rn
+            FROM `physionet-data.{dataset}.{table_name}` t
+            JOIN `{staging_table}` c USING (hadm_id)
+            WHERE value IS NOT NULL
+        )
+        WHERE rn = 1
+    """
+
+    df = None
+    last_exc = None
+    for attempt in range(1, max_attempts + 1):
+        client = _get_bigquery_client()
+        try:
+            print(f"[BigQuery 2.2] Uploading {len(cohort_ids)} cohort hadm_ids to {staging_table}... (attempt {attempt}/{max_attempts})")
+            job_config = bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
+            load_job = client.load_table_from_dataframe(cohort_ids, staging_table, job_config=job_config)
+            load_job.result(timeout=180)
+
+            print(f"[BigQuery 2.2] Streaming filtered+deduped {table_name} (this can take a while)...")
+            query_job = client.query(query)
+            query_job.result(timeout=900)
+            df = query_job.to_dataframe()
+            break
+        except (concurrent.futures.TimeoutError, TimeoutError) as e:
+            last_exc = e
+            print(f"[BigQuery 2.2] Attempt {attempt}/{max_attempts} for {table_name} timed out client-side ({e}); retrying with a fresh client/job." if attempt < max_attempts else f"[BigQuery 2.2] All {max_attempts} attempts for {table_name} timed out client-side.")
+    if df is None:
+        raise RuntimeError(f"get_table_bigquery_large({table_name}) timed out after {max_attempts} attempts") from last_exc
+    for col in spec.get('dtype_dict', {}):
+        if col in df.columns:
+            try:
+                df[col] = df[col].astype(spec['dtype_dict'][col])
+            except (ValueError, TypeError):
+                pass  # e.g. NaNs in an int column -- leave as the BigQuery-inferred dtype
+    for col in spec.get('datetime_columns', []):
+        if col in df.columns:
+            df = convert_to_datetime(df, col)
+
+    print(f"[BigQuery 2.2] {table_name}: {len(df)} rows after cohort filter + dedup")
+    return df
+
+
 def get_table(table_name: str, cohort = None, compute = False) -> pd.DataFrame:
     """
     Load a table from MIMIC-IV and return it as a pandas dataframe, providing cohort to filter table according to
@@ -1166,6 +1331,16 @@ def get_table(table_name: str, cohort = None, compute = False) -> pd.DataFrame:
 
     if table_name not in all_tables:
         raise ValueError(f"Table name not in list of tables: {all_tables}")
+
+    if MIMIC_DATA_SOURCE == 'bigquery_2_2' and table_name not in ('dsnotes', 'radnotes'):
+        # Notes are excluded here -- they're already MIMIC-IV-Note 2.2 locally regardless of
+        # this setting (there's no 3.1-numbered note release to mismatch against), so there's
+        # nothing to gain from re-sourcing them via BigQuery.
+        if table_name in _LARGE_TABLE_SPECS:
+            if cohort is None:
+                raise ValueError(f"A cohort is required to stream large table: {table_name}")
+            return get_table_bigquery_large(table_name, cohort)
+        return get_table_bigquery(table_name, cohort)
 
     if table_name in _LARGE_TABLE_SPECS:
         if cohort is None:
