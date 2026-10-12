@@ -137,9 +137,14 @@ def load_and_filter_test(phenotype, train_features, notes=True, nlp=True, train=
         return y_test, pd.DataFrame(columns=train_features, index=core_hadm_ids)
 
     temp_combined_features = pd.concat(all_feature_dfs, axis=1, join='outer')
-    
-    # 8. Final Reindex to core_hadm_ids
-    combined_test_features = temp_combined_features.reindex(core_hadm_ids)
+
+    # 8. Final Reindex to core_hadm_ids -- skip when already aligned (see the matching
+    # guard/comment in load_and_filter_train for why a no-op plain .reindex() on a wide
+    # sparse frame is still expensive).
+    if temp_combined_features.index.equals(core_hadm_ids):
+        combined_test_features = temp_combined_features
+    else:
+        combined_test_features = temp_combined_features.reindex(core_hadm_ids)
     print(f"Shape of combined_test_features after outer concat and final reindex to core_hadm_ids: {combined_test_features.shape}")
 
     # 9. Perform processing steps:

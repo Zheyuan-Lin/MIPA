@@ -130,10 +130,20 @@ def load_and_filter_train(phenotype, notes=True, nlp=True, train=True, noisy_lab
         return y_train, pd.DataFrame(index=master_hadm_ids)
 
     temp_combined_features = pd.concat(all_feature_dfs, axis=1, join='outer')
-    
+
     # Reindex to ensure all master_hadm_ids are present and in the correct order;
     # drops hadm_ids not in master_hadm_ids, adds rows of NaNs for master_hadm_ids not in temp_combined_features (if any).
-    combined_features = temp_combined_features.reindex(master_hadm_ids)
+    # Every frame in all_feature_dfs was already reindexed to master_hadm_ids (or IS
+    # master_hadm_ids, for baseline) before this concat, so the index here already equals
+    # master_hadm_ids in the common case -- skip the plain .reindex() call then, since
+    # DataFrame.reindex() walks sparse columns one at a time internally regardless of
+    # whether the index actually changes (confirmed: ~20+ minutes for this phenotype's
+    # combined ~tens-of-thousands-of-column DIAG+MEDS+PROC+CHART+LABS+DSNOTES+RADNOTES
+    # table, for a no-op). See reindex_sparse_df's docstring for the same root cause.
+    if temp_combined_features.index.equals(master_hadm_ids):
+        combined_features = temp_combined_features
+    else:
+        combined_features = temp_combined_features.reindex(master_hadm_ids)
     print(f"Shape of combined_features after outer concat and reindex to master_hadm_ids: {combined_features.shape}")
 
     # Select 'los' and 'admissions_number' from corrector, convert to float.
@@ -284,9 +294,14 @@ def load_and_filter_val(phenotype, train_features, notes=True, nlp=True, train=F
         return y_val, pd.DataFrame(columns=train_features, index=core_hadm_ids)
 
     temp_combined_features = pd.concat(all_feature_dfs, axis=1, join='outer')
-    
-    # 8. Final Reindex to core_hadm_ids
-    combined_val_features = temp_combined_features.reindex(core_hadm_ids)
+
+    # 8. Final Reindex to core_hadm_ids -- skip when already aligned (see the matching
+    # guard/comment in load_and_filter_train for why a no-op plain .reindex() on a wide
+    # sparse frame is still expensive).
+    if temp_combined_features.index.equals(core_hadm_ids):
+        combined_val_features = temp_combined_features
+    else:
+        combined_val_features = temp_combined_features.reindex(core_hadm_ids)
     print(f"Shape of combined_val_features after outer concat and final reindex to core_hadm_ids: {combined_val_features.shape}")
 
     # --- Start: Sparsity Filters for Validation Set ---
@@ -521,17 +536,27 @@ def fetch_feature_labels(phenotype, important_features_list, train=True, noisy_l
     if notes and nlp:
         df_types.extend(['RADNOTES', 'DSNOTES'])
 
-    # Load dictionaries for all data types and concatenate them
+    # Load dictionaries for all data types and concatenate them. Dict files are generated
+    # against the shared paths now (see process_and_save_shared_train_data) -- a phenotype's
+    # own non-shared dict path no longer exists, so use_shared_paths=True here too. MEDS has
+    # no dict file at all (its pivot columns are already the human-readable generic drug
+    # name -- see pivot.py's target_columns/target_labels), so it's expected to be missing.
     dictionaries_df = []
     for df_type in df_types:
-        # TODO : change back to gcs
-        dict_path = generate_dict_path(phenotype, train=train, label=noisy_label, df_type=df_type)
+        dict_path = generate_dict_path(phenotype, train=train, label=noisy_label, df_type=df_type, use_shared_paths=True)
+        if not path_exists(dict_path):
+            continue
         feature_dict_df = read_gzip_or_parts(dict_path)
+        if feature_dict_df.empty or feature_dict_df.shape[1] != 2:
+            continue
         feature_dict_df.columns = ['id', 'label']  # Standardize column names after loading
         feature_dict_df['id'] = feature_dict_df['id'].astype(str)
         dictionaries_df.append(feature_dict_df)
 
-    concatenated_dictionaries_df = pd.concat(dictionaries_df, ignore_index=True)
+    concatenated_dictionaries_df = (
+        pd.concat(dictionaries_df, ignore_index=True) if dictionaries_df
+        else pd.DataFrame(columns=['id', 'label'])
+    )
 
     # Create a DataFrame from the list of important feature names and types
     important_features_df = pd.DataFrame(important_features_list, columns=['id'])
