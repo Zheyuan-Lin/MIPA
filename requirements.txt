@@ -24,6 +24,7 @@ cycler==0.12.1
 cymem==2.0.11
 dask==2026.8.0
 datasets==2.21.0
+db-dtypes==1.7.2
 decorator==5.2.1
 dill==0.3.8
 distro==1.9.0
@@ -37,6 +38,8 @@ gensim==4.3.3
 google-api-core==2.39.0
 google-auth-oauthlib==1.4.1
 google-auth==2.58.1
+google-cloud-bigquery-storage==2.42.0
+google-cloud-bigquery==3.46.1
 google-cloud-core==2.7.0
 google-cloud-storage-control==1.15.0
 google-cloud-storage==3.15.0
