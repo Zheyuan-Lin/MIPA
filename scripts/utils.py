@@ -8,6 +8,7 @@ import sys
 import gc
 import tempfile
 from scipy.sparse import coo_matrix, csr_matrix, vstack
+from scipy.sparse import hstack as sp_hstack
 import gcsfs
 import logging
 import gzip
@@ -1689,6 +1690,63 @@ def sparse_df_div(df, sparse_columns, divisor):
     df = df.copy()
     df[sparse_columns] = result
     return df
+
+
+def df_to_sparse_matrix(df):
+    """
+    Convert a DataFrame whose columns are a mix of pandas Sparse[float64] (the pivot-derived
+    feature columns) and regular dense columns (demographics, los, etc.) into one
+    scipy.sparse.csr_matrix, in the SAME column order as df.
+
+    Why this exists: sklearn estimators (LogisticRegression, RandomForestClassifier,
+    GradientBoostingClassifier, KNeighborsClassifier) all accept scipy.sparse input directly
+    and give identical results to the dense equivalent (confirmed by direct comparison) --
+    but none of them understand pandas' Sparse dtype. Calling .fit()/.predict() with a
+    pandas DataFrame that has Sparse columns makes sklearn's internal check_array() call
+    np.asarray() on it, which silently densifies the WHOLE thing. Confirmed on the real
+    504,763-row x 24,514-column training table: ~700x memory blowup, ~99GB dense -- more
+    than this project's 8GB target machine has. GaussianNB is the one exception in this
+    pipeline that cannot accept sparse input at all (not even via this helper); it must be
+    kept to a small, already-feature-reduced column set instead.
+
+    Preserves exact column order (grouping only CONSECUTIVE same-kind columns before
+    hstack-ing) because callers map fitted coefficients/importances back to df.columns by
+    position (e.g. model.coef_[0][i] <-> df.columns[i]) -- reordering columns would silently
+    scramble that mapping.
+    """
+    cols = list(df.columns)
+    is_sparse = [isinstance(df[c].dtype, pd.SparseDtype) for c in cols]
+    chunks = []
+    i = 0
+    n = len(cols)
+    while i < n:
+        j = i
+        while j < n and is_sparse[j] == is_sparse[i]:
+            j += 1
+        chunk_cols = cols[i:j]
+        if is_sparse[i]:
+            # Build the COO matrix manually from each column's (sp_index, sp_values) instead
+            # of df[chunk_cols].sparse.to_coo() -- that pandas accessor requires scipy>=1.10,
+            # but this project is pinned to scipy==1.9.3. Same technique sparse_df_div already
+            # uses elsewhere in this file.
+            rows, cidx, data = [], [], []
+            for k, col in enumerate(chunk_cols):
+                arr = df[col].values
+                positions = arr.sp_index.indices
+                if len(positions):
+                    rows.append(positions)
+                    cidx.append(np.full(len(positions), k))
+                    data.append(arr.sp_values)
+            rows = np.concatenate(rows) if rows else np.array([], dtype=np.int64)
+            cidx = np.concatenate(cidx) if cidx else np.array([], dtype=np.int64)
+            data = np.concatenate(data) if data else np.array([])
+            chunks.append(coo_matrix((data, (rows, cidx)), shape=(len(df), len(chunk_cols))).tocsr())
+        else:
+            chunks.append(csr_matrix(df[chunk_cols].astype(float).values))
+        i = j
+    if len(chunks) == 1:
+        return chunks[0]
+    return sp_hstack(chunks, format='csr')
 
 
 def save_gzip(df, path):
