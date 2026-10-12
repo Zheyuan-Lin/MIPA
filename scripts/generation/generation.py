@@ -15,12 +15,24 @@ def load_data(sample=None):
     data = {}
     for table in tables:
         try:
-            compute = False if is_gcs_path(CORE_MIMICIV_PATH) else True
-            # Load data, assuming it returns a dictionary with the table name as a key
-            loaded_data = load_mimiciv(CORE_MIMICIV_PATH, NOTE_MIMICIV_PATH, tables_to_return=[table],
-                                       n_sample=sample, compute=compute)
-            # Extract the DataFrame from the nested dictionary
-            data[table] = loaded_data[table] if table in loaded_data else pd.DataFrame()
+            if MIMIC_DATA_SOURCE == 'bigquery_2_2':
+                # get_table() is the single dispatch point that honors MIMIC_DATA_SOURCE (see
+                # scripts/utils.py) -- calling load_mimiciv() directly here (the previous
+                # behavior) always read the local 3.1 csv.gz files regardless of that setting,
+                # silently ignoring the BigQuery 2.2 toggle for exactly the 5 tables that
+                # define the baseline cohort. sample is a load_mimiciv-only subsampling
+                # feature with no BigQuery equivalent -- not used anywhere this is actually
+                # called with a non-None sample, so just flag it rather than silently drop it.
+                if sample is not None:
+                    print(f"Warning: sample={sample} has no effect when MIMIC_DATA_SOURCE='bigquery_2_2'.")
+                data[table] = get_table(table, cohort=None)
+            else:
+                compute = False if is_gcs_path(CORE_MIMICIV_PATH) else True
+                # Load data, assuming it returns a dictionary with the table name as a key
+                loaded_data = load_mimiciv(CORE_MIMICIV_PATH, NOTE_MIMICIV_PATH, tables_to_return=[table],
+                                           n_sample=sample, compute=compute)
+                # Extract the DataFrame from the nested dictionary
+                data[table] = loaded_data[table] if table in loaded_data else pd.DataFrame()
             print(f"Loaded {table}, type: {type(data[table])}")  # Debugging line
         except Exception as e:
             print(f"Error loading data for {table}: {e}")
