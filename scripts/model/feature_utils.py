@@ -1,8 +1,10 @@
 import pandas as pd
 from sklearn.impute import SimpleImputer, KNNImputer
 import numpy as np
+from collections import defaultdict
 from sklearn.experimental import enable_iterative_imputer # noqa
 from sklearn.impute import IterativeImputer
+from scipy.sparse import coo_matrix
 
 def aggregate_duplicate_columns(df):
     """
@@ -16,14 +18,61 @@ def aggregate_duplicate_columns(df):
     pd.DataFrame: The DataFrame with aggregated columns.
     """
     columns_starting_with_C = df.columns[df.columns.str.match(r'^C\d')]
-    duplicate_columns = columns_starting_with_C[columns_starting_with_C.duplicated()].unique()
-    aggregated_columns = {}
-    for col in duplicate_columns:
-        cols_to_aggregate = df.loc[:, df.columns == col]
-        aggregated_col = cols_to_aggregate.sum(axis=1)
-        aggregated_columns[col] = aggregated_col
-    df = df.drop(columns=duplicate_columns)
-    aggregated_df = pd.concat([df, pd.DataFrame(aggregated_columns)], axis=1)
+    if not columns_starting_with_C.duplicated().any():
+        # Fast path: this was the ONLY path ever exercised before DSNOTES/RADNOTES pivots
+        # existed (no df.columns matched '^C\d' at all, since DIAG_/MEDS_/PROC_/CHART_/LABS_
+        # prefixes don't). Skip straight past the duplicate-handling machinery below.
+        return df
+
+    # Group column POSITIONS by name in a single O(n_columns) pass instead of re-scanning
+    # every column with a boolean mask (`df.columns == col`) once per duplicate name. DSNOTES
+    # and RADNOTES draw from the same UMLS CUI vocabulary and overlap heavily (confirmed:
+    # 2,625 of ~6,724 CUI columns are shared) -- the mask approach is
+    # O(n_duplicate_names * n_total_columns), which at this scale (~31,000 columns, ~2,625
+    # duplicates) turned a few-second operation into multiple hours.
+    positions_by_name = defaultdict(list)
+    for i, name in enumerate(df.columns):
+        positions_by_name[name].append(i)
+
+    duplicate_names = [name for name in set(columns_starting_with_C) if len(positions_by_name[name]) > 1]
+    if not duplicate_names:
+        return df
+
+    keep_mask = np.ones(len(df.columns), dtype=bool)
+    for name in duplicate_names:
+        for p in positions_by_name[name]:
+            keep_mask[p] = False
+
+    # Build the summed duplicate columns via one scipy COO matrix instead of one
+    # df.iloc[:, positions].sum(axis=1) call per duplicate name. Confirmed by measurement:
+    # a single such call over 394,758 rows x 2 sparse columns took ~6.8s -- with 2,625
+    # overlapping DSNOTES/RADNOTES CUI names that's ~5 hours, because pandas' axis=1 sum
+    # isn't vectorized for Sparse-dtype columns (same root cause class as the reindex fix
+    # above: per-column/per-call overhead that doesn't scale.). coo_matrix sums duplicate
+    # (row, col) entries automatically on conversion to csr, which is exactly the
+    # aggregation semantics needed here -- same technique scripts/utils.py::reindex_sparse_df
+    # uses for the same reason.
+    n_rows = len(df.index)
+    duplicate_names_sorted = sorted(duplicate_names)
+    name_to_out_col = {name: j for j, name in enumerate(duplicate_names_sorted)}
+    rows, cols, data = [], [], []
+    for name in duplicate_names_sorted:
+        out_col = name_to_out_col[name]
+        for p in positions_by_name[name]:
+            arr = df.iloc[:, p].values
+            positions_nz = arr.sp_index.indices
+            if len(positions_nz):
+                rows.append(positions_nz)
+                cols.append(np.full(len(positions_nz), out_col))
+                data.append(arr.sp_values)
+    rows = np.concatenate(rows) if rows else np.array([], dtype=np.int64)
+    cols = np.concatenate(cols) if cols else np.array([], dtype=np.int64)
+    data = np.concatenate(data) if data else np.array([])
+    coo = coo_matrix((data, (rows, cols)), shape=(n_rows, len(duplicate_names_sorted)))
+    aggregated_sparse_df = pd.DataFrame.sparse.from_spmatrix(coo.tocsr(), index=df.index, columns=duplicate_names_sorted)
+
+    df_kept = df.loc[:, keep_mask]
+    aggregated_df = pd.concat([df_kept, aggregated_sparse_df], axis=1)
     return aggregated_df
 
 def one_hot_encode_non_numeric(df):
