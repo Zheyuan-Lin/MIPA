@@ -1064,8 +1064,14 @@ def train_model_lr(X, y, max_iter=5000):
     """
     print("Training standard (no penalty) logistic regression model.")
     model = LogisticRegression(penalty=None, solver='lbfgs', max_iter=max_iter, class_weight='balanced')
-    model.fit(X, y.values.ravel())
-    predictions = model.predict(X)
+    # X has pandas Sparse[float64] pivot columns (DIAG/MEDS/PROC/CHART/LABS, tens of
+    # thousands wide) -- sklearn's check_array() would silently np.asarray() a DataFrame
+    # like that, exploding it to a dense array (confirmed ~99GB on the real training
+    # table). LogisticRegression accepts scipy.sparse directly and gives identical
+    # results (verified by comparing fit/predict on sparse vs the same data dense).
+    X_sparse = df_to_sparse_matrix(X)
+    model.fit(X_sparse, y.values.ravel())
+    predictions = model.predict(X_sparse)
     accuracy = accuracy_score(y, predictions)
     features = list(X.columns)
     print(f"Training Accuracy: {accuracy}")
@@ -1241,8 +1247,10 @@ def supervised_feature_reduction_naive_bayes(model, X_val, y_val, top_k=30):
     print(f"Performing feature selection for Naive Bayes using SelectKBest (k={top_k}) on validation data.")
     try:
         selector = SelectKBest(score_func=f_classif, k=top_k)
-        selector.fit(X_val, y_val.values.ravel())
-        
+        # f_classif accepts scipy.sparse directly and scores identically to dense (verified)
+        # -- X_val still has the full pivot-derived Sparse[float64] column set at this point.
+        selector.fit(df_to_sparse_matrix(X_val), y_val.values.ravel())
+
         selected_features_mask = selector.get_support()
         important_features_names = X_val.columns[selected_features_mask].tolist()
         important_features_names = list(dict.fromkeys(important_features_names)) # Ensure unique
@@ -1323,15 +1331,29 @@ def train_all_naive_bayes(feature_reduction=True, phenotypes=PHENOTYPE_LIST):
             val_dist_path = os.path.join(root_dir, "val_set_distribution.csv")
             save_csv(val_dist_df, val_dist_path)
 
-        initial_model, initial_model_f1_score, initial_model_features = train_model_naive_bayes(X_train, y_train)
-        current_model_for_evaluation = initial_model
-        current_features = initial_model_features # All X_train.columns initially
-        print(f"Initial Naive Bayes model for {phenotype} trained with CV F1 score: {initial_model_f1_score:.4f}")
+        has_val_set = feature_reduction and not y_val.empty and not X_val.empty
+        if has_val_set:
+            # GaussianNB is the one model in this pipeline that cannot accept sparse input at
+            # all (unlike LR/RF/GBM/KNN) -- fitting it on the full pivot-derived X_train (tens
+            # of thousands of columns) would force sklearn to densify to ~99GB (confirmed by
+            # measurement). Skip that fit here: the model actually saved below is selected
+            # independently via SelectKBest/f_classif scored on X_val and refit on just the
+            # top ~50 features -- the full-width fit was only ever used for a console-only F1
+            # printout, never for the saved artifact (see supervised_feature_reduction_naive_bayes).
+            current_model_for_evaluation = None
+            current_features = list(X_train.columns)
+            print(f"Skipping full-feature Naive Bayes fit for {phenotype} (unused -- a validation "
+                  f"set is available for the feature-reduced refit below).")
+        else:
+            initial_model, initial_model_f1_score, initial_model_features = train_model_naive_bayes(X_train, y_train)
+            current_model_for_evaluation = initial_model
+            current_features = initial_model_features # All X_train.columns initially
+            print(f"Initial Naive Bayes model for {phenotype} trained with CV F1 score: {initial_model_f1_score:.4f}")
 
-        if initial_model is None:
-            print(f"Skipping feature reduction and saving for {phenotype} (Naive Bayes) due to initial model training failure.")
-            models[phenotype] = (None, [])
-            continue
+            if initial_model is None:
+                print(f"Skipping feature reduction and saving for {phenotype} (Naive Bayes) due to initial model training failure.")
+                models[phenotype] = (None, [])
+                continue
         if feature_reduction:
             if y_val.empty or X_val.empty:
                 print(f"Skipping Naive Bayes feature reduction for {phenotype} due to empty validation set.")
@@ -1340,7 +1362,9 @@ def train_all_naive_bayes(feature_reduction=True, phenotypes=PHENOTYPE_LIST):
                 if num_features_to_select > 0:
                     # --- SelectKBest logic for feature importances ---
                     selector = SelectKBest(score_func=f_classif, k=num_features_to_select)
-                    selector.fit(X_val, y_val.values.ravel())
+                    # f_classif accepts scipy.sparse directly and scores identically to dense
+                    # (verified) -- X_val still has the full pivot-derived Sparse[float64] set.
+                    selector.fit(df_to_sparse_matrix(X_val), y_val.values.ravel())
                     selected_features_mask = selector.get_support()
                     selected_features = X_val.columns[selected_features_mask].tolist()
                     scores = selector.scores_[selected_features_mask]
@@ -1357,13 +1381,19 @@ def train_all_naive_bayes(feature_reduction=True, phenotypes=PHENOTYPE_LIST):
                     save_csv(feature_score_df, feature_score_path)
                     print(f"Saved Naive Bayes feature scores to {feature_score_path}")
                     # --- End SelectKBest logic ---
+                    # model param is accepted but unused inside supervised_feature_reduction_naive_bayes
+                    # (selection is scored independently via f_classif) -- safe to pass None here.
                     reduced_model_on_gold, features_from_reduction = supervised_feature_reduction_naive_bayes(
-                        initial_model, X_val, y_val, top_k=num_features_to_select
+                        current_model_for_evaluation, X_val, y_val, top_k=num_features_to_select
                     )
                     if reduced_model_on_gold is not None and features_from_reduction:
                         current_model_for_evaluation = reduced_model_on_gold
                         current_features = features_from_reduction
                         print(f"Naive Bayes model updated with {len(features_from_reduction)} features from validation set selection.")
+                    elif current_model_for_evaluation is None:
+                        print(f"Naive Bayes feature reduction failed for {phenotype} and no full-feature fallback model exists. Skipping.")
+                        models[phenotype] = (None, [])
+                        continue
                     else:
                         print(f"Naive Bayes feature reduction failed or yielded no features for {phenotype}. Using initial model and its features.")
                 else:
@@ -1429,7 +1459,11 @@ def train_all_random_forest(feature_reduction=True, imputation_method='simple', 
         }
         rf = RandomForestClassifier(class_weight='balanced', random_state=42, n_jobs=-1)
         grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='f1', n_jobs=-1)
-        grid_search.fit(X_train, y_train.values.ravel())
+        # X_train has pandas Sparse[float64] pivot columns (tens of thousands wide) --
+        # RandomForestClassifier accepts scipy.sparse directly and gives identical results
+        # to the dense equivalent (verified); converting here avoids sklearn's check_array()
+        # silently np.asarray()-ing the whole DataFrame to a ~99GB dense array.
+        grid_search.fit(df_to_sparse_matrix(X_train), y_train.values.ravel())
         best_rf = grid_search.best_estimator_
         print(f"Best RF params: {grid_search.best_params_}, Best F1: {grid_search.best_score_}")
 
@@ -1458,7 +1492,7 @@ def train_all_random_forest(feature_reduction=True, imputation_method='simple', 
                 print("Performing feature reduction on validation set for Random Forest.")
                 # Temporarily fit on validation data to find important features
                 rf_val = RandomForestClassifier(class_weight='balanced', random_state=42, n_jobs=-1, **grid_search.best_params_)
-                rf_val.fit(X_val, y_val.values.ravel())
+                rf_val.fit(df_to_sparse_matrix(X_val), y_val.values.ravel())
                 
                 val_importances = rf_val.feature_importances_
                 val_feature_importance_df = pd.DataFrame({'feature': X_val.columns, 'importance': val_importances})
@@ -1538,7 +1572,11 @@ def train_all_gradient_boosting(feature_reduction=True, imputation_method='simpl
         }
         gbm = GradientBoostingClassifier(random_state=42)
         grid_search = GridSearchCV(gbm, param_grid, cv=5, scoring='f1', n_jobs=-1)
-        grid_search.fit(X_train, y_train.values.ravel())
+        # X_train has pandas Sparse[float64] pivot columns (tens of thousands wide) --
+        # GradientBoostingClassifier accepts scipy.sparse directly and gives identical
+        # results to the dense equivalent (verified); converting here avoids sklearn's
+        # check_array() silently np.asarray()-ing the whole DataFrame to a ~99GB dense array.
+        grid_search.fit(df_to_sparse_matrix(X_train), y_train.values.ravel())
         best_gbm = grid_search.best_estimator_
         print(f"Best GBM params: {grid_search.best_params_}, Best F1: {grid_search.best_score_}")
 
@@ -1564,7 +1602,7 @@ def train_all_gradient_boosting(feature_reduction=True, imputation_method='simpl
         if feature_reduction:
             if not y_val.empty and not X_val.empty:
                 best_gbm_val = GradientBoostingClassifier(random_state=42, **grid_search.best_params_)
-                best_gbm_val.fit(X_val, y_val.values.ravel())
+                best_gbm_val.fit(df_to_sparse_matrix(X_val), y_val.values.ravel())
                 val_importances = best_gbm_val.feature_importances_
                 val_feature_importance_df = pd.DataFrame({
                     'feature': X_val.columns,
@@ -1649,7 +1687,12 @@ def train_all_knn_classifier(feature_reduction=True, imputation_method='simple',
         }
         knn = KNeighborsClassifier()
         grid_search = GridSearchCV(knn, param_grid, cv=5, scoring='f1', n_jobs=-1)
-        grid_search.fit(X_train, y_train.values.ravel())
+        # X_train has pandas Sparse[float64] pivot columns (tens of thousands wide) --
+        # KNeighborsClassifier's default (euclidean) metric accepts scipy.sparse directly
+        # and gives identical neighbors/predictions to the dense equivalent (verified);
+        # converting here avoids sklearn's check_array() silently np.asarray()-ing the
+        # whole DataFrame to a ~99GB dense array.
+        grid_search.fit(df_to_sparse_matrix(X_train), y_train.values.ravel())
         best_knn = grid_search.best_estimator_
         print(f"Best KNN params: {grid_search.best_params_}, Best F1: {grid_search.best_score_}")
 
@@ -1661,7 +1704,9 @@ def train_all_knn_classifier(feature_reduction=True, imputation_method='simple',
         if feature_reduction:
             top_n = min(30, X_val.shape[1])
             selector = SelectKBest(score_func=f_classif, k=top_n)
-            selector.fit(X_val, y_val.values.ravel())
+            # f_classif accepts scipy.sparse directly and scores identically to dense
+            # (verified) -- X_val still has the full pivot-derived Sparse[float64] set.
+            selector.fit(df_to_sparse_matrix(X_val), y_val.values.ravel())
             selected_mask = selector.get_support()
             selected_features = X_val.columns[selected_mask].tolist()
             scores = selector.scores_[selected_mask]
@@ -1682,7 +1727,18 @@ def train_all_knn_classifier(feature_reduction=True, imputation_method='simple',
             features_path = os.path.join(model_dir, "features.csv")
             save_csv(features_labels, features_path)
             print(f"Saved selected features for KNN model of {phenotype} to {features_path}")
-            models[phenotype] = (best_knn, selected_features)
+
+            # best_knn was fit on the full X_train (all columns); selected_features is just
+            # the ~30 columns SelectKBest picked on X_val. Predicting with best_knn on only
+            # those columns later (see evaluate_all/load_and_filter_test, which reindexes
+            # X_test to whatever feature list is paired with the model) would be a
+            # fit/predict dimension mismatch. Retrain on the reduced set instead, same
+            # pattern as train_all_random_forest/train_all_gradient_boosting.
+            print(f"Retraining final KNN model on X_train using top {len(selected_features)} features.")
+            X_train_reduced = X_train[selected_features]
+            final_model = KNeighborsClassifier(**grid_search.best_params_)
+            final_model.fit(X_train_reduced, y_train.values.ravel())
+            models[phenotype] = (final_model, selected_features)
         else:
             models[phenotype] = (best_knn, list(X_train.columns))
     return models

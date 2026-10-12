@@ -7,6 +7,7 @@ from sklearn.impute import SimpleImputer, KNNImputer
 
 from sklearn.preprocessing import label_binarize
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.naive_bayes import GaussianNB
 from itertools import cycle
 import numpy as np
 import matplotlib.pyplot as plt
@@ -243,7 +244,13 @@ def evaluate_classification_model(model, X_test, y_test, phenotype):
         else: # Should not happen if y_true_series is not empty
             baseline_accuracy = np.nan
             
-    y_pred = model.predict(X_test)
+    # X_test can still have pandas Sparse[float64] pivot columns (load_and_filter_test keeps
+    # them sparse through the merge). sklearn's check_array() would silently np.asarray() a
+    # DataFrame like that -- harmless at the small, already feature-reduced widths most
+    # models here predict on, but GaussianNB is the one model that flatly rejects sparse
+    # input, so it still needs the plain (small, safe-to-densify) DataFrame.
+    X_test_for_predict = X_test if isinstance(model, GaussianNB) else df_to_sparse_matrix(X_test)
+    y_pred = model.predict(X_test_for_predict)
     cm = confusion_matrix(y_test, y_pred)
     
     # Ensure cm has 4 values (tn, fp, fn, tp) for binary classification
