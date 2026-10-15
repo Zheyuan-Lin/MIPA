@@ -175,6 +175,8 @@ def apply_feature_selection_and_export_cuis(df, cui_column='nlp_codes', cat=None
 
     # Filter the original DataFrame to remove rows with low-frequency CUIs
     def filter_cuis(cui_string):
+        if not isinstance(cui_string, str):
+            return cui_string
         filtered_cuis = []
         for cui in cui_string.split(', '):
             if ': ' in cui:
