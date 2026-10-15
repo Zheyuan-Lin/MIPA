@@ -609,16 +609,23 @@ class LLMParser:
                         # No API key -- BMI cluster endpoints are only reachable from inside the
                         # BMI network / Emory VPN in the first place, and require Content-Type to
                         # be set explicitly (unlike OpenRouter, which this code sends to without it).
+                        # timeout=180: observed a real hang here with no timeout set -- a dropped
+                        # VPN/network connection leaves requests.post() blocking indefinitely
+                        # (confirmed: 30+ minutes at ~0% CPU, vs the normal ~10-16s/note), and
+                        # the surrounding except Exception retry loop below never gets a chance
+                        # to fire since the call itself never returns.
                         response = requests.post(
                             self.api_url,
                             headers={"Content-Type": "application/json"},
                             json=data_dict,
+                            timeout=180,
                         )
                     else:
                         response = requests.post(
                             self.api_url,
                             headers={"Authorization": f"Bearer {self.api_key}"},
-                            data=data
+                            data=data,
+                            timeout=180,
                         )
                     response.raise_for_status()
                     end_time = time.time()
