@@ -60,6 +60,7 @@ def parse_args():
     parser.add_argument('--root_icd9', type=str2bool, default=True, help='Use root ICD9')
     parser.add_argument('--group_icd10', type=str2bool, default=True, help='Group ICD10')
     parser.add_argument('--options', type=str, default='ICD10_grouped', help='Options for ICD (ICD10_grouped = first-3-character root, matching the MIPA paper)')
+    parser.add_argument('--val_frac', type=float, default=0.4, help='Fraction of golden test/val admissions assigned to validation (rest go to test); ignored when --train True. Default 0.4 matches the MIPA paper (40%% val / 60%% test).')
     # Medication grouping
     parser.add_argument('--med_grouping', type=str2bool, default=True, help='Use medication grouping')
 
@@ -191,6 +192,7 @@ def main(args):
         'group_icd10': args.group_icd10,
         'diag_options': args.options,
         'med_grouping': args.med_grouping,
+        'val_frac': args.val_frac,
         'lower_labs': args.lower_labs,
         'lower_chart': args.lower_chart,
         'lower_icd': args.lower_icd,
@@ -214,7 +216,7 @@ def main(args):
         # train=False (golden test/val): generate_raw_csv requires the full phenotype
         # list in one call (it builds a single shared cohort across all phenotypes),
         # and downstream steps run once against the shared paths instead of per-phenotype.
-        generate_raw_csv(PHENOTYPES, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'time', 'notes', 'root_icd9', 'group_icd10', 'diag_options', 'med_grouping']})
+        generate_raw_csv(PHENOTYPES, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'time', 'notes', 'root_icd9', 'group_icd10', 'diag_options', 'med_grouping', 'val_frac']})
         generate_features_selection(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP', 'lower_labs', 'lower_chart', 'lower_icd', 'lower_meds', 'lower_nlp']})
         generate_summary(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'noisy_label', 'notes', 'NLP']})
         generate_pivot(None, use_shared_paths=True, **{k: v for k, v in params.items() if k in ['train', 'pivot_type', 'noisy_label', 'notes', 'agg_window']})
@@ -242,6 +244,7 @@ def main_noarg():
         'group_icd10': True,
         'diag_options': "ICD10_grouped",
         'med_grouping': True,
+        'val_frac': 0.4,
         'lower_labs': 0.25,
         'lower_chart': 0.25,
         'lower_icd': 0.25,
@@ -286,7 +289,8 @@ def main_noarg():
                              noisy_label=params['noisy_label'],
                              time=params['time'], notes=params['notes'],
                              root_icd9=params['root_icd9'], group_icd10=params['group_icd10'],
-                             diag_options=params['diag_options'], med_grouping=params['med_grouping'])
+                             diag_options=params['diag_options'], med_grouping=params['med_grouping'],
+                             val_frac=params['val_frac'])
             print("--- Completed Index Generation and Shared Raw Data Processing ---")
 
             # 2. Generate feature selection outputs (dictionaries) using shared data - ONCE

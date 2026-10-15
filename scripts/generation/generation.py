@@ -264,7 +264,7 @@ def _write_phenotype_index(phenotype, new_index_rows):
 
 
 def process_and_save_phenotype_data(df_base_core, phenotype, train=True, noisy_label=True, time=True, notes=True, root_icd9=True, group_icd10=True,
-                                    diag_options='ICD10', med_grouping=True, pos_split=0.5, debug=None):
+                                    diag_options='ICD10', med_grouping=True, pos_split=0.4, debug=None):
     """Write per-phenotype index/label files.
 
     Raw feature data (DIAG/MEDS/PROC/CHART/LABS/NOTES) is NOT computed here for either
@@ -323,7 +323,7 @@ def process_and_save_phenotype_data(df_base_core, phenotype, train=True, noisy_l
 
 
 def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=True, notes=True, root_icd9=True, group_icd10=True,
-                                        diag_options='ICD10', med_grouping = True, debug=None):
+                                        diag_options='ICD10', med_grouping = True, val_frac=0.4, debug=None):
     """
     Generate raw csv files.
     If train=True, processes each phenotype in phenotypes_to_process individually.
@@ -331,6 +331,11 @@ def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=T
     for all test/validation admissions.
 
     :param phenotypes_to_process: A single phenotype string (if train=True) or a list of phenotype strings (if train=False).
+    :param val_frac: Fraction of each phenotype's golden-labeled admissions assigned to validation
+        (the rest go to test) when train=False. Default 0.4 matches the MIPA paper's 40%
+        validation / 60% test split. Ignored when train=True. Was previously hardcoded via an
+        unexposed pos_split=0.5 default on process_and_save_phenotype_data, silently giving a
+        50/50 split no caller could override -- see that function's pos_split param.
     """
     data = load_data()
     # Create the initial base core (patients, admissions, icustays, basic cleaning, age filter)
@@ -435,8 +440,7 @@ def generate_raw_csv(phenotypes_to_process, train=True, noisy_label=True, time=T
             val_df, test_df = process_and_save_phenotype_data(
                 df_base_core_for_indexes, phenotype, train=False, noisy_label=False, # noisy_label=False for golden test/val
                 time=time, notes=notes, root_icd9=root_icd9, group_icd10=group_icd10,
-                diag_options=diag_options, med_grouping=med_grouping, debug=debug 
-                # pos_split is still passed from main_noarg, ensure process_and_save_phenotype_data handles it or remove if not needed for train=False
+                diag_options=diag_options, med_grouping=med_grouping, pos_split=val_frac, debug=debug
             )
             if val_df is not None and not val_df.empty:
                 all_test_val_hadm_ids.update(val_df['hadm_id'].unique())
