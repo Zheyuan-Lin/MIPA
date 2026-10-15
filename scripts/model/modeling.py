@@ -758,13 +758,35 @@ def train_all_l1(feature_reduction=True, phenotypes=PHENOTYPE_LIST):
         models[phenotype] = (current_model_for_evaluation, unique_features) # Store unique_features
     return models
 
-def train_all_lr(feature_reduction=True, imputation_method='iterative', phenotypes=PHENOTYPE_LIST):
+def train_all_lr(feature_reduction=True, imputation_method='iterative', phenotypes=PHENOTYPE_LIST, balance_training=False):
+    """
+    - balance_training: If True, downsample the majority class in the TRAINING set to a true
+      50/50 split before fitting (random_state=42) -- matching the MIPA paper's "balanced 50/50
+      for class imbalance" description (Supplemental File 3), as opposed to this codebase's
+      usual class_weight='balanced' (inverse-frequency reweighting, which keeps every row but
+      is a mathematically different mechanism). Default False to not change existing callers'
+      behavior.
+    """
     models = {}
     fitted_imputers_cache = {} # Cache for fitted imputers per phenotype
 
     for phenotype in phenotypes:
         print(f"--- Training LR for Phenotype: {phenotype} with imputation: {imputation_method} ---")
         y_train, X_train, fitted_imputer = load_and_filter_train(phenotype, method=imputation_method) # Get fitted_imputer
+
+        if balance_training and not y_train.empty:
+            y_flat = y_train['y'] if 'y' in y_train.columns else y_train.squeeze()
+            pos_idx, neg_idx = y_flat[y_flat == 1].index, y_flat[y_flat == 0].index
+            n_minority = min(len(pos_idx), len(neg_idx))
+            if n_minority > 0 and len(pos_idx) != len(neg_idx):
+                rng = np.random.RandomState(42)
+                pos_keep = pos_idx if len(pos_idx) == n_minority else pd.Index(rng.choice(pos_idx, size=n_minority, replace=False))
+                neg_keep = neg_idx if len(neg_idx) == n_minority else pd.Index(rng.choice(neg_idx, size=n_minority, replace=False))
+                balanced_idx = pos_keep.append(neg_keep)
+                print(f"Balancing training set for {phenotype}: {len(pos_idx)} pos / {len(neg_idx)} neg -> "
+                      f"{n_minority} / {n_minority} (downsampled majority class, random_state=42).")
+                X_train, y_train = X_train.loc[balanced_idx], y_train.loc[balanced_idx]
+
         if fitted_imputer:
             fitted_imputers_cache[phenotype] = fitted_imputer # Store it
             print(f"Fitted imputer {type(fitted_imputer).__name__} for {phenotype} using method '{imputation_method}'.")
