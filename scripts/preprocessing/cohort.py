@@ -329,7 +329,13 @@ def phenotype_cohort_test(df_core, phenotype, val_frac=0.4):
             print(f"CRITICAL WARNING for {phenotype}: Overlap of {len(overlap)} hadm_ids between validation and test sets: {list(overlap)[:5]}")
 
 
-    return df_core_test, df_core_val
+    # Pre-existing bug: this used to return (df_core_test, df_core_val) while every caller
+    # unpacks as `val_df, test_df = phenotype_cohort_test(...)` -- invisible at the old
+    # pos_split=0.5 default (both sets the same SIZE, so only their CONTENT was swapped, no
+    # overlap, nothing looked wrong), but surfaced immediately once val_frac=0.4 made the two
+    # sets different sizes (every phenotype's saved index file had 'validation' holding the
+    # larger ~60% share and 'test' the smaller ~40% share -- backwards).
+    return df_core_val, df_core_test
 
 def generate_cohort_train_test(df_core, phenotype):
     phenotypes = ["c_diff_complication", "c_diff_past", "dementia", "depression", "diabetes_type_1",
